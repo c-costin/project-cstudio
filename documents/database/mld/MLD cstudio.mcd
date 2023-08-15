@@ -1,0 +1,25 @@
+%%mocodo
+
+:
+order:codeOrder, number, deliveryDate, createdAt, updatedAt , #codeUser->user->codeUser
+:
+user: codeUser, name, firstname, password, email, phone, address, role, createdAt, updatedAt
+:
+productLike: codeProductLike, #codeUser->user->codeUser, #codeProduct->product->codeProduct
+:
+
+:
+productOrder: #codeProduct->product->codeProduct, #codeOrder->order->codeOrder
+:
+product: codeProduct, title, description, dimensions, price, picture, releaseDate, artist, stock, createdAt, updatedAt, #codeType->type->codeType
+:
+type: codeType, name, createdAt, updatedAt
+:
+
+:
+:
+:
+category: codeCategory, name, createdAt, updatedAt
+:
+productCategory: #codeCategory->category->codeCategory, #codeProduct->product->codeProduct
+:
