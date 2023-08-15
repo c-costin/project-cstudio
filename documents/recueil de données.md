@@ -8,7 +8,7 @@
 | Dimensions| Taille du produit | Varchar | Valeur en cm | Produit |
 | Prix| Prix du produit | Varchar | Montant en euro | Produit |
 | Image| Image du produit | Varchar | - | Produit |
-| Nom| Nom de l'artiste| Texte court | - | Produit |
+| Artiste| Nom de l'artiste| Texte court | - | Produit |
 | Stock| Quantité en stock | Varchar | - | Produit |
 | |  | |  | |
 | Nom| Nom de la catégorie d’un produit | Texte court | - | Catégorie |
@@ -19,8 +19,12 @@
 | Email| Email de l’utilisateur | Email | - | Utilisateur |
 | Numéro de telephone| Numéro de téléphone de l’utilisateur | Varchar | Optionnel | Utilisateur |
 | Adresse| Adresse postale de l’utilisateur | Texte | - | Utilisateur |
+| Rôle| rôle de l’utilisateur | Varchar | - | Utilisateur |
 | |  | |  | |
 | Numéro| Numéro de référence de la commande | Varchar | - | Commande |
+| Date | Date de livraison | Date | - | Commande |
+| |  | |  | |
+| Nom| Nom du type de produit | Varchar | - | Type |
 
 
 
