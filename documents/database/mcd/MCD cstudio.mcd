@@ -1,0 +1,14 @@
+:
+like, 0N PRODUCT, 0N USER
+USER : code user, name, firstname, password, email, phone, address, role
+submit, 11 ORDER, 0N USER
+
+belong to, 1N PRODUCT, 0N CATEGORY
+PRODUCT : code product, title, description, dimensions, price, release date, picture, artist, stock
+include, 1N ORDER, 1N PRODUCT
+ORDER : code order, number, delivery date
+
+CATEGORY : code category, name
+possess, 11 PRODUCT, 0N TYPE
+TYPE : code type, name
+:
