@@ -19,15 +19,15 @@
 |--|--|--|
 | GET | https://cstudio.fr/profil | Page du profil |
 | GET | https://cstudio.fr/profil/coups-de-coeur | Page des coups de coeur |
-| GET | https://cstudio.fr/profil/parametres | Page des infos personnelles |
+| GET | https://cstudio.fr/profil/commandes | Page des commandes du profil |
 
 
 ## Administrateur
 | Méthode | URL | Description |
 |--|--|--|
-| GET | https://cstudio.fr/admin | Page du tableau de bord |
-| GET | https://cstudio.fr/admin/liste | Page de la liste des produits |
-| GET | https://cstudio.fr/admin/ajouter | Page d'ajout d'un produit |
-| GET | https://cstudio.fr/admin/editer/{id} | Page de modification d'un produit |
+| GET | https://cstudio.fr/admin/ | Page du tableau de bord |
+| GET | https://cstudio.fr/admin/produits | Page du tableau de bord |
 | GET | https://cstudio.fr/admin/{id} | Page d'un produit |
+| GET | https://cstudio.fr/admin/commandes | Page de toutes les commandes |
 | GET | https://cstudio.fr/admin/profil | Page du profil de l'administrateur |
+
