@@ -1,0 +1,41 @@
+{
+  "width": 436,
+  "height": 492,
+  "cx": [
+    [ "like", 170 ],
+    [ "USER", 276 ],
+    [ "submit", 382 ],
+    [ "belong to", 57 ],
+    [ "PRODUCT", 170 ],
+    [ "include", 276 ],
+    [ "ORDER", 382 ],
+    [ "CATEGORY", 57 ],
+    [ "possess", 170 ],
+    [ "TYPE", 276 ]
+  ],
+  "cy": [
+    [ "like", 94 ],
+    [ "USER", 94 ],
+    [ "submit", 94 ],
+    [ "belong to", 297 ],
+    [ "PRODUCT", 297 ],
+    [ "include", 297 ],
+    [ "ORDER", 297 ],
+    [ "CATEGORY", 449 ],
+    [ "possess", 449 ],
+    [ "TYPE", 449 ]
+  ],
+  "shift": [
+    [ "like,PRODUCT,0", 0 ],
+    [ "like,USER,0", 0 ],
+    [ "submit,ORDER,0", 0 ],
+    [ "submit,USER,0", 0 ],
+    [ "belong to,PRODUCT,0", 0 ],
+    [ "belong to,CATEGORY,0", 0 ],
+    [ "include,ORDER,0", 0 ],
+    [ "include,PRODUCT,0", 0 ],
+    [ "possess,PRODUCT,0", 0 ],
+    [ "possess,TYPE,0", 0 ]
+  ],
+  "ratio": []
+}
