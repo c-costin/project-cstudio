@@ -1,0 +1,26 @@
+{
+  "width": 512,
+  "height": 612,
+  "cx": [
+    [ "order", 89 ],
+    [ "user", 248 ],
+    [ "productLike", 415 ],
+    [ "productOrder", 89 ],
+    [ "product", 248 ],
+    [ "type", 415 ],
+    [ "category", 248 ],
+    [ "productCategory", 415 ]
+  ],
+  "cy": [
+    [ "order", 111 ],
+    [ "user", 111 ],
+    [ "productLike", 111 ],
+    [ "productOrder", 357 ],
+    [ "product", 357 ],
+    [ "type", 357 ],
+    [ "category", 552 ],
+    [ "productCategory", 552 ]
+  ],
+  "shift": [],
+  "ratio": []
+}
