@@ -1,0 +1,7 @@
+@use 'reset';
+@use 'theme';
+
+body {
+  font-family: theme.$font-primary;
+}
+
