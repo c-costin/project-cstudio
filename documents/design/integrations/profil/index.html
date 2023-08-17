@@ -13,17 +13,55 @@
             <i class="iconoir-menu header__icon"></i>
             <i class="iconoir-search header__icon"></i>
         </div>
-        <p class="header__title">C-Studio</p>
+        <a  href="#" class="header__title">C-Studio</a>
         <div class="header__right">
             <i class="iconoir-profile-circle header__icon"></i>
             <i class="iconoir-simple-cart header__icon"></i>
         </div>
     </header>
 
-    <main class="main"></main>
+    <main class="main">
+        <nav class="profil-menu">
+            <button class="profil-menu__btn profil-menu__btn-active">Profil</button>
+            <button class="profil-menu__btn">Commandes</button>
+            <button class="profil-menu__btn">Coup de coeur</button>
+        </nav>
+        <section class="profil-content">
+            <form class="profil-data">
+                <div class="profil-data__row">
+                    <label for="fristName" class="profil-data__label">Prénom</label>
+                    <input type="text" name="fristName" class="profil-data__input" placeholder="John">
+                </div>
+                <div class="profil-data__row">
+                    <label for="lastName" class="profil-data__label">Nom</label>
+                    <input type="text" name="lastName" class="profil-data__input" placeholder="Doe">
+                </div>
+                <div class="profil-data__row">
+                    <label for="email" class="profil-data__label">Email</label>
+                    <input type="email" name="email" class="profil-data__input" placeholder="john.doe@mail.com">
+                </div>
+                <div class="profil-data__row">
+                    <label for="oldPassword" class="profil-data__label">Ancien mot de passe</label>
+                    <input type="password" name="oldPassword" class="profil-data__input">
+                </div>
+                <div class="profil-data__row">
+                    <label for="newPassword" class="profil-data__label">Nouveau mot de passe</label>
+                    <input type="password" name="newPassword" class="profil-data__input">
+                </div>
+                <div class="profil-data__row">
+                    <label for="comfirmPassword" class="profil-data__label">Comfirmer mot de passe</label>
+                    <input type="password" name="comfirmPassword" class="profil-data__input">
+                </div>
+            </form>
+            <div class="profil-action">
+                <button class="profil-action__btn">Editer</button>
+                <button class="profil-action__btn profil-action__btn-deleting">Supprimer mon compte</button>
+            </div>
+        </section>
+    </main>
 
     <footer class="footer">
-        <div class="footer__desc">
+        <section class="footer__desc">
             <div class="footer__text">
                 <h2 class="footer__slogan">Slogan de ouf !</h2>
                 <p class="footer__resume">
@@ -31,8 +69,8 @@
                 </p>
             </div>
             <p class="footer__title">C-Studio</p>
-            <i class="iconoir-arrow-up-circle footer__icon"></i>
-        </div>
+            <a href="#"><i class="iconoir-arrow-up-circle footer__icon"></i></a>
+        </section>
         <div class="footer__links">
             <div class="footer__infos">
                 <a href="#">CGV</a>
