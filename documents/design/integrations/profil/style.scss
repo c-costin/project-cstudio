@@ -1,0 +1,70 @@
+@use "../styles/main.scss";
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__left {
+    display: flex;
+    gap: 1rem;
+  }
+  &__title {
+    font-size: 1.5rem;
+  }
+  &__right {
+    display: flex;
+    gap: 1rem;
+  }
+  &__icon {
+    font-size: 1.5rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+.main {
+  height: 140vh;
+}
+
+.footer {
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: gainsboro;
+  &__desc {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__text {
+    max-width: 50%;
+  }
+  &__slogan {
+    font-size: 1rem;
+  }
+  &__description {
+    font-size: 0.8rem;
+  }
+  &__icon {
+    font-size: 1.5rem;
+  }
+  &__links {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__infos {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+  }
+  &__socials {
+    display: flex;
+    flex-direction: column;
+  }
+}
