@@ -179,4 +179,7 @@ a:not([class]) {
 
 body {
   font-family: sans-serif;
+  max-width: 1280px;
+  min-height: 100vh;
+  margin-inline: auto;
 }/*# sourceMappingURL=main.css.map */
