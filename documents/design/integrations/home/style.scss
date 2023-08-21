@@ -30,12 +30,10 @@ a {
 }
 
 .hero {
-  // padding-top: 6rem;
   padding: 1.5rem 2.5rem;
   width: 100%;
   height: fit-content;
   border-bottom:1px solid black;
-  // background: #ffc700;
   &__img {
     width: 100%;
     aspect-ratio: 5/3;
@@ -46,7 +44,6 @@ a {
 
 .main {
   padding-inline: 2rem;
-  // margin-top: 33vh;
 }
 
 .menu {
@@ -54,7 +51,7 @@ a {
   padding-top: 2rem;
   padding-bottom: 2rem;
   padding-inline: 2rem;
-  max-width: 25rem;
+  max-width: 150%;
   height: fit-content;
   display: flex;
   flex-wrap: wrap;
@@ -68,9 +65,25 @@ a {
     list-style-type: none;
   }
   &__btn {
-    padding: 0.1rem;
-    border-radius: .5rem;
-    border: 1px solid lightslategray;
+    border-radius: 1.5rem;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0.5rem 0.6rem;
+    text-align: center;
+    &:hover {
+      background-color: #1e293b;
+      color: #fff;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .button-81 {
+    font-size: 1.125rem;
+    padding: 1rem 2rem;
   }
 }
 
@@ -92,9 +105,13 @@ a {
   height: fit-content;
     &__img {
       width: 100%;
-      aspect-ratio: 5/3;
+      aspect-ratio: 4/5;
       border-radius: .5rem;
       background: lightslategray;
+      &:hover {
+        border-radius: .5rem;
+        border: 2px solid black
+      }
     }
     &__content{
       display: flex;
