@@ -1,0 +1,10 @@
+@use 'reset';
+@use 'theme';
+
+body {
+  font-family: theme.$font-primary;
+  max-width: 1280px;
+  min-height: 100vh;
+  margin-inline: auto;
+}
+
