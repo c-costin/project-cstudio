@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C-Studio - Profil</title>
+    <link crossorigin="anonymous" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css">
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header__left">
+                <i class="iconoir-menu header__icon"></i>
+                <i class="iconoir-search header__icon"></i>
+            </div>
+            <a  href="#" class="header__title">C-Studio</a>
+            <div class="header__right">
+                <i class="iconoir-profile-circle header__icon"></i>
+                <i class="iconoir-simple-cart header__icon"></i>
+            </div>
+        </header>
+    
+        <main class="main">
+            <nav class="profil-menu">
+                <a href="./index.html"></a><button class="profil-menu__btn profil-menu__btn-active">Profil</button></a>
+                <a href="./order.html"><button class="profil-menu__btn">Commandes</button></a>
+                <a href="./favorite.html"><button class="profil-menu__btn">Coup de coeur</button></a>
+            </nav>
+            <section class="profil-content">
+                <form class="profil-data">
+                    <div class="profil-data__container">
+                        <div class="profil-data__row">
+                            <label for="fristName" class="profil-data__label">Prénom</label>
+                            <input type="text" name="fristName" class="profil-data__input" placeholder="John">
+                        </div>
+                        <div class="profil-data__row">
+                            <label for="lastName" class="profil-data__label">Nom</label>
+                            <input type="text" name="lastName" class="profil-data__input" placeholder="Doe">
+                        </div>
+                    </div>
+                    <div class="profil-data__row">
+                        <label for="email" class="profil-data__label">Email</label>
+                        <input type="email" name="email" class="profil-data__input" placeholder="john.doe@mail.com">
+                    </div>
+                    <div class="profil-data__row">
+                        <label for="oldPassword" class="profil-data__label">Ancien mot de passe</label>
+                        <input type="password" name="oldPassword" class="profil-data__input">
+                    </div>
+                    <div class="profil-data__container">
+                        <div class="profil-data__row">
+                            <label for="newPassword" class="profil-data__label">Nouveau mot de passe</label>
+                            <input type="password" name="newPassword" class="profil-data__input">
+                        </div>
+                        <div class="profil-data__row">
+                            <label for="comfirmPassword" class="profil-data__label">Comfirmer mot de passe</label>
+                            <input type="password" name="comfirmPassword" class="profil-data__input">
+                        </div>
+                    </div>
+                </form>
+                <div class="profil-action">
+                    <button class="profil-action__btn profil-action__btn-deleting">Supprimer mon compte</button>
+                    <button class="profil-action__btn">Editer</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p class="footer__logo">C-Studio</p>
+        <section class="footer__desc">
+            <div class="footer__text">
+                <h2 class="footer__slogan">Slogan de ouf !</h2>
+                <p class="footer__resume">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                </p>
+            </div>
+            <a href="#"><i class="iconoir-arrow-up-circle footer__icon"></i></a>
+        </section>
+        <section class="footer__links">
+            <div class="footer__infos">
+                <a href="#">CGV</a>
+                <a href="#">Mentions Légales</a>
+                <a href="#">Nous Contacter</a>
+            </div>
+            <nav class="footer__socials">
+                <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Youtube</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </nav>
+        </section>
+    </footer>
+</body>
+</html>
