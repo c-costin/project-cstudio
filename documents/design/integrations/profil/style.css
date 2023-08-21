@@ -219,6 +219,8 @@ a {
 
 .profil-menu {
   display: flex;
+  row-gap: 0.5rem;
+  flex-wrap: wrap;
 }
 .profil-menu__btn {
   margin-right: 0.5rem;
@@ -281,8 +283,7 @@ a {
 }
 
 .footer {
-  position: absolute;
-  bottom: 0;
+  margin-top: 3rem;
   width: 100%;
   max-width: 1280px;
   margin-top: 2rem;
