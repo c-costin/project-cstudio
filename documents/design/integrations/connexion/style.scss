@@ -1,0 +1,135 @@
+@use "../styles/main.scss";
+
+.header {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__left {
+      display: flex;
+      gap: 1rem;
+    }
+    &__title {
+      font-size: 1.5rem;
+    }
+    &__right {
+      display: flex;
+      gap: 1rem;
+    }
+    &__icon {
+      font-size: 1.5rem;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+  
+  .main {
+    margin-top: 6rem;
+    width: 100%;
+  }
+  
+  .connexion-data {
+    margin-inline: auto;
+    padding: 1rem 1.25rem;
+    width: 100%;
+    max-width: 512px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+    &__row {
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+      width:100%;
+    }
+    &__input {
+      padding: .25rem .5rem;
+      border-radius: .25rem;
+      border: 1px solid black;
+    }
+    &__checkbox {
+      margin-left: 1rem;
+      align-self: flex-start;
+    }
+    &__title {
+      margin-top: 1rem;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    &__validate{
+        display: flex;
+        align-items: center;
+        width:100%;
+        justify-content: flex-end;
+        margin-block: 3rem;
+    }
+    &__submit{
+        border: 2px solid transparent;
+        border-radius: 8px;
+        padding: 0.5rem;
+        margin-left: 2rem;
+      }
+    &__submit:hover{
+        border: 2px solid black;
+        box-shadow: 0px 5px 5px black;
+    }
+  }
+  
+  .footer {
+    margin-top: 3rem;
+    width: 100%;
+    max-width: 1280px;
+    margin-top: 2rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: gainsboro;
+    &__logo {
+      font-size: 1.2rem;
+      font-style: italic;
+    }
+    &__desc {
+      display: flex;
+      justify-content: space-between;
+    }
+    &__text {
+      max-width: 50%;
+    }
+    &__slogan {
+      font-size: 1rem;
+    }
+    &__description {
+      font-size: 0.8rem;
+    }
+    &__icon {
+      margin: .5rem;
+      font-size: 3rem;
+    }
+    &__links {
+      display: flex;
+      justify-content: space-between;
+    }
+    &__infos {
+      display: flex;
+      flex-direction: column;
+      font-size: 0.9rem;
+    }
+    &__socials {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+  
+  
+  @media screen and (min-width: 992px) {
+  }
+  
+  @media screen and (min-width: 1280px) {
+    .footer {
+      padding-inline: 4rem;
+      border-radius: .5rem .5rem .0rem .0rem;
+    }
+  }
