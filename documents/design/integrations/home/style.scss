@@ -1,0 +1,174 @@
+@use '../styles/main.scss';
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.header {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__left {
+    display: flex;
+    gap: 1rem;
+  }
+  &__title {
+    font-size: 1.5rem;
+  }
+  &__right {
+    display: flex;
+    gap: 1rem;
+  }
+  &__icon {
+    font-size: 1.5rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.hero {
+  padding: 1.5rem 2.5rem;
+  width: 100%;
+  height: fit-content;
+  border-bottom:1px solid black;
+  &__img {
+    width: 100%;
+    aspect-ratio: 5/3;
+    border-radius: .5rem;
+    background: lightslategray;
+  }
+}
+
+.main {
+  padding-inline: 2rem;
+}
+
+.menu {
+  margin-inline: auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-inline: 2rem;
+  max-width: 150%;
+  height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .25rem;
+  &__title {
+    width: 100%;
+    text-align: center;
+  }
+  &__item {
+    list-style-type: none;
+  }
+  &__btn {
+    border-radius: 1.5rem;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0.5rem 0.6rem;
+    text-align: center;
+    &:hover {
+      background-color: #1e293b;
+      color: #fff;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .button-81 {
+    font-size: 1.125rem;
+    padding: 1rem 2rem;
+  }
+}
+
+.list-products {
+    margin-inline: auto;
+    padding-top: 2em;
+    padding-bottom: 2rem;
+    padding-inline: 2rem;
+    height: fit-content;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.card {
+  width: 33.33vw;
+  height: fit-content;
+    &__img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      border-radius: .5rem;
+      background: lightslategray;
+      &:hover {
+        border-radius: .5rem;
+        border: 2px solid black
+      }
+    }
+    &__content{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+}
+
+.footer {
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 1280px;
+  margin-top: 2rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: gainsboro;
+  &__logo {
+    font-size: 1.2rem;
+    font-style: italic;
+  }
+  &__desc {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__text {
+    max-width: 50%;
+  }
+  &__slogan {
+    font-size: 1rem;
+  }
+  &__description {
+    font-size: 0.8rem;
+  }
+  &__icon {
+    margin: .5rem;
+    font-size: 3rem;
+  }
+  &__links {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__infos {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+  }
+  &__socials {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .footer {
+    padding-inline: 4rem;
+    border-radius: .5rem .5rem .0rem .0rem;
+  }
+}
