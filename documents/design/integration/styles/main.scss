@@ -1,0 +1,56 @@
+// Import Reset CSS
+@use 'reset';
+
+// Import Theme
+@use 'theme';
+
+// ======== Import components ========
+
+// => Header
+@use 'components/header';
+
+// => Footer
+@use 'components/footer';
+
+// => Home page
+@use 'components/home/hero';
+@use 'components/home/menu';
+@use 'components/home/list-products';
+
+// => Login page
+@use 'components/login';
+
+// => Signup page
+@use 'components/signup';
+
+// => Dashboard page
+@use 'components/dashboard/dashboard';
+@use 'components/dashboard/pagination';
+@use 'components/dashboard/dashboard-order';
+
+// => Profil page
+@use 'components/profil/profil';
+@use 'components/profil/profil-order';
+@use 'components/profil/profil-favorite';
+
+// ======== Generals rules ========
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: theme.$font-primary;
+  max-width: 1280px;
+  min-height: 100vh;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main {
+  padding: 1.5rem;
+}
+
