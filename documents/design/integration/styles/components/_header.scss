@@ -1,0 +1,23 @@
+.header {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__left {
+    display: flex;
+    gap: 1rem;
+  }
+  &__title {
+    font-size: 1.5rem;
+  }
+  &__right {
+    display: flex;
+    gap: 1rem;
+  }
+  &__icon {
+    font-size: 1.5rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
