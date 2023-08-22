@@ -1,0 +1,186 @@
+@use '../styles/main.scss';
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+.header {
+  padding: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  &__left {
+    display: flex;
+    gap: 1rem;
+  }
+  &__title {
+    font-size: 1.5rem;
+  }
+  &__right {
+    display: flex;
+    gap: 1rem;
+  }
+  &__icon {
+    font-size: 1.5rem;
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.main-is-disable {
+  margin-block: 4rem;
+  text-align: center;
+}
+
+.main {
+  display: none;
+}
+
+.footer {
+  margin-top: 3rem;
+  width: 100%;
+  max-width: 1280px;
+  margin-top: 2rem;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: gainsboro;
+  &__logo {
+    font-size: 1.2rem;
+    font-style: italic;
+  }
+  &__desc {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__text {
+    max-width: 50%;
+  }
+  &__slogan {
+    font-size: 1rem;
+  }
+  &__description {
+    font-size: 0.8rem;
+  }
+  &__icon {
+    margin: .5rem;
+    font-size: 3rem;
+  }
+  &__links {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__infos {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.9rem;
+  }
+  &__socials {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .main-is-disable {
+    display: none;
+  }
+
+  .main {
+    display: block;
+    padding: 1.5rem;
+  }
+
+  .dashboard-actions {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .dashboard-menu {
+    display: flex;
+    row-gap: .5rem;
+    flex-wrap: wrap;
+    &__btn {
+      margin-right: .5rem;
+      padding: .25rem .75rem;
+      border-radius: .5rem;
+      border: 2px solid transparent;
+      background: gainsboro;
+    }
+    &__btn-active {
+      border: 2px solid black;
+      background: #e2e2e240;
+    }
+  }
+
+  .dashboard-filters {
+    display: flex;
+    gap: .5rem;
+    align-items: center;
+  }
+
+  .products {
+    margin-top: 1rem;
+    padding: 1.5rem 1.75rem;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: .75rem;
+    border-radius: .5rem;
+    background: gainsboro;
+  }
+  .card {
+    padding: .25rem .5rem;
+    width: 100%;
+    height: fit-content;
+    &__img {
+      width: 100%;
+      aspect-ratio: 5/5;
+      border-radius: .5rem;
+      border: 2px solid transparent;
+      background: lightslategray;
+    }
+    &__content {
+      padding: .5rem .25rem;
+      display: flex;
+      justify-content: space-between;
+    }
+    &:hover &__img {
+      border: 2px solid black;
+    }
+  }
+}
+
+.pagination-container {
+  margin-top: 1rem;
+  margin-inline: auto;
+  width: fit-content;
+}
+
+.pagination {
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .75rem;
+  list-style: none;
+  &__icon {
+    font-size: .9rem;
+    transform: translateY(4px);
+  }
+  &__page:hover {
+    color: gray;
+  }
+  &__page-is-active {
+    text-decoration: underline;
+    color: gray;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .footer {
+    padding-inline: 4rem;
+    border-radius: .5rem .5rem .0rem .0rem;
+  }
+}
