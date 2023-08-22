@@ -138,6 +138,7 @@ a {
       width: 100%;
       aspect-ratio: 5/5;
       border-radius: .5rem;
+      border: 2px solid transparent;
       background: lightslategray;
     }
     &__content {
@@ -145,6 +146,35 @@ a {
       display: flex;
       justify-content: space-between;
     }
+    &:hover &__img {
+      border: 2px solid black;
+    }
+  }
+}
+
+.pagination-container {
+  margin-top: 1rem;
+  margin-inline: auto;
+  width: fit-content;
+}
+
+.pagination {
+  width: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: .75rem;
+  list-style: none;
+  &__icon {
+    font-size: .9rem;
+    transform: translateY(4px);
+  }
+  &__page:hover {
+    color: gray;
+  }
+  &__page-is-active {
+    text-decoration: underline;
+    color: gray;
   }
 }
 
