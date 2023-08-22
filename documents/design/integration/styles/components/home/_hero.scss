@@ -1,0 +1,14 @@
+.hero {
+  padding: 1.5rem 2.5rem;
+  width: 100%;
+  height: fit-content;
+  border-bottom:1px solid black;
+  &__img {
+    margin-inline: auto;
+    width: 100%;
+    max-width: 512px;
+    aspect-ratio: 5/3;
+    border-radius: .5rem;
+    background: lightslategray;
+  }
+}
