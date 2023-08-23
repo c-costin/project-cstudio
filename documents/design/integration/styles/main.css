@@ -207,8 +207,8 @@ a:not([class]) {
   z-index: 10;
 }
 
-@media screen and (min-width: 1024px) {
-  .header__icon:first-child {
+@media screen and (min-width: 992px) {
+  .js-icon-open {
     display: none;
   }
 }

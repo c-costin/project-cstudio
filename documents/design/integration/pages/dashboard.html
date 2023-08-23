@@ -14,7 +14,19 @@
     <div class="container" id="/top">
         <header class="header">
             <div class="header__left">
-                <i class="iconoir-menu header__icon"></i>
+                <nav class="menu hidden">
+                    <i class="iconoir-cancel menu__icon js-icon-close"></i>
+                    <div class="menu__links">
+                        <a href="../index.html" class="menu__link">Accueil</a>
+                        <a href="./about.html" class="menu__link">A Propos</a>
+                    </div>
+                    <div class="menu__refs">
+                        <a href="" class="menu__ref">Mentions Légales</a>
+                        <a href="" class="menu__ref">CGV</a>
+                        <a href="" class="menu__ref">Contact</a>
+                    </div>
+                </nav>
+                <i class="iconoir-menu header__icon js-icon-open"></i>
                 <i class="iconoir-search header__icon"></i>
             </div>
             <a href="../index.html" class="header__title">C-Studio</a>
@@ -29,7 +41,8 @@
         <main class="main-dashboard">
             <div class="dashboard-actions">
                 <nav class="dashboard-menu">
-                    <a href="./dashboard.html"><button class="dashboard-menu__btn dashboard-menu__btn-active">Produits</button></a>
+                    <a href="./dashboard.html"><button
+                            class="dashboard-menu__btn dashboard-menu__btn-active">Produits</button></a>
                     <a href="./dashboard-order.html"><button class="dashboard-menu__btn">Commandes</button></a>
                 </nav>
                 <div class="dashboard-filters">
@@ -176,7 +189,7 @@
                     </article>
                 </a>
             </section>
-            <nav class="pagination-container"  aria-label="pagination">
+            <nav class="pagination-container" aria-label="pagination">
                 <ul class="pagination">
                     <li class="pagination__icon"><i class="iconoir-nav-arrow-left"></i></li>
                     <li class="pagination__page pagination__page-is-active">1</li>
