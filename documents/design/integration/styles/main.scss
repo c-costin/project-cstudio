@@ -33,6 +33,10 @@
 @use 'components/profil/profil-order';
 @use 'components/profil/profil-favorite';
 
+// => Cart page
+@use 'components/cart/cart';
+@use 'components/cart/cart-product';
+
 // ======== Generals rules ========
 
 a {
