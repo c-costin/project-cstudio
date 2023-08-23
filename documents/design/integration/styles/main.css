@@ -185,12 +185,15 @@ a:not([class]) {
 }
 .header__left {
   display: flex;
+  align-items: center;
   gap: 1rem;
 }
 .header__title {
+  z-index: 10;
   font-size: 1.5rem;
 }
 .header__right {
+  z-index: 10;
   display: flex;
   gap: 1rem;
 }
@@ -200,7 +203,15 @@ a:not([class]) {
 .header__icon:hover {
   cursor: pointer;
 }
+.header__icon:nth-child(3) {
+  z-index: 10;
+}
 
+@media screen and (min-width: 1024px) {
+  .header__icon:first-child {
+    display: none;
+  }
+}
 .footer {
   margin-top: 3rem;
   width: 100%;
@@ -253,6 +264,73 @@ a:not([class]) {
     border-radius: 0.5rem 0.5rem 0rem 0rem;
   }
 }
+.menu {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 1.5rem;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  background: white;
+}
+.menu__icon {
+  font-size: 1.8rem;
+}
+.menu__links {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.menu__refs {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.menu__link {
+  font-size: 2rem;
+}
+.menu__link:hover {
+  color: gray;
+}
+.menu__ref:hover {
+  color: gray;
+}
+
+@media screen and (min-width: 1024px) {
+  .menu {
+    position: relative;
+    padding: 0;
+    width: -moz-fit-content;
+    width: fit-content;
+    display: flex !important;
+    flex-direction: row;
+    gap: 0;
+    background: none;
+  }
+  .menu__links {
+    margin-top: 0;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.75rem;
+  }
+  .menu__link {
+    font-size: 1.2rem;
+  }
+  .menu__link:hover {
+    color: gray;
+  }
+  .menu__icon {
+    display: none;
+  }
+  .menu__ref {
+    display: none;
+  }
+}
 .hero {
   padding: 1.5rem 2.5rem;
   width: 100%;
@@ -269,7 +347,7 @@ a:not([class]) {
   background: lightslategray;
 }
 
-.menu {
+.filter {
   margin-inline: auto;
   padding-top: 2rem;
   padding-bottom: 2rem;
@@ -282,14 +360,14 @@ a:not([class]) {
   justify-content: center;
   gap: 0.25rem;
 }
-.menu__title {
+.filter__title {
   width: 100%;
   text-align: center;
 }
-.menu__item {
+.filter__item {
   list-style-type: none;
 }
-.menu__btn {
+.filter__btn {
   border-radius: 1.5rem;
   box-sizing: border-box;
   display: inline-block;
@@ -299,7 +377,7 @@ a:not([class]) {
   padding: 0.5rem 0.6rem;
   text-align: center;
 }
-.menu__btn:hover {
+.filter__btn:hover {
   background-color: #1e293b;
   color: #fff;
 }
@@ -802,4 +880,12 @@ body {
 
 .main {
   padding: 1.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.disable-scroll {
+  overflow-y: hidden;
 }/*# sourceMappingURL=main.css.map */

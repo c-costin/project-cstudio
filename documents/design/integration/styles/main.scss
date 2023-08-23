@@ -12,9 +12,12 @@
 // => Footer
 @use 'components/footer';
 
+// => Menu
+@use 'components/menu';
+
 // => Home page
 @use 'components/home/hero';
-@use 'components/home/menu';
+@use 'components/home/filter';
 @use 'components/home/list-products';
 
 // => Login page
@@ -58,3 +61,10 @@ body {
   padding: 1.5rem;
 }
 
+.hidden {
+  display: none;
+}
+
+.disable-scroll {
+  overflow-y: hidden;
+}

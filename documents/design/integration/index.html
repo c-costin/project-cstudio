@@ -5,14 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link crossorigin="anonymous" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css">
     <link rel="stylesheet" href="./styles/main.css">
-    <script defer src="./app.js"></script>
+    <script defer type="module" src="./js/main.js"></script>
     <title>C-Studio - Accueil</title>
 </head>
 <body>
     <div class="container">
         <header class="header">
             <div class="header__left">
-                <i class="iconoir-menu header__icon"></i>
+                <nav class="menu hidden">
+                    <i class="iconoir-cancel menu__icon js-icon-close"></i>
+                    <div class="menu__links">
+                        <a href="./index.html" class="menu__link">Accueil</a>
+                        <a href="./pages/about.html" class="menu__link">A Propos</a>
+                    </div>
+                    <div class="menu__refs">
+                        <a href="" class="menu__ref">Mentions Légales</a>
+                        <a href="" class="menu__ref">CGV</a>
+                        <a href="" class="menu__ref">Contact</a>
+                    </div>
+                </nav>
+                <i class="iconoir-menu header__icon js-icon-open"></i>
                 <i class="iconoir-search header__icon"></i>
             </div>
             <a  href="#" class="header__title">C-Studio</a>
@@ -21,7 +33,9 @@
                 <i class="iconoir-simple-cart header__icon"></i>
             </div>
         </header>
-    
+
+
+
         <section class="hero">
             <a href="#" class="hero__link">
                 <img src="" alt="Image" class="hero__img">
@@ -29,14 +43,14 @@
         </section>
     
         <main class="main">
-            <ul class="menu">
-                <h2 class="menu__title">C-Studio catégories</h2>
-                <li class="menu__item"><button class="menu__btn">catégorie 1</button></li>
-                <li class="menu__item"><button class="menu__btn">catégorie 2</button></li>
-                <li class="menu__item"><button class="menu__btn">catégorie 3</button></li>
-                <li class="menu__item"><button class="menu__btn">catégorie 4</button></li>
-                <li class="menu__item"><button class="menu__btn">catégorie 5</button></li>
-                <li class="menu__item"><button class="menu__btn">catégorie 6</button></li>
+            <ul class="filter">
+                <h2 class="filter__title">C-Studio catégories</h2>
+                <li class="filter__item"><button class="filter__btn">catégorie 1</button></li>
+                <li class="filter__item"><button class="filter__btn">catégorie 2</button></li>
+                <li class="filter__item"><button class="filter__btn">catégorie 3</button></li>
+                <li class="filter__item"><button class="filter__btn">catégorie 4</button></li>
+                <li class="filter__item"><button class="filter__btn">catégorie 5</button></li>
+                <li class="filter__item"><button class="filter__btn">catégorie 6</button></li>
             </ul>
     
             <section class="list-products">
