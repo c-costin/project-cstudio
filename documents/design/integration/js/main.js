@@ -1,7 +1,7 @@
-const App = {
+const Main = {
     init: () => {
         console.log("ok");
     },
 }
 
-document.addEventListener("DOMContentLoaded", App.init);
+document.addEventListener("DOMContentLoaded", Main.init);
