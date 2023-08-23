@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,20 +9,33 @@
     <script defer type="module" src="../js/main.js"></script>
     <title>C-Studio - Profil</title>
 </head>
+
 <body>
     <div class="container">
         <header class="header">
             <div class="header__left">
-                <i class="iconoir-menu header__icon"></i>
+                <nav class="menu hidden">
+                    <i class="iconoir-cancel menu__icon js-icon-close"></i>
+                    <div class="menu__links">
+                        <a href="../index.html" class="menu__link">Accueil</a>
+                        <a href="./about.html" class="menu__link">A Propos</a>
+                    </div>
+                    <div class="menu__refs">
+                        <a href="" class="menu__ref">Mentions Légales</a>
+                        <a href="" class="menu__ref">CGV</a>
+                        <a href="" class="menu__ref">Contact</a>
+                    </div>
+                </nav>
+                <i class="iconoir-menu header__icon js-icon-open"></i>
                 <i class="iconoir-search header__icon"></i>
             </div>
-            <a  href="../index.html" class="header__title">C-Studio</a>
+            <a href="../index.html" class="header__title">C-Studio</a>
             <div class="header__right">
                 <i class="iconoir-profile-circle header__icon"></i>
                 <i class="iconoir-simple-cart header__icon"></i>
             </div>
         </header>
-    
+
         <main class="main">
             <section class="cart-container">
                 <h2>Panier</h2>
@@ -38,7 +52,8 @@
                     </div>
                     <div class="cart-product__container-end">
                         <p class="cart-product___price">2200€</p>
-                        <button class="cart-product___btn-delete"><i class="iconoir-delete-circle cart-product__icon"></i></button>
+                        <button class="cart-product___btn-delete"><i
+                                class="iconoir-delete-circle cart-product__icon"></i></button>
                     </div>
                 </article>
                 <div class="cart__separator"></div>
@@ -54,7 +69,8 @@
                     </div>
                     <div class="cart-product__container-end">
                         <p class="cart-product___price">2200€</p>
-                        <button class="cart-product___btn-delete"><i class="iconoir-delete-circle cart-product__icon"></i></button>
+                        <button class="cart-product___btn-delete"><i
+                                class="iconoir-delete-circle cart-product__icon"></i></button>
                     </div>
                 </article>
                 <div class="cart__separator"></div>
@@ -70,7 +86,8 @@
                     </div>
                     <div class="cart-product__container-end">
                         <p class="cart-product___price">2200€</p>
-                        <button class="cart-product___btn-delete"><i class="iconoir-delete-circle cart-product__icon"></i></button>
+                        <button class="cart-product___btn-delete"><i
+                                class="iconoir-delete-circle cart-product__icon"></i></button>
                     </div>
                 </article>
                 <div class="cart__separator"></div>
@@ -108,4 +125,5 @@
         </section>
     </footer>
 </body>
+
 </html>
