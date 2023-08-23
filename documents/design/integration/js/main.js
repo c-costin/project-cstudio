@@ -1,6 +1,8 @@
+import Menu from './modules/menu.js'
+
 const Main = {
-    init: () => {
-        console.log("ok");
+    init: function() {
+        Menu.init();
     },
 }
 
