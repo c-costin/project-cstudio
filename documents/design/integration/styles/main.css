@@ -207,8 +207,8 @@ a:not([class]) {
   z-index: 10;
 }
 
-@media screen and (min-width: 1024px) {
-  .header__icon:first-child {
+@media screen and (min-width: 992px) {
+  .js-icon-open {
     display: none;
   }
 }
@@ -861,6 +861,121 @@ a:not([class]) {
     flex-direction: row;
     align-items: center;
     gap: 2rem;
+  }
+}
+.product {
+  display: flex;
+  flex-direction: column;
+  margin-top: 5rem;
+  max-width: 892px;
+  margin-inline: auto;
+}
+.product__info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+.product__img {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 5/4;
+  border-radius: 0.25rem;
+  background: lightslategrey;
+  margin-bottom: 2rem;
+}
+.product__purchase {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.product__price {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.product__quantity {
+  width: -moz-fit-content;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+.product__number {
+  border: solid 1px lightgray;
+  border-radius: 5%;
+  background-color: lightgray;
+  padding: 0 0.3rem;
+}
+.product__addToCart {
+  width: 100%;
+}
+
+@media screen and (min-width: 768px) {
+  .product {
+    width: 80%;
+    margin-top: 3rem;
+  }
+}
+@media screen and (min-width: 992px) {
+  .product {
+    flex-direction: row;
+    gap: 2rem;
+  }
+  .product__info {
+    width: 50%;
+  }
+  .product__img {
+    margin: 0;
+  }
+}
+.about {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 5rem;
+  max-width: 892px;
+  margin-inline: auto;
+}
+.about__img {
+  width: 100%;
+  max-width: 396px;
+  height: auto;
+  aspect-ratio: 5/3;
+  border-radius: 0.25rem;
+  background: lightslategrey;
+  margin-bottom: 1rem;
+}
+.about__info {
+  max-width: 396px;
+}
+.about__title {
+  padding-top: 2rem;
+  padding-bottom: 1rem;
+  font-size: 1.8rem;
+}
+.about__subtitle {
+  font-size: 1.2rem;
+}
+.about__description {
+  font-size: 1rem;
+  padding-bottom: 0.5rem;
+}
+
+@media screen and (min-width: 768px) {
+  .about {
+    width: 80%;
+    margin-top: 3rem;
+  }
+}
+@media screen and (min-width: 992px) {
+  .about {
+    flex-direction: row;
+    gap: 2rem;
+  }
+  .about__img {
+    margin: 0;
   }
 }
 a {

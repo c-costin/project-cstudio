@@ -28,10 +28,8 @@
   }
 }
 
-@media screen and (min-width: 1024px) {
-  .header {
-    &__icon:first-child {
-      display: none;
-    }
+@media screen and (min-width: 992px) {
+  .js-icon-open {
+    display: none;
   }
 }

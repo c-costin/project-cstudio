@@ -40,6 +40,12 @@
 @use 'components/cart/cart';
 @use 'components/cart/cart-product';
 
+// => Product page
+@use 'components/product/product';
+
+// => About page
+@use 'components/about/about';
+
 // ======== Generals rules ========
 
 a {
