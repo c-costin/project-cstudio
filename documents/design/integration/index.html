@@ -15,7 +15,7 @@
             <input placeholder="Recheche..." class="search__input">
         </form>
     </aside>
-    <aside class="dropdown-profil">
+    <aside class="dropdown-profil js-dropdown-profil hidden">
         <h4 class="dropdown-profil__title">John Doe</h4>
         <div class="dropdown-profil__separator"></div>
         <button class="dropdown-profil__link">Profil</button>
@@ -23,6 +23,57 @@
         <button class="dropdown-profil__link">Coup de cœurs</button>
         <div class="dropdown-profil__separator"></div>
         <button class="dropdown-profil__link">Déconnexion</button>
+    </aside>
+    <aside class="dropdown-cart js-dropdown-cart hidden">
+        <header class="dropdown-cart__header">
+            <h4 class="dropdown-cart__title">Panier</h4>
+            <p class="dropdown-cart__numbers">2</p>
+        </header>
+        <div class="dropdown-cart__separator"></div>
+        <ul class="dropdown-cart__lists">
+            <li class="dropdown-cart__item">
+                <a href="dropdown-cart__link">
+                    <article class="dropdown-cart-article">
+                        <div class="dropdown-cart-article__top">
+                            <img class="dropdown-cart-article__img" src="" alt="Image">
+                            <h3 class="dropdown-cart-article__name">Nature</h3>
+                        </div>
+                        <div class="dropdown-cart-article__bottom">
+                            <div class="dropdown-cart-article__quantity">
+                                <i class="iconoir-minus dropdown-cart-article__icon"></i>
+                                <p class="dropdown-cart-article___number">1</p>
+                                <i class="iconoir-plus dropdown-cart-article__icon"></i>
+                            </div>
+                            <p class="dropdown-cart-article___price">2200€</p>
+                        </div>
+                    </article>
+                </a>
+            </li>
+            <li class="dropdown-cart__item">
+                <a href="dropdown-cart__link">
+                    <article class="dropdown-cart-article">
+                        <div class="dropdown-cart-article__top">
+                            <img class="dropdown-cart-article__img" src="" alt="Image">
+                            <h3 class="dropdown-cart-article__name">Sport</h3>
+                        </div>
+                        <div class="dropdown-cart-article__bottom">
+                            <div class="dropdown-cart-article__quantity">
+                                <i class="iconoir-minus dropdown-cart-article__icon"></i>
+                                <p class="dropdown-cart-article___number">1</p>
+                                <i class="iconoir-plus dropdown-cart-article__icon"></i>
+                            </div>
+                            <p class="dropdown-cart-article___price">2000€</p>
+                        </div>
+                    </article>
+                </a>
+            </li>
+        </ul>
+        <div class="dropdown-cart__separator"></div>
+        <footer class="dropdown-cart__footer">
+            <h4 class="dropdown-cart__title">Total</h4>
+            <p class="dropdown-cart__total">4200€</p>
+        </footer>
+        <button class="dropdown-cart__submit">Commmander</button>
     </aside>
     <div class="container">
         <header class="header">
@@ -44,8 +95,8 @@
             </div>
             <a  href="#" class="header__title">C-Studio</a>
             <div class="header__right">
-                <i class="iconoir-profile-circle header__icon"></i>
-                <i class="iconoir-simple-cart header__icon"></i>
+                <i class="iconoir-profile-circle header__icon js-profil-icon"></i>
+                <i class="iconoir-simple-cart header__icon js-cart-icon"></i>
             </div>
         </header>
 

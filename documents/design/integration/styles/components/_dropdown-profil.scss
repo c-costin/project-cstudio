@@ -1,7 +1,7 @@
 .dropdown-profil {
   position: absolute;
+  top: 4rem;
   right: 1rem;
-  margin-top: 4rem;
   padding: 0.75rem 1rem;
   width: 156px;
   display: flex;
@@ -13,7 +13,7 @@
   backdrop-filter: blur(3.1px);
   -webkit-backdrop-filter: blur(3.1px);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
-  background: rgba(255, 255, 255, 0.79);
+  background: rgba(255, 255, 255, 0.9);
   &__separator {
     width: 100%;
     height: 1px;
