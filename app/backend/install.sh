@@ -17,3 +17,5 @@ composer require nelmio/api-doc-bundle
 composer require symfony/orm-pack:^2.1 -W
 composer require doctrine/doctrine-fixtures-bundle
 composer require fakerphp/faker
+
+php bin/console lexik:jwt:generate-keypair
