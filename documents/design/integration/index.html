@@ -15,28 +15,88 @@
             <input placeholder="Recheche..." class="search__input">
         </form>
     </aside>
+    <aside class="dropdown-profil js-dropdown-profil hidden">
+        <h4 class="dropdown-profil__title">John Doe</h4>
+        <div class="dropdown-profil__separator"></div>
+        <button class="dropdown-profil__link">Profil</button>
+        <button class="dropdown-profil__link">Commandes</button>
+        <button class="dropdown-profil__link">Coup de cœurs</button>
+        <div class="dropdown-profil__separator"></div>
+        <button class="dropdown-profil__link">Déconnexion</button>
+    </aside>
+    <aside class="dropdown-cart js-dropdown-cart hidden">
+        <header class="dropdown-cart__header">
+            <h4 class="dropdown-cart__title">Panier</h4>
+            <p class="dropdown-cart__numbers">2</p>
+        </header>
+        <div class="dropdown-cart__separator"></div>
+        <ul class="dropdown-cart__lists">
+            <li class="dropdown-cart__item">
+                <a href="dropdown-cart__link">
+                    <article class="dropdown-cart-article">
+                        <div class="dropdown-cart-article__top">
+                            <img class="dropdown-cart-article__img" src="" alt="Image">
+                            <h3 class="dropdown-cart-article__name">Nature</h3>
+                        </div>
+                        <div class="dropdown-cart-article__bottom">
+                            <div class="dropdown-cart-article__quantity">
+                                <i class="iconoir-minus dropdown-cart-article__icon"></i>
+                                <p class="dropdown-cart-article___number">1</p>
+                                <i class="iconoir-plus dropdown-cart-article__icon"></i>
+                            </div>
+                            <p class="dropdown-cart-article___price">2200€</p>
+                        </div>
+                    </article>
+                </a>
+            </li>
+            <li class="dropdown-cart__item">
+                <a href="dropdown-cart__link">
+                    <article class="dropdown-cart-article">
+                        <div class="dropdown-cart-article__top">
+                            <img class="dropdown-cart-article__img" src="" alt="Image">
+                            <h3 class="dropdown-cart-article__name">Sport</h3>
+                        </div>
+                        <div class="dropdown-cart-article__bottom">
+                            <div class="dropdown-cart-article__quantity">
+                                <i class="iconoir-minus dropdown-cart-article__icon"></i>
+                                <p class="dropdown-cart-article___number">1</p>
+                                <i class="iconoir-plus dropdown-cart-article__icon"></i>
+                            </div>
+                            <p class="dropdown-cart-article___price">2000€</p>
+                        </div>
+                    </article>
+                </a>
+            </li>
+        </ul>
+        <div class="dropdown-cart__separator"></div>
+        <footer class="dropdown-cart__footer">
+            <h4 class="dropdown-cart__title">Total</h4>
+            <p class="dropdown-cart__total">4200€</p>
+        </footer>
+        <button class="dropdown-cart__submit">Commmander</button>
+    </aside>
     <div class="container">
         <header class="header">
+            <nav class="menu hidden">
+                <i class="iconoir-cancel menu__icon js-icon-close"></i>
+                <div class="menu__links">
+                    <a href="./index.html" class="menu__link">Accueil</a>
+                    <a href="./pages/about.html" class="menu__link">A Propos</a>
+                </div>
+                <div class="menu__refs">
+                    <a href="" class="menu__ref">Mentions Légales</a>
+                    <a href="" class="menu__ref">CGV</a>
+                    <a href="" class="menu__ref">Contact</a>
+                </div>
+            </nav>
             <div class="header__left">
-                <nav class="menu hidden">
-                    <i class="iconoir-cancel menu__icon js-icon-close"></i>
-                    <div class="menu__links">
-                        <a href="./index.html" class="menu__link">Accueil</a>
-                        <a href="./pages/about.html" class="menu__link">A Propos</a>
-                    </div>
-                    <div class="menu__refs">
-                        <a href="" class="menu__ref">Mentions Légales</a>
-                        <a href="" class="menu__ref">CGV</a>
-                        <a href="" class="menu__ref">Contact</a>
-                    </div>
-                </nav>
                 <i class="iconoir-menu header__icon js-icon-open"></i>
                 <i class="iconoir-search header__icon js-search"></i>
             </div>
             <a  href="#" class="header__title">C-Studio</a>
             <div class="header__right">
-                <i class="iconoir-profile-circle header__icon"></i>
-                <i class="iconoir-simple-cart header__icon"></i>
+                <i class="iconoir-profile-circle header__icon js-profil-icon"></i>
+                <i class="iconoir-simple-cart header__icon js-cart-icon"></i>
             </div>
         </header>
 
