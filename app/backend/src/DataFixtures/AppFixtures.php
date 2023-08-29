@@ -105,12 +105,14 @@ class AppFixtures extends Fixture
         $products = [];
         for ($i = 0; $i < 50; $i++) {
             $product = new Product();
+            $releasedate = $this->faker->dateTimeBetween('-150 years', 'now');
+            $result = $releasedate->format('Y');
             $product->setTitle($this->faker->word(3, true))
                 ->setDescription($this->faker->sentence(9))
                 ->setDimensions($this->faker->numberBetween(10, 50) . 'cm' . 'x' . $this->faker->numberBetween(10, 50) . 'cm')
                 ->setPrice(mt_rand(100, 5000) . '€')
                 ->setPicture($this->faker->word(1, true))
-                ->setReleaseDate(mt_rand(1950, 2023))
+                ->setReleaseDate($result)
                 ->setArtist($this->faker->name())
                 ->setStock($this->faker->randomDigitNotNull())
                 ->setType($types[array_rand($types)])
