@@ -21,6 +21,33 @@ class CategoryRepository extends ServiceEntityRepository
         parent::__construct($registry, Category::class);
     }
 
+    public function add(Category $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Category $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function findCategoriesByProductId(int $id): ?array
+    {
+        return $this->createQueryBuilder('c')
+            ->where("c.product = :id")
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    } 
+
 //    /**
 //     * @return Category[] Returns an array of Category objects
 //     */
