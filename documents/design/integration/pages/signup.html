@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link crossorigin="anonymous" rel="stylesheet" href="https://cdn.jsdelivr.net/gh/iconoir-icons/iconoir@main/css/iconoir.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <script defer type="module" src="../js/main.js"></script>
+    <title>C-Studio - Inscription</title>
+</head>
+
+<body>
+    <div class="container" id="/top">
+        <header class="header">
+            <div class="header__left">
+                <nav class="menu hidden">
+                    <i class="iconoir-cancel menu__icon js-icon-close"></i>
+                    <div class="menu__links">
+                        <a href="../index.html" class="menu__link">Accueil</a>
+                        <a href="./about.html" class="menu__link">A Propos</a>
+                    </div>
+                    <div class="menu__refs">
+                        <a href="" class="menu__ref">Mentions Légales</a>
+                        <a href="" class="menu__ref">CGV</a>
+                        <a href="" class="menu__ref">Contact</a>
+                    </div>
+                </nav>
+                <i class="iconoir-menu header__icon js-icon-open"></i>
+                <i class="iconoir-search header__icon"></i>
+            </div>
+            <a href="../index.html" class="header__title">C-Studio</a>
+            <div class="header__right">
+                <i class="iconoir-profile-circle header__icon"></i>
+                <i class="iconoir-simple-cart header__icon"></i>
+            </div>
+        </header>
+
+        <main>
+            <form action="" method="" class="inscription-data">
+                <h1 class="inscription-data__title">Inscription</h1>
+                <div class="inscription-data__row">
+                    <input type="text" name="name" id="name" placeholder="Nom" class="inscription-data__input"
+                        required />
+                </div>
+                <div class="inscription-data__row">
+                    <input type="text" name="firstname" id="firstname" placeholder="Prénom"
+                        class="inscription-data__input" required />
+                </div>
+                <div class="inscription-data__row">
+                    <input type="email" name="email" id="email" placeholder="Email" class="inscription-data__input"
+                        required />
+                </div>
+                <div class="inscription-data__row">
+                    <input type="text" name="phone" id="phone" placeholder="Téléphone" class="inscription-data__input"
+                        required />
+                </div>
+                <div class="inscription-data__row">
+                    <input type="password" name="password" id="paswword" placeholder="Mot de passe"
+                        class="inscription-data__input" required />
+                </div>
+                <div class="inscription-data__row">
+                    <input type="password" name="confirmPassword" id="confirmPassword"
+                        placeholder="Confirmez le mot de passe" class="inscription-data__input" required />
+                </div>
+                <div class="inscription-data__checkbox">
+                    <input type="checkbox" id="conditionsApproval" name="conditionsApproval" unchecked />
+                    <label for="conditionsApproval">J'accepte les conditions</label>
+                </div>
+                <div class="inscription-data__row">
+                    <input type="submit" value="inscription" />
+                </div>
+                <a href="./login.html" class="inscription-data__existAlready">J'ai déjà un compte? je me connecte</a>
+            </form>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <section class="footer__desc">
+            <div class="footer__text">
+                <h2 class="footer__slogan">Slogan de ouf !</h2>
+                <p class="footer__resume">
+                    Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                </p>
+            </div>
+            <p class="footer__title">C-Studio</p>
+            <a href="#/top"><i class="iconoir-arrow-up-circle footer__icon"></i></a>
+        </section>
+        <section class="footer__links">
+            <div class="footer__infos">
+                <a href="./cgv.html">CGV</a>
+                <a href="./mentions-legales.html">Mentions Légales</a>
+                <a href="./about-us.html">Nous Contacter</a>
+            </div>
+            <nav class="footer__socials">
+                <a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Youtube</a>
+                <a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+            </nav>
+        </section>
+    </footer>
+</body>
+
+</html>

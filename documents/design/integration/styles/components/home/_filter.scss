@@ -1,0 +1,33 @@
+.filter {
+  margin-inline: auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  padding-inline: 2rem;
+  max-width: 150%;
+  height: fit-content;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .25rem;
+  &__title {
+    width: 100%;
+    text-align: center;
+  }
+  &__item {
+    list-style-type: none;
+  }
+  &__btn {
+    border-radius: 1.5rem;
+    box-sizing: border-box;
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1;
+    padding: 0.5rem 0.6rem;
+    text-align: center;
+    &:hover {
+      background-color: #1e293b;
+      color: #fff;
+    }
+  }
+}

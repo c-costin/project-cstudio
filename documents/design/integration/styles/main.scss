@@ -1,0 +1,88 @@
+// Import Reset CSS
+@use 'reset';
+
+// Import Theme
+@use 'theme';
+
+// ======== Import components ========
+
+// => Header
+@use 'components/header';
+
+// => Footer
+@use 'components/footer';
+
+// => Menu
+@use 'components/menu';
+
+// => Search
+@use 'components/search';
+
+// Dropdown profil
+@use 'components/dropdown-profil';
+
+// Dropdown cart
+@use 'components/dropdown-cart';
+
+// => Home page
+@use 'components/home/hero';
+@use 'components/home/filter';
+@use 'components/home/list-products';
+
+// => Login page
+@use 'components/login';
+
+// => Signup page
+@use 'components/signup';
+
+// => Dashboard page
+@use 'components/dashboard/dashboard';
+@use 'components/dashboard/pagination';
+@use 'components/dashboard/dashboard-order';
+
+// => Profil page
+@use 'components/profil/profil';
+@use 'components/profil/profil-order';
+@use 'components/profil/profil-favorite';
+
+// => Cart page
+@use 'components/cart/cart';
+@use 'components/cart/cart-product';
+
+// => Product page
+@use 'components/product/product';
+
+// => About page
+@use 'components/about/about';
+
+// => Result page
+@use 'components/result/result';
+
+// ======== Generals rules ========
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: theme.$font-primary;
+  max-width: 1280px;
+  min-height: 100vh;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main {
+  padding: 1.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.disable-scroll {
+  overflow-y: hidden;
+}
