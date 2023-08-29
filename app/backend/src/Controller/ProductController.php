@@ -33,7 +33,7 @@ class ProductController extends AbstractController
     }
 
     #[Route('/edit/{id<\d+>}', name: 'app_product_edit', methods: ['PATCH'])]
-    public function edit(Request $request, SerializerInterface $serializerInterface, Product $product = null): JsonResponse
+    public function edit(Request $request, SerializerInterface $serializerInterface, Product $product = null, ProductRepository $productRepository): JsonResponse
     {
         // Return status code 404 if $product is empty
         if ($product === null) { return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);}
@@ -44,7 +44,11 @@ class ProductController extends AbstractController
         // Deserialzation with entity Review and object Review in context, check and insert new modification
         $serializerInterface->deserialize($json, Product::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $product]);
 
+        // Set date to update at
         $product->setUpdatedAt(new \DateTimeImmutable());
+
+        // Save Product into database
+        $productRepository->add($product, true);
 
         // Return Product and status code 202
         return $this->json($product, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Product:item"]]);
@@ -65,7 +69,7 @@ class ProductController extends AbstractController
         // Save Product into database
         $productRepository->add($product, true);
 
-        // Return Product and status code
+        // Return Product and status code 201
         return $this->json($product, Response::HTTP_CREATED, [], ["groups" => ["read:Review:item"]]);
     }
 
