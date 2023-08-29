@@ -42,7 +42,7 @@ class ProductController extends AbstractController
         $json = $request->getContent();
 
         // Deserialzation with entity Review and object Review in context, check and insert new modification
-        $serializerInterface->deserialize($json, Review::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $product]);
+        $serializerInterface->deserialize($json, Product::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $product]);
 
         $product->setUpdatedAt(new \DateTimeImmutable());
 
