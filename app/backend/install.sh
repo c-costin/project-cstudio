@@ -13,6 +13,8 @@ composer require symfony/rate-limiter
 composer require symfony/validator
 composer require symfony/serializer
 composer require lexik/jwt-authentication-bundle
+composer require twig
+composer require asset
 composer require nelmio/api-doc-bundle
 composer require symfony/orm-pack:^2.1 -W
 composer require doctrine/doctrine-fixtures-bundle

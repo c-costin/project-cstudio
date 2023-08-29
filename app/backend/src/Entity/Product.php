@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -14,27 +15,35 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups('read:Product:item')]
     private ?int $id = null;
 
     #[ORM\Column(length: 64)]
+    #[Groups('read:Product:item')]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Groups('read:Product:item')]
     private ?string $description = null;
 
     #[ORM\Column(length: 32)]
+    #[Groups('read:Product:item')]
     private ?string $dimensions = null;
 
     #[ORM\Column(length: 32)]
+    #[Groups('read:Product:item')]
     private ?string $price = null;
 
     #[ORM\Column(length: 128)]
+    #[Groups('read:Product:item')]
     private ?string $picture = null;
 
     #[ORM\Column(length: 64)]
+    #[Groups('read:Product:item')]
     private ?string $releaseDate = null;
 
     #[ORM\Column(length: 64)]
+    #[Groups('read:Product:item')]
     private ?string $artist = null;
 
     #[ORM\Column]
