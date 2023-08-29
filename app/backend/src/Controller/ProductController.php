@@ -2,17 +2,19 @@
 
 namespace App\Controller;
 
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/api/product')]
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'app_product_browse', methods: 'GET')]
-    public function browse(): JsonResponse
+    public function browse(ProductRepository $productRepository): JsonResponse
     {
-        return $this->json([]);
+        return $this->json($productRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
     }
 
     #[Route('/{id<\d+>}', name: 'app_product_read', methods: ['GET'])]
