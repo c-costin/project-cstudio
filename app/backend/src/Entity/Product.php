@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -20,33 +21,41 @@ class Product
 
     #[ORM\Column(length: 64)]
     #[Groups('read:Product:item')]
+    #[Assert\NotBlank]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
     #[Groups('read:Product:item')]
+    #[Assert\NotBlank]
     private ?string $description = null;
 
     #[ORM\Column(length: 32)]
     #[Groups('read:Product:item')]
+    #[Assert\NotBlank]
     private ?string $dimensions = null;
 
     #[ORM\Column(length: 32)]
     #[Groups('read:Product:item')]
+    #[Assert\NotBlank]
     private ?string $price = null;
 
     #[ORM\Column(length: 128)]
     #[Groups('read:Product:item')]
+    #[Assert\NotBlank]
     private ?string $picture = null;
 
     #[ORM\Column(length: 64)]
     #[Groups('read:Product:item')]
+    #[Assert\NotBlank]
     private ?string $releaseDate = null;
 
     #[ORM\Column(length: 64)]
     #[Groups('read:Product:item')]
+    #[Assert\NotBlank]
     private ?string $artist = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
     private ?int $stock = null;
 
     #[ORM\Column]
@@ -66,6 +75,7 @@ class Product
     private Collection $orders;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'products')]
+    #[ORM\JoinColumn(OnDelete: "CASCADE")]
     private Collection $users;
 
     public function __construct()
@@ -73,6 +83,7 @@ class Product
         $this->categories = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
