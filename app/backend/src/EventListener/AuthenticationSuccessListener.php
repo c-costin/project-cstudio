@@ -4,32 +4,31 @@ namespace App\EventListener;
 
 use App\Entity\User;
 use Lexik\Bundle\JWTAuthenticationBundle\Event\AuthenticationSuccessEvent;
-use Symfony\Component\Serializer\Serializer;
 use Symfony\Component\Serializer\SerializerInterface;
 
 class AuthenticationSuccessListener
 {
-    private Serializer $serializer;
-
-    public function __construct(SerializerInterface $serializer)
-    {
-        $this->serializer = $serializer;
-    }
+    public function __construct(
+        private SerializerInterface $serializer
+    )
+    {}
     
     /**
     * @param AuthenticationSuccessEvent $event
     */
-    public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $event )
+    public function onAuthenticationSuccessResponse(AuthenticationSuccessEvent $event)
     {
-        $data = $event->getData();
+        $payload = $event->getData();
         $user = $event->getUser();
 
         if (!$user instanceof User) return;
 
-        $data['user'] = $this->serializer->normalize($user, null, [
+        $payload['user'] = $this->serializer->serialize($user, 'json', [
             "groups" => ["read:User:item"]
         ]);
 
-        $event->setData($data);
+        // dd($payload);
+
+        $event->setData($payload);
     }
 }
