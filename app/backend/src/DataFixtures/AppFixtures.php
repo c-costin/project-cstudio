@@ -61,7 +61,7 @@ class AppFixtures extends Fixture
         $adminUser->setFirstname('John')
             ->setName('Doe')
             ->setEmail('admin@mail.com')
-            ->setRoles(["ROLE_USER"])
+            ->setRoles(["ROLE_ADMIN"])
             ->setPassword(password_hash('admin', PASSWORD_BCRYPT))
             ->setPhone('')
             ->setAddress('')
