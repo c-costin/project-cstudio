@@ -24,7 +24,7 @@ class OrderController extends AbstractController
             if (array_key_exists('user', $request->query->all())) {
 
                 // Find all Orders by User ID
-                $result = $orderRepository->findOrderByUserId($request->query->all()['user']);
+                $result = $orderRepository->findOrdersByUserId($request->query->all()['user']);
 
                 return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Order:item"]]);
             } else {

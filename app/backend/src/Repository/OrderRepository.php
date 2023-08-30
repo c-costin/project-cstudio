@@ -41,7 +41,7 @@ class OrderRepository extends ServiceEntityRepository
 
     // Find Order by User ID
 
-    public function findOrderByUserId(int $id): ?array
+    public function findOrdersByUserId(int $id): ?array
     {
         return $this->createQueryBuilder('o')
             ->where("o.user = :id")
