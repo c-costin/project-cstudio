@@ -58,8 +58,8 @@ class AppFixtures extends Fixture
         $adminUser = new User();
 
         // Set properties
-        $adminUser->setFirstname('John')
-            ->setName('Doe')
+        $adminUser->setFirstName('John')
+            ->setLastName('Doe')
             ->setEmail('admin@mail.com')
             ->setRoles(["ROLE_ADMIN"])
             ->setPassword(password_hash('admin', PASSWORD_BCRYPT))
@@ -85,8 +85,8 @@ class AppFixtures extends Fixture
             $firstName = $faker->firstName();
             $lastName = $faker->lastName();
             $email = mb_strtolower($firstName).".".mb_strtolower($lastName) . "@mail.com";
-            $user->setFirstname($firstName)
-                ->setName($lastName)
+            $user->setFirstName($firstName)
+                ->setLastName($lastName)
                 ->setEmail($email)
                 ->setRoles(["ROLE_USER"])
                 ->setPassword(password_hash('user', PASSWORD_BCRYPT))
