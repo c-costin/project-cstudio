@@ -10,3 +10,6 @@ bin/console doctrine:database:create -n
 
 # Insert tables into database
 bin/console doctrine:migrations:migrate -n
+
+# Insert fixture into database
+bin/console doctrine:fixtures:load -n
