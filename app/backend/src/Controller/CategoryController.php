@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Repository\UserRepository;
-use App\Repository\ProductRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,7 +17,7 @@ class CategoryController extends AbstractController
 {
     // List all the Categories
     #[Route('/', name: 'app_category_browse', methods: 'GET')]
-    public function browse(Request $request, CategoryRepository $categoryRepository): JsonResponse
+    public function browse(CategoryRepository $categoryRepository): JsonResponse
     {
         return $this->json($categoryRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
     }
@@ -28,10 +26,10 @@ class CategoryController extends AbstractController
     #[Route('/{id<\d+>}', name: 'app_category_read', methods: ['GET'])]
     public function read(Category $category = null): JsonResponse
     {
-        // Return status code 404 if $product is empty
+        // Return status code 404 if $category is empty
         if ($category === null) { return $this->json(["code" => 404, "message" => "No Category was found"], Response::HTTP_NOT_FOUND);}
 
-        // Return Product and status code 200
+        // Return Category and status code 200
         return $this->json($category, Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
     }
 
@@ -44,7 +42,7 @@ class CategoryController extends AbstractController
         // Get Request Body
         $json = $request->getContent();
 
-        // Deserialzation with entity Review and object Review in context, check and insert new modification
+        // Deserialzation with entity Category and object Category in context, check and insert new modification
         $serializerInterface->deserialize($json, Category::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $category]);
 
         $category->setUpdatedAt(new \DateTimeImmutable());
@@ -52,7 +50,7 @@ class CategoryController extends AbstractController
         // Save Category into database
         $categoryRepository->add($category, true);
 
-        // Return Product and status code 202
+        // Return Category and status code 202
         return $this->json($category, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Category:item"]]);
     }
 
@@ -72,7 +70,7 @@ class CategoryController extends AbstractController
         // Save Category into database
         $categoryRepository->add($category, true);
 
-        // Return Product and status code 200
+        // Return Category and status code 200
         return $this->json($category, Response::HTTP_CREATED, [], ["groups" => ["read:Category:item"]]);
     }
 
@@ -83,7 +81,7 @@ class CategoryController extends AbstractController
         // Return status code 404 if $category is empty
         if ($category === null) { return $this->json(["code" => 404, "message" => "No Category was found"], Response::HTTP_NOT_FOUND);}
 
-        // Remove Review into database
+        // Remove Order into database
         $categoryRepository->remove($category, true);
 
         // Return status code 204
