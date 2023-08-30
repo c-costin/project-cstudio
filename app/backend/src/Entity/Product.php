@@ -75,7 +75,7 @@ class Product
     private Collection $orders;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'products')]
-    #[ORM\JoinColumn(OnDelete: "CASCADE")]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private Collection $users;
 
     public function __construct()
