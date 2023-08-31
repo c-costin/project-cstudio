@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Product;
 use App\Repository\ProductRepository;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,10 +14,34 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
 
+#[OA\Tag('Product')]
 #[Route('/api/product')]
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'app_product_browse', methods: 'GET')]
+    #[OA\Get(
+        summary: "Retrieve the collection of Product resources",
+        description: "Retrieve the collection of Product",
+    )]
+    #[OA\Response(
+        response: 200,
+        description: "Success",
+        content: new OA\JsonContent(
+            type: 'array',
+            items: new OA\Items(ref: new Model(type: Product::class, groups: ['read:Product:item']))
+        ),
+    )]
+    #[OA\Response(
+        response: 401,
+        description: "Unauthorized",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 401),
+                new OA\Property(property: "message", example: "Invalid credentials")
+            ]
+        )
+    )]
     public function browse(ProductRepository $productRepository): JsonResponse
     {
         // Return all Product
@@ -23,20 +49,78 @@ class ProductController extends AbstractController
     }
 
     #[Route('/{id<\d+>}', name: 'app_product_read', methods: ['GET'])]
+    #[OA\Get(
+        summary: "Retrieve a Product resource",
+        description: "Retrieve a Product resource",
+    )]
+    #[OA\Response(
+        response: 200,
+        description: "Success",
+        content: new Model(type: Product::class, groups: ['read:Product:item'])
+    )]
+    #[OA\Response(
+        response: 401,
+        description: "Unauthorized",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 401),
+                new OA\Property(property: "message", example: "Invalid credentials")
+            ]
+        )
+    )]
     public function read(Product $product = null): JsonResponse
     {
         // Return status code 404 if $product is empty
-        if ($product === null) { return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);}
+        if ($product === null) {
+            return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
+        }
 
         // Return Product and status code 200
         return $this->json($product, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
     }
 
     #[Route('/edit/{id<\d+>}', name: 'app_product_edit', methods: ['PATCH'])]
+    #[OA\Patch(
+        summary: "Upload a Product resource",
+        description: "Upload a Product resource",
+    )]
+    #[OA\Response(
+        response: 202,
+        description: "Success - Accepted",
+        content: new OA\JsonContent(
+            type: 'array',
+            items: new OA\Items(ref: new Model(type: Product::class, groups: ['read:Product:item']))
+        ),
+    )]
+    #[OA\Response(
+        response: 401,
+        description: "Unauthorized",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 401),
+                new OA\Property(property: "message", example: "Invalid credentials")
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: 403,
+        description: "Forbidden",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 403),
+                new OA\Property(property: "message", example: "Access Denied")
+            ]
+        )
+    )]
     public function edit(Request $request, SerializerInterface $serializerInterface, Product $product = null, ProductRepository $productRepository): JsonResponse
     {
         // Return status code 404 if $product is empty
-        if ($product === null) { return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);}
+        if ($product === null) {
+            return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
+        }
 
         // Get Request Body
         $json = $request->getContent();
@@ -55,13 +139,49 @@ class ProductController extends AbstractController
     }
 
     #[Route('/add', name: 'app_product_add', methods: ['POST'])]
+    #[OA\Post(
+        summary: "Create a Product resource",
+        description: "Create a Product resource",
+    )]
+    #[OA\Response(
+        response: 201,
+        description: "Success - Created",
+        content: new OA\JsonContent(
+            type: 'array',
+            items: new OA\Items(ref: new Model(type: Product::class, groups: ['read:Product:item']))
+        ),
+    )]
+    #[OA\Response(
+        response: 401,
+        description: "Unauthorized",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 401),
+                new OA\Property(property: "message", example: "Invalid credentials")
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: 403,
+        description: "Forbidden",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 403),
+                new OA\Property(property: "message", example: "Access Denied")
+            ]
+        )
+    )]
     public function add(Request $request, SerializerInterface $serializerInterface, ProductRepository $productRepository): JsonResponse
     {
         // Get Request Body
         $json = $request->getContent();
 
         // Return status code 400 if $json is empty
-        if ($json === "") { return $this->json(["code" => 400, "message" => "Invalid JSON"], Response::HTTP_BAD_REQUEST);}
+        if ($json === "") {
+            return $this->json(["code" => 400, "message" => "Invalid JSON"], Response::HTTP_BAD_REQUEST);
+        }
 
         // Deserialization with entity Product, insert field
         $product = $serializerInterface->deserialize($json, Product::class, 'json');
@@ -74,10 +194,42 @@ class ProductController extends AbstractController
     }
 
     #[Route('/delete/{id<\d+>}', name: 'app_product_delete', methods: ['DELETE'])]
+    #[OA\Delete(
+        summary: "Remove a Product resource",
+        description: "Remove a Product resource",
+    )]
+    #[OA\Response(
+        response: 204,
+        description: "Success - No Content",
+    )]
+    #[OA\Response(
+        response: 401,
+        description: "Unauthorized",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 401),
+                new OA\Property(property: "message", example: "Invalid credentials")
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: 403,
+        description: "Forbidden",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 403),
+                new OA\Property(property: "message", example: "Access Denied")
+            ]
+        )
+    )]
     public function delete(Product $product = null, ProductRepository $productRepository): JsonResponse
     {
         // Return status code 404 if $product is empty
-        if ($product === null) { return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);}
+        if ($product === null) {
+            return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
+        }
 
         // Remove Review into database
         $productRepository->remove($product, true); //? Check method remove
