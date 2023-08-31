@@ -67,8 +67,7 @@ class AppFixtures extends Fixture
             ->setRoles(["ROLE_ADMIN"])
             ->setPassword(password_hash('admin', PASSWORD_BCRYPT))
             ->setPhone('')
-            ->setAddress('')
-            ->setCreatedAt(new \DateTimeImmutable());
+            ->setAddress('');
 
         // Insert into array
         $this->users[] = $adminUser;
@@ -94,8 +93,7 @@ class AppFixtures extends Fixture
                 ->setRoles(["ROLE_USER"])
                 ->setPassword(password_hash('user', PASSWORD_BCRYPT))
                 ->setPhone($faker->phoneNumber())
-                ->setAddress($faker->address())
-                ->setCreatedAt(new \DateTimeImmutable());
+                ->setAddress($faker->address());
 
             $this->users[] = $user;
 
@@ -109,8 +107,7 @@ class AppFixtures extends Fixture
             $category = new Category();
 
             // Set property
-            $category->setName($this->categoryProviders[$i])
-                ->setCreatedAt(new \DateTimeImmutable());
+            $category->setName($this->categoryProviders[$i]);
 
             // Insert into array
             $this->categories[] = $category;
@@ -125,8 +122,7 @@ class AppFixtures extends Fixture
             $type = new Type();
 
             // Set property
-            $type->setName($this->typeProviders[$i])
-                ->setCreatedAt(new \DateTimeImmutable());
+            $type->setName($this->typeProviders[$i]);
 
             // Insert to array
             $this->types[] = $type;
@@ -154,9 +150,7 @@ class AppFixtures extends Fixture
                 ->setArtist($faker->name())
                 ->setStock(mt_rand(1, 100))
                 ->setType($this->types[array_rand($this->types)])
-                ->addCategory($this->categories[array_rand($this->categories)])
-                ->addUser($this->users[array_rand($this->users)])
-                ->setCreatedAt(new \DateTimeImmutable());
+                ->addCategory($this->categories[array_rand($this->categories)]);
 
             $this->products[] = $product;
 
@@ -177,10 +171,15 @@ class AppFixtures extends Fixture
             $order->setNumber($faker->randomNumber(8, true))
                 ->setDeliveryDate($dateToString)
                 ->setUser($this->users[array_rand($this->users)])
-                ->addProduct($this->products[array_rand($this->products)])
-                ->setCreatedAt(new \DateTimeImmutable());
+                ->addProduct($this->products[array_rand($this->products)]);
 
             $manager->persist($order);
+        }
+
+        // => Loop for generation Likes
+        for ($i=0; $i < 460; $i++) { 
+            $product = $this->products[array_rand($this->products)];
+            $product->addUser($this->users[array_rand($this->users)]);
         }
 
         $manager->flush();
