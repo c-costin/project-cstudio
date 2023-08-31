@@ -34,23 +34,9 @@ class OrderController extends AbstractController
 
         // Check permission for browse all Orders
         // if ($this->isGranted("ROLE_ADMIN")) {
-        //     return $this->json($orderRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Order:item"]]);
+            return $this->json($orderRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Order:item"]]);
         // } else {
         //     return $this->json(["code" => 403, "message" => "Access Denied"], Response::HTTP_FORBIDDEN);
         // }
     }
-
-    // Show an Order
-    #[Route('/{id<\d+>}', name: 'app_order_read', methods: ['GET'])]
-    public function read(Order $order = null): JsonResponse
-    {
-        // Return status code 404 if $order is empty
-        if ($order === null) {
-            return $this->json(["code" => 404, "message" => "No Order was found"], Response::HTTP_NOT_FOUND);
-        }
-
-        // Return Order and status code 200
-        return $this->json($order, Response::HTTP_OK, [], ["groups" => ["read:Order:item"]]);
-    }
-
 }
