@@ -58,7 +58,9 @@ class ProductController extends AbstractController
         $products = $productRepository?->findAll();
 
         // Return status code 404 if $product is empty
-        if ($products === null) { return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND); }
+        if ($products === null) {
+            return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
+        }
 
         // Return all Product
         return $this->json($products, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
@@ -129,10 +131,7 @@ class ProductController extends AbstractController
     #[OA\Response(
         response: 202,
         description: "Success - Accepted",
-        content: new OA\JsonContent(
-            type: 'array',
-            items: new OA\Items(ref: new Model(type: Product::class, groups: ['read:Product:item']))
-        ),
+        content: new Model(type: Product::class, groups: ['read:Product:item'])
     )]
     #[OA\Response(
         response: 401,
@@ -215,10 +214,7 @@ class ProductController extends AbstractController
     #[OA\Response(
         response: 201,
         description: "Success - Created",
-        content: new OA\JsonContent(
-            type: 'array',
-            items: new OA\Items(ref: new Model(type: Product::class, groups: ['read:Product:item']))
-        ),
+        content: new Model(type: Product::class, groups: ['read:Product:item'])
     )]
     #[OA\Response(
         response: 400,
