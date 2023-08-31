@@ -53,6 +53,9 @@ class AppFixtures extends Fixture
 
         // Instanciation FakerPHP
         $faker = Factory::create("fr_FR");
+        
+        // Dataset seed
+        $faker->seed(428);
 
         // Create Admin user
         $adminUser = new User();
