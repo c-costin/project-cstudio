@@ -25,15 +25,12 @@ class Category
     private ?string $name = null;
 
     #[ORM\Column]
-    #[Groups('read:Category:item')]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups('read:Category:item')]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'categories')]
-    #[Groups('read:Category:item')]
     private Collection $products;
 
     public function __construct()
