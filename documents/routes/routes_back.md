@@ -40,6 +40,11 @@
 | PATCH | /api/user/edit/{id} | Modififier un utilisateur |
 | DELETE | /api/user/delete/{id} | Supprimer un utilisateur |
 | | | |
+| **ORDER** | | |
+| GET | /api/order/ | Listes de toutes les commandes |
+| GET | /api/order/?user={id} | Listes de toutes les commandes d'un utilisateur |
+| | | |
 | **LIKE** | | |
-| POST | /api/like/add?product={id}&profil={id} | Ajouter un coup de coeur d'un produit |
-| DELETE | /api/like/delete?product={id}&profil={id} | Supprimer un coup de coeur d'un produit |
+| GET | /api/like/?user={id} | Ajouter un coup de coeur d'un produit |
+| POST | /api/like/add?product={id}&user={id} | Ajouter un coup de coeur d'un produit |
+| DELETE | /api/like/delete?product={id}&user={id} | Supprimer un coup de coeur d'un produit |
