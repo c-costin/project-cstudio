@@ -70,7 +70,7 @@ class ProductController extends AbstractController
         $productRepository->add($product, true);
 
         // Return Product and status code 201
-        return $this->json($product, Response::HTTP_CREATED, [], ["groups" => ["read:Review:item"]]);
+        return $this->json($product, Response::HTTP_CREATED, [], ["groups" => ["read:Product:item"]]);
     }
 
     #[Route('/delete/{id<\d+>}', name: 'app_product_delete', methods: ['DELETE'])]
@@ -79,7 +79,7 @@ class ProductController extends AbstractController
         // Return status code 404 if $product is empty
         if ($product === null) { return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);}
 
-        // Remove Review into database
+        // Remove Product into database
         $productRepository->remove($product, true); //? Check method remove
 
         // Return status code 204
