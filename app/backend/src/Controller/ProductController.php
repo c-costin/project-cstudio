@@ -42,10 +42,26 @@ class ProductController extends AbstractController
             ]
         )
     )]
+    #[OA\Response(
+        response: 404,
+        description: "Not Found",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 404),
+                new OA\Property(property: "message", example: "No Products was found")
+            ]
+        )
+    )]
     public function browse(ProductRepository $productRepository): JsonResponse
     {
+        $products = $productRepository?->findAll();
+
+        // Return status code 404 if $product is empty
+        if ($products === null) { return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND); }
+
         // Return all Product
-        return $this->json($productRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
+        return $this->json($products, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
     }
 
     #[Route('/{id<\d+>}', name: 'app_product_read', methods: ['GET'])]
@@ -69,6 +85,17 @@ class ProductController extends AbstractController
             ]
         )
     )]
+    #[OA\Response(
+        response: 404,
+        description: "Not Found",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 404),
+                new OA\Property(property: "message", example: "No Product was found")
+            ]
+        )
+    )]
     public function read(Product $product = null): JsonResponse
     {
         // Return status code 404 if $product is empty
@@ -84,6 +111,20 @@ class ProductController extends AbstractController
     #[OA\Patch(
         summary: "Upload a Product resource",
         description: "Upload a Product resource",
+        requestBody: new OA\RequestBody(
+            content: new OA\MediaType(
+                mediaType: "application/json",
+                schema: new OA\Schema(
+                    properties: [
+                        new OA\Property(property: "title", example: "Super Photo"),
+                        new OA\Property(property: "description", example: "lorem ipsum, .................."),
+                        new OA\Property(property: "picture", example: "image.jgp"),
+                        new OA\Property(property: "price", example: "1450€"),
+                        new OA\Property(property: "stock", example: 10),
+                    ]
+                )
+            )
+        )
     )]
     #[OA\Response(
         response: 202,
@@ -115,6 +156,17 @@ class ProductController extends AbstractController
             ]
         )
     )]
+    #[OA\Response(
+        response: 404,
+        description: "Not Found",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 404),
+                new OA\Property(property: "message", example: "No Product was found")
+            ]
+        )
+    )]
     public function edit(Request $request, SerializerInterface $serializerInterface, Product $product = null, ProductRepository $productRepository): JsonResponse
     {
         // Return status code 404 if $product is empty
@@ -142,6 +194,23 @@ class ProductController extends AbstractController
     #[OA\Post(
         summary: "Create a Product resource",
         description: "Create a Product resource",
+        requestBody: new OA\RequestBody(
+            content: new OA\MediaType(
+                mediaType: "application/json",
+                schema: new OA\Schema(
+                    properties: [
+                        new OA\Property(property: "title", example: "Super Photo"),
+                        new OA\Property(property: "description", example: "lorem ipsum, .................."),
+                        new OA\Property(property: "picture", example: "image.jgp"),
+                        new OA\Property(property: "dimensions", example: "15x10cm"),
+                        new OA\Property(property: "price", example: "1450€"),
+                        new OA\Property(property: "artist", example: "Jean Photo"),
+                        new OA\Property(property: "releaseDate", example: "2023-08-15"),
+                        new OA\Property(property: "stock", example: 10),
+                    ]
+                )
+            )
+        )
     )]
     #[OA\Response(
         response: 201,
@@ -150,6 +219,17 @@ class ProductController extends AbstractController
             type: 'array',
             items: new OA\Items(ref: new Model(type: Product::class, groups: ['read:Product:item']))
         ),
+    )]
+    #[OA\Response(
+        response: 400,
+        description: "Bad request",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 400),
+                new OA\Property(property: "message", example: "Invalid request")
+            ]
+        )
     )]
     #[OA\Response(
         response: 401,
@@ -221,6 +301,17 @@ class ProductController extends AbstractController
             properties: [
                 new OA\Property(property: "code", example: 403),
                 new OA\Property(property: "message", example: "Access Denied")
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: 404,
+        description: "Not Found",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 404),
+                new OA\Property(property: "message", example: "No Product was found")
             ]
         )
     )]
