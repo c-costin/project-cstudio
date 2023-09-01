@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Type;
 use App\Repository\TypeRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,17 +36,6 @@ class TypeController extends AbstractController
         ),
     )]
     #[OA\Response(
-        response: 401,
-        description: "Unauthorized",
-        content: new OA\JsonContent(
-            type: "object",
-            properties: [
-                new OA\Property(property: "code", example: 401),
-                new OA\Property(property: "message", example: "Invalid credentials")
-            ]
-        )
-    )]
-    #[OA\Response(
         response: 500,
         description: "Internal Server Error",
         content: new OA\JsonContent(
@@ -56,6 +46,7 @@ class TypeController extends AbstractController
             ]
         )
     )]
+    #[Security(name: null)]
     public function browse(TypeRepository $typeRepository): JsonResponse
     {
         $types = $typeRepository?->findAll();
@@ -72,7 +63,7 @@ class TypeController extends AbstractController
     #[Route('/{id<\d+>}', name: 'app_type_read', methods: ['GET'])]
     #[OA\Get(
         summary: "Read a Type",
-        description: "Reading a Type object",
+        description: "Reading a Type object identified by Type ID",
     )]
     #[OA\Response(
         response: 200,
@@ -116,7 +107,7 @@ class TypeController extends AbstractController
     #[Route('/edit/{id<\d+>}', name: 'app_type_edit', methods: ['PATCH'])]
     #[OA\Patch(
         summary: "Edit a Type",
-        description: "Editing a Type identified by ID",
+        description: "Editing a Type identified by Type ID",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
@@ -267,7 +258,7 @@ class TypeController extends AbstractController
     #[Route('/delete/{id<\d+>}', name: 'app_type_delete', methods: ['DELETE'])]
     #[OA\Delete(
         summary: "Delete a Type",
-        description: "Deleting a Type object",
+        description: "Deleting a Type object identified by Type ID",
     )]
     #[OA\Response(
         response: 204,

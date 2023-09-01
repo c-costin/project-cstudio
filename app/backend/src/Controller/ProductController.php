@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -35,17 +36,6 @@ class ProductController extends AbstractController
         ),
     )]
     #[OA\Response(
-        response: 401,
-        description: "Unauthorized",
-        content: new OA\JsonContent(
-            type: "object",
-            properties: [
-                new OA\Property(property: "code", example: 401),
-                new OA\Property(property: "message", example: "Invalid credentials")
-            ]
-        )
-    )]
-    #[OA\Response(
         response: 500,
         description: "Internal Server Error",
         content: new OA\JsonContent(
@@ -56,6 +46,7 @@ class ProductController extends AbstractController
             ]
         )
     )]
+    #[Security(name: null)]
     public function browse(ProductRepository $productRepository): JsonResponse
     {
         $products = $productRepository?->findAll();
@@ -75,23 +66,12 @@ class ProductController extends AbstractController
     #[Route('/{id<\d+>}', name: 'app_product_read', methods: ['GET'])]
     #[OA\Get(
         summary: "Read a Product",
-        description: "Reading a Product object",
+        description: "Reading a Product object identified by Product ID",
     )]
     #[OA\Response(
         response: 200,
         description: "Success",
         content: new Model(type: Product::class, groups: ['read:Product:item'])
-    )]
-    #[OA\Response(
-        response: 401,
-        description: "Unauthorized",
-        content: new OA\JsonContent(
-            type: "object",
-            properties: [
-                new OA\Property(property: "code", example: 401),
-                new OA\Property(property: "message", example: "Invalid credentials")
-            ]
-        )
     )]
     #[OA\Response(
         response: 404,
@@ -104,6 +84,7 @@ class ProductController extends AbstractController
             ]
         )
     )]
+    #[Security(name: null)]
     public function read(Product $product = null): JsonResponse
     {
         // Return status code 404 if $product is empty
@@ -121,7 +102,7 @@ class ProductController extends AbstractController
     #[Route('/edit/{id<\d+>}', name: 'app_product_edit', methods: ['PATCH'])]
     #[OA\Patch(
         summary: "Edit a Product",
-        description: "Editing a Product identified by ID",
+        description: "Editing a Product identified by Product ID",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
@@ -287,7 +268,7 @@ class ProductController extends AbstractController
     #[Route('/delete/{id<\d+>}', name: 'app_product_delete', methods: ['DELETE'])]
     #[OA\Delete(
         summary: "Delete a Product",
-        description: "Deleting a Product object",
+        description: "Deleting a Product object identified by Product ID",
     )]
     #[OA\Response(
         response: 204,

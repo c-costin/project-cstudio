@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,17 +36,6 @@ class CategoryController extends AbstractController
         ),
     )]
     #[OA\Response(
-        response: 401,
-        description: "Unauthorized",
-        content: new OA\JsonContent(
-            type: "object",
-            properties: [
-                new OA\Property(property: "code", example: 401),
-                new OA\Property(property: "message", example: "Invalid credentials")
-            ]
-        )
-    )]
-    #[OA\Response(
         response: 500,
         description: "Internal Server Error",
         content: new OA\JsonContent(
@@ -56,6 +46,7 @@ class CategoryController extends AbstractController
             ]
         )
     )]
+    #[Security(name: null)]
     public function browse(CategoryRepository $categoryRepository): JsonResponse
     {
         $categories = $categoryRepository?->findAll();

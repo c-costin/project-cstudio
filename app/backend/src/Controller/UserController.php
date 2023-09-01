@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Repository\UserRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,10 +19,13 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/api/user')]
 class UserController extends AbstractController
 {
+    /**
+     * Read a User
+     */
     #[Route('/{id<\d+>}', name: 'app_user_read', methods: ['GET'])]
     #[OA\Get(
-        summary: "Retrieve a User resource",
-        description: "Retrieve a User resource",
+        summary: "Read a User",
+        description: "Reading a User object identified by User ID",
     )]
     #[OA\Response(
         response: 200,
@@ -59,10 +63,13 @@ class UserController extends AbstractController
         return $this->json($user, Response::HTTP_OK, [], ["groups" => ["read:User:item"]]);
     }
 
+    /**
+     * Edit a User
+     */
     #[Route('/edit/{id<\d+>}', name: 'app_user_edit', methods: ['PATCH'])]
     #[OA\Patch(
-        summary: "Update a User resource",
-        description: "Update a User resource",
+        summary: "Edit a User",
+        description: "Editing a User object identified by User ID",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
@@ -136,10 +143,13 @@ class UserController extends AbstractController
         return $this->json($user, Response::HTTP_ACCEPTED, [], ["groups" => ["read:user:item"]]);
     }
 
+    /**
+     * Add a User
+     */
     #[Route('/add', name: 'app_user_add', methods: ['POST'])]
     #[OA\Post(
-        summary: "Create a User resource",
-        description: "Create a User resource",
+        summary: "Add a User",
+        description: "Add a new User object",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
@@ -173,28 +183,7 @@ class UserController extends AbstractController
             ]
         )
     )]
-    #[OA\Response(
-        response: 401,
-        description: "Unauthorized",
-        content: new OA\JsonContent(
-            type: "object",
-            properties: [
-                new OA\Property(property: "code", example: 401),
-                new OA\Property(property: "message", example: "Invalid credentials")
-            ]
-        )
-    )]
-    #[OA\Response(
-        response: 403,
-        description: "Forbidden",
-        content: new OA\JsonContent(
-            type: "object",
-            properties: [
-                new OA\Property(property: "code", example: 403),
-                new OA\Property(property: "message", example: "Access Denied")
-            ]
-        )
-    )]
+    #[Security(name: null)]
     public function add(Request $request, SerializerInterface $serializerInterface, UserRepository $userRepository): JsonResponse
     {
         // Get Request Body
@@ -213,10 +202,13 @@ class UserController extends AbstractController
         return $this->json($user, Response::HTTP_CREATED, [], ["groups" => ["read:User:item"]]);
     }
 
+    /**
+     * Delete a User
+     */
     #[Route('/delete/{id<\d+>}', name: 'app_user_delete', methods: ['DELETE'])]
     #[OA\Delete(
-        summary: "Remove a User resource",
-        description: "Remove a User resource",
+        summary: "Delete a User",
+        description: "Deleting a User object",
     )]
     #[OA\Response(
         response: 204,
