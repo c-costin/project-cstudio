@@ -58,11 +58,19 @@ class UserController extends AbstractController
     )]
     public function read(user $user = null): JsonResponse
     {
-        // Return status code 404 if $user is empty
-        if ($user === null) { return $this->json(["code" => 404, "message" => "No User was found"], Response::HTTP_NOT_FOUND);}
+    // Return status code 404 if $user is empty
+    if ($user === null) {
+        return $this->json(["code" => 404, "message" => "No User was found"], Response::HTTP_NOT_FOUND);
+    }
 
-        // Return user and status code 200
-        return $this->json($user, Response::HTTP_OK, [], ["groups" => ["read:User:item"]]);
+    // Check permission for read a User
+    if ($this->isGranted("user_read", $user)) {
+        
+    // Return user and status code 200
+    return $this->json($user, Response::HTTP_OK, [], ["groups" => ["read:User:item"]]);
+    } else {
+    return $this->json(["code" => 403, "message" => "Access Denied"], Response::HTTP_FORBIDDEN);
+    }
     }
 
     /**
@@ -126,23 +134,31 @@ class UserController extends AbstractController
     )]
     public function edit(Request $request, SerializerInterface $serializerInterface, user $user = null, userRepository $userRepository): JsonResponse
     {
-        // Return status code 404 if $user is empty
-        if ($user === null) { return $this->json(["code" => 404, "message" => "No User was found"], Response::HTTP_NOT_FOUND);}
+    // Return status code 404 if $user is empty
+    if ($user === null) {
+        return $this->json(["code" => 404, "message" => "No User was found"], Response::HTTP_NOT_FOUND);
+    }
 
-        // Get Request Body
-        $json = $request->getContent();
+    // Get Request Body
+    $json = $request->getContent();
 
-        // Deserialzation with entity user and object user in context, check and insert new modification
-        $serializerInterface->deserialize($json, User::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $user]);
+     // Check permission for update a User
+     if ($this->isGranted("user_edit", $user)) {
 
-        // Set date to update at
-        $user->setUpdatedAt(new \DateTimeImmutable());
+    // Deserialzation with entity user and object user in context, check and insert new modification
+    $serializerInterface->deserialize($json, User::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $user]);
 
-        // Save User into database
-        $userRepository->add($user, true);
+    // Set date to update at
+    $user->setUpdatedAt(new \DateTimeImmutable());
 
-        // Return User and status code 202
-        return $this->json($user, Response::HTTP_ACCEPTED, [], ["groups" => ["read:user:item"]]);
+    // Save User into database
+    $userRepository->add($user, true);
+
+    // Return User and status code 202
+    return $this->json($user, Response::HTTP_ACCEPTED, [], ["groups" => ["read:user:item"]]);
+    } else {
+        return $this->json(["code" => 403, "message" => "Access Denied"], Response::HTTP_FORBIDDEN);
+    }
     }
 
     /**
@@ -261,8 +277,14 @@ class UserController extends AbstractController
         // Return status code 404 if $user is empty
         if ($user === null) { return $this->json(["code" => 404, "message" => "No User was found"], Response::HTTP_NOT_FOUND);}
 
+        // Check permission for delete User
+        if ($this->isGranted("user_delete", $user)) {
+
         // Remove User into database
         $userRepository->remove($user, true); //? Check method remove
+        } else {
+            return $this->json(["code" => 403, "message" => "Access Denied"], Response::HTTP_FORBIDDEN);
+        }
 
         // Return status code 204
         return $this->json(null, Response::HTTP_NO_CONTENT);
