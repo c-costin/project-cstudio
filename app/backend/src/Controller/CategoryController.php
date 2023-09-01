@@ -72,7 +72,7 @@ class CategoryController extends AbstractController
     #[Route('/{id<\d+>}', name: 'app_category_read', methods: ['GET'])]
     #[OA\Get(
         summary: "Read a Category",
-        description: "Read a Category object identified by ID",
+        description: "Reading a Category object identified by ID",
     )]
     #[OA\Response(
         response: 200,

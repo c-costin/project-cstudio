@@ -18,10 +18,13 @@ use Symfony\Component\Serializer\SerializerInterface;
 #[Route('/api/product')]
 class ProductController extends AbstractController
 {
+    /**
+     * Browse all Products
+     */
     #[Route('/', name: 'app_product_browse', methods: 'GET')]
     #[OA\Get(
-        summary: "Retrieve the collection of Product resources",
-        description: "Retrieve the collection of Product",
+        summary: "Browse all Products",
+        description: "Browse all objects Product",
     )]
     #[OA\Response(
         response: 200,
@@ -43,13 +46,13 @@ class ProductController extends AbstractController
         )
     )]
     #[OA\Response(
-        response: 404,
+        response: 500,
         description: "Not Found",
         content: new OA\JsonContent(
             type: "object",
             properties: [
-                new OA\Property(property: "code", example: 404),
-                new OA\Property(property: "message", example: "No Products was found")
+                new OA\Property(property: "code", example: 500),
+                new OA\Property(property: "message", example: "Internal Server Error")
             ]
         )
     )]
@@ -59,17 +62,20 @@ class ProductController extends AbstractController
 
         // Return status code 404 if $product is empty
         if ($products === null) {
-            return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
+            return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_NOT_FOUND);
         }
 
         // Return all Product
         return $this->json($products, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
     }
 
+    /**
+     * Read a Product
+     */
     #[Route('/{id<\d+>}', name: 'app_product_read', methods: ['GET'])]
     #[OA\Get(
-        summary: "Retrieve a Product resource",
-        description: "Retrieve a Product resource",
+        summary: "Read a Product",
+        description: "Reading a Product object",
     )]
     #[OA\Response(
         response: 200,
@@ -109,10 +115,13 @@ class ProductController extends AbstractController
         return $this->json($product, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
     }
 
+    /**
+     * Edit a Product
+     */
     #[Route('/edit/{id<\d+>}', name: 'app_product_edit', methods: ['PATCH'])]
     #[OA\Patch(
-        summary: "Upload a Product resource",
-        description: "Upload a Product resource",
+        summary: "Edit a Product",
+        description: "Edit a Product identified by ID",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
@@ -189,10 +198,13 @@ class ProductController extends AbstractController
         return $this->json($product, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Product:item"]]);
     }
 
+    /**
+     * Add a Product
+     */
     #[Route('/add', name: 'app_product_add', methods: ['POST'])]
     #[OA\Post(
-        summary: "Create a Product resource",
-        description: "Create a Product resource",
+        summary: "Add a Product",
+        description: "Adding a new Product object",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
@@ -269,10 +281,13 @@ class ProductController extends AbstractController
         return $this->json($product, Response::HTTP_CREATED, [], ["groups" => ["read:Product:item"]]);
     }
 
+    /**
+     * Delete a Product
+     */
     #[Route('/delete/{id<\d+>}', name: 'app_product_delete', methods: ['DELETE'])]
     #[OA\Delete(
-        summary: "Remove a Product resource",
-        description: "Remove a Product resource",
+        summary: "Delete a Product",
+        description: "Deleting a Product object",
     )]
     #[OA\Response(
         response: 204,

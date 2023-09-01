@@ -85,7 +85,7 @@ class LikeController extends AbstractController
     #[Route('/add', name: 'app_like_add', methods: 'GET')]
     #[OA\Post(
         summary: "Add a Like",
-        description: "Add a new Like object with two parameters to the query",
+        description: "Adding a new Like object with two parameters to the query",
     )]
     #[OA\Parameter(
         name: "product",
