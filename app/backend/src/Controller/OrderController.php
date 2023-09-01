@@ -16,11 +16,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api/order')]
 class OrderController extends AbstractController
 {
-    // List the collection of Orders
+    /**
+     * Browse all Orders
+     */
     #[Route('/', name: 'app_order_browse', methods: 'GET')]
     #[OA\Get(
-        summary: "Retrieve the collection of Order resources",
-        description: "Retrieve the collection of Order",
+        summary: "Browse all Orders",
+        description: "Receive all objects in the category or all orders from the user identified by the user ID",
     )]
     #[OA\Parameter(
         name: "user",
@@ -29,7 +31,7 @@ class OrderController extends AbstractController
     )]
     #[OA\Response(
         response: 200,
-        description: "Success without parameter",
+        description: "Success - OK",
         content: new OA\JsonContent(
             type: 'array',
             items: new OA\Items(ref: new Model(type: Order::class, groups: ['read:Order:item']))
