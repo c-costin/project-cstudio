@@ -49,16 +49,26 @@ class TypeController extends AbstractController
         )
     )]
     #[Security(name: null)]
-    public function browse(TypeRepository $typeRepository): JsonResponse
+    public function browse(Request $request, TypeRepository $typeRepository): JsonResponse
     {
-        $types = $typeRepository?->findAll();
-
-        // Return status code 500 if $types is empty
-        if ($types === null) {
-            return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_NOT_FOUND);
+        // Parameters into query
+        if ($request->query->all() !== []) {
+    
+            // Parameter "name"
+            if (array_key_exists('name', $request->query->all())) {
+    
+                // Find all Type by name
+                $result = $typeRepository->findTypeByName($request->query->all()['name']);
+    
+                if ($result !== []) {
+                    return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Type:item"]]);
+                } else {
+                    return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND);
+                }
+            }
         }
-
-        return $this->json($types, Response::HTTP_OK, [], ["groups" => ["read:Type:item"]]);
+    
+        return $this->json($typeRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Type:item"]]);
     }
 
     /**

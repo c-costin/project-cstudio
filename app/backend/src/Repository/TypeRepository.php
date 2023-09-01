@@ -39,13 +39,13 @@ class TypeRepository extends ServiceEntityRepository
         }
     }
 
-    // Find Type by Product ID
+    // Find Type by name
 
-    public function findTypesByProductId(int $id): ?array
+    public function findTypeByName(string $keyword): ?array
     {
         return $this->createQueryBuilder('t')
-            ->where("t.product = :id")
-            ->setParameter('id', $id)
+            ->where("t.name LIKE :keyword")
+            ->setParameter('keyword', "%{$keyword}%")
             ->getQuery()
             ->getResult();
     }

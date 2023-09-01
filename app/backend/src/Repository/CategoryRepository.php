@@ -39,6 +39,8 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
+    // Find Category by name
+
     public function findCategoryByName(string $keyword): ?array
     {
         return $this->createQueryBuilder('c')
