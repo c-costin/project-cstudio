@@ -15,6 +15,7 @@ composer require symfony/security-bundle
 composer require symfony/rate-limiter
 composer require symfony/validator
 composer require symfony/serializer
+composer require symfony/serializer-pack
 composer require lexik/jwt-authentication-bundle
 composer require twig
 composer require asset
