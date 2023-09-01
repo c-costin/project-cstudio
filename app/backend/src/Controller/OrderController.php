@@ -3,13 +3,16 @@
 namespace App\Controller;
 
 use App\Entity\Order;
+use OpenApi\Attributes as OA;
 use App\Repository\OrderRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use OpenApi\Attributes as OA;
+use App\Models\ErrorValidationConstraints;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[OA\Tag('Order')]
@@ -93,5 +96,93 @@ class OrderController extends AbstractController
         // } else {
         //     return $this->json(["code" => 403, "message" => "Access Denied"], Response::HTTP_FORBIDDEN);
         // }
+    }
+
+    /**
+     * Add an Order
+     */
+    #[Route('/add', name: 'app_order_add', methods: ['POST'])]
+    #[OA\Post(
+        summary: "Add an Order",
+        description: "Adding a new Order object",
+        requestBody: new OA\RequestBody(
+            content: new OA\MediaType(
+                mediaType: "application/json",
+                schema: new OA\Schema(
+                    properties: [
+                        new OA\Property(property: "name", example: "OS01"),
+                    ]
+                )
+            )
+        )
+    )]
+    #[OA\Response(
+        response: 201,
+        description: "Success - Created",
+        content: new Model(type: Order::class, groups: ['read:Order:item'])
+    )]
+    #[OA\Response(
+        response: 400,
+        description: "Bad request",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 400),
+                new OA\Property(property: "message", example: "Invalid request")
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: 401,
+        description: "Unauthorized",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 401),
+                new OA\Property(property: "message", example: "Invalid credentials")
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: 403,
+        description: "Forbidden",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 403),
+                new OA\Property(property: "message", example: "Access Denied")
+            ]
+        )
+    )]
+    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, OrderRepository $orderRepository): JsonResponse
+    {
+        if ($this->isGranted('ROLE_ADMIN')) {
+
+            // Get Request Body
+            $json = $request->getContent();
+
+            // Return status code 400 if $json is empty
+            if ($json === "") {
+                return $this->json(["code" => 400, "message" => "Invalid JSON"], Response::HTTP_BAD_REQUEST);
+            }
+
+            // Deserialization with entity Order, insert field
+            $order = $serializerInterface->deserialize($json, Order::class, 'json');
+
+            $errors = $validatorInterface->validate($order);
+
+            if (count($errors) > 0) {
+                $errorValidationConstraints = new ErrorValidationConstraints($errors);
+                return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            // Save Order into database
+            $orderRepository->add($order, true);
+
+            // Return Order and status code 200
+            return $this->json($order, Response::HTTP_CREATED, [], ["groups" => ["read:Order:item"]]);
+        }
+
+        return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
     }
 }
