@@ -165,20 +165,25 @@ class ProductController extends AbstractController
             return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
         }
 
-        // Get Request Body
-        $json = $request->getContent();
+        if ($this->isGranted('ROLE_ADMIN')) {
 
-        // Deserialzation with entity Product and object Product in context, check and insert new modification
-        $serializerInterface->deserialize($json, Product::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $product]);
+            // Get Request Body
+            $json = $request->getContent();
 
-        // Set date to update at
-        $product->setUpdatedAt(new \DateTimeImmutable());
+            // Deserialzation with entity Product and object Product in context, check and insert new modification
+            $serializerInterface->deserialize($json, Product::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $product]);
 
-        // Save Product into database
-        $productRepository->add($product, true);
+            // Set date to update at
+            $product->setUpdatedAt(new \DateTimeImmutable());
 
-        // Return Product and status code 202
-        return $this->json($product, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Product:item"]]);
+            // Save Product into database
+            $productRepository->add($product, true);
+
+            // Return Product and status code 202
+            return $this->json($product, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Product:item"]]);
+        }
+
+        return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -246,29 +251,34 @@ class ProductController extends AbstractController
     )]
     public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, ProductRepository $productRepository): JsonResponse
     {
-        // Get Request Body
-        $json = $request->getContent();
+        if ($this->isGranted('ROLE_ADMIN')) {
 
-        // Return status code 400 if $json is empty
-        if ($json === "") {
-            return $this->json(["code" => 400, "message" => "Invalid JSON"], Response::HTTP_BAD_REQUEST);
+            // Get Request Body
+            $json = $request->getContent();
+
+            // Return status code 400 if $json is empty
+            if ($json === "") {
+                return $this->json(["code" => 400, "message" => "Invalid JSON"], Response::HTTP_BAD_REQUEST);
+            }
+
+            // Deserialization with entity Product, insert field
+            $product = $serializerInterface->deserialize($json, Product::class, 'json');
+
+            $errors = $validatorInterface->validate($product);
+
+            if (count($errors) > 0) {
+                $errorValidationConstraints = new ErrorValidationConstraints($errors);
+                return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            // Save Product into database
+            $productRepository->add($product, true);
+
+            // Return Product and status code 201
+            return $this->json($product, Response::HTTP_CREATED, [], ["groups" => ["read:Product:item"]]);
         }
 
-        // Deserialization with entity Product, insert field
-        $product = $serializerInterface->deserialize($json, Product::class, 'json');
-
-        $errors = $validatorInterface->validate($product);
-
-        if (count($errors) > 0) {
-            $errorValidationConstraints = new ErrorValidationConstraints($errors);
-            return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        // Save Product into database
-        $productRepository->add($product, true);
-
-        // Return Product and status code 201
-        return $this->json($product, Response::HTTP_CREATED, [], ["groups" => ["read:Product:item"]]);
+        return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -323,10 +333,15 @@ class ProductController extends AbstractController
             return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
         }
 
-        // Remove Product into database
-        $productRepository->remove($product, true); //? Check method remove
+        if ($this->isGranted('ROLE_ADMIN')) {
 
-        // Return status code 204
-        return $this->json(null, Response::HTTP_NO_CONTENT);
+            // Remove Product into database
+            $productRepository->remove($product, true); //? Check method remove
+
+            // Return status code 204
+            return $this->json(null, Response::HTTP_NO_CONTENT);
+        }
+
+        return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
     }
 }

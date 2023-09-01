@@ -54,7 +54,9 @@ class CategoryController extends AbstractController
         $categories = $categoryRepository?->findAll();
 
         // Return status code 500 if $categories is empty
-        if ($categories === null) { return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_INTERNAL_SERVER_ERROR);}
+        if ($categories === null) {
+            return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
 
         return $this->json($categoryRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
     }
@@ -97,7 +99,9 @@ class CategoryController extends AbstractController
     public function read(Category $category = null): JsonResponse
     {
         // Return status code 404 if $category is empty
-        if ($category === null) { return $this->json(["code" => 404, "message" => "No Category was found"], Response::HTTP_NOT_FOUND);}
+        if ($category === null) {
+            return $this->json(["code" => 404, "message" => "No Category was found"], Response::HTTP_NOT_FOUND);
+        }
 
         // Return Category and status code 200
         return $this->json($category, Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
@@ -161,21 +165,28 @@ class CategoryController extends AbstractController
     )]
     public function edit(Category $category = null, Request $request, SerializerInterface $serializerInterface, CategoryRepository $categoryRepository): JsonResponse
     {
-        if ($category === null) { return $this->json(["code" => 404, "message" => "No Category was found"], Response::HTTP_NOT_FOUND);}
+        if ($category === null) {
+            return $this->json(["code" => 404, "message" => "No Category was found"], Response::HTTP_NOT_FOUND);
+        }
 
-        // Get Request Body
-        $json = $request->getContent();
+        if ($this->isGranted('ROLE_ADMIN')) {
 
-        // Deserialzation with entity Category and object Category in context, check and insert new modification
-        $serializerInterface->deserialize($json, Category::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $category]);
+            // Get Request Body
+            $json = $request->getContent();
 
-        $category->setUpdatedAt(new \DateTimeImmutable());
+            // Deserialzation with entity Category and object Category in context, check and insert new modification
+            $serializerInterface->deserialize($json, Category::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $category]);
 
-        // Save Category into database
-        $categoryRepository->add($category, true);
+            $category->setUpdatedAt(new \DateTimeImmutable());
 
-        // Return Category and status code 202
-        return $this->json($category, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Category:item"]]);
+            // Save Category into database
+            $categoryRepository->add($category, true);
+
+            // Return Category and status code 202
+            return $this->json($category, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Category:item"]]);
+        }
+
+        return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -236,27 +247,34 @@ class CategoryController extends AbstractController
     )]
     public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, CategoryRepository $categoryRepository): JsonResponse
     {
-        // Get Request Body
-        $json = $request->getContent();
+        if ($this->isGranted('ROLE_ADMIN')) {
 
-        // Return status code 400 if $json is empty
-        if ($json === "") { return $this->json(["code" => 400, "message" => "Invalid JSON"], Response::HTTP_BAD_REQUEST);}
+            // Get Request Body
+            $json = $request->getContent();
 
-        // Deserialization with entity Product, insert field
-        $category = $serializerInterface->deserialize($json, Category::class, 'json');
+            // Return status code 400 if $json is empty
+            if ($json === "") {
+                return $this->json(["code" => 400, "message" => "Invalid JSON"], Response::HTTP_BAD_REQUEST);
+            }
 
-        $errors = $validatorInterface->validate($category);
+            // Deserialization with entity Product, insert field
+            $category = $serializerInterface->deserialize($json, Category::class, 'json');
 
-        if (count($errors) > 0) {
-            $errorValidationConstraints = new ErrorValidationConstraints($errors);
-            return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            $errors = $validatorInterface->validate($category);
+
+            if (count($errors) > 0) {
+                $errorValidationConstraints = new ErrorValidationConstraints($errors);
+                return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            // Save Category into database
+            $categoryRepository->add($category, true);
+
+            // Return Category and status code 200
+            return $this->json($category, Response::HTTP_CREATED, [], ["groups" => ["read:Category:item"]]);
         }
 
-        // Save Category into database
-        $categoryRepository->add($category, true);
-
-        // Return Category and status code 200
-        return $this->json($category, Response::HTTP_CREATED, [], ["groups" => ["read:Category:item"]]);
+        return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -307,12 +325,19 @@ class CategoryController extends AbstractController
     public function delete(Category $category = null, CategoryRepository $categoryRepository): JsonResponse
     {
         // Return status code 404 if $category is empty
-        if ($category === null) { return $this->json(["code" => 404, "message" => "No Category was found"], Response::HTTP_NOT_FOUND);}
+        if ($category === null) {
+            return $this->json(["code" => 404, "message" => "No Category was found"], Response::HTTP_NOT_FOUND);
+        }
 
-        // Remove Order into database
-        $categoryRepository->remove($category, true);
+        if ($this->isGranted('ROLE_ADMIN')) {
 
-        // Return status code 204
-        return $this->json(null, Response::HTTP_NO_CONTENT);
+            // Remove Order into database
+            $categoryRepository->remove($category, true);
+
+            // Return status code 204
+            return $this->json(null, Response::HTTP_NO_CONTENT);
+        }
+
+        return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
     }
 }
