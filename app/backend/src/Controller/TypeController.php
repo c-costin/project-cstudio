@@ -54,7 +54,9 @@ class TypeController extends AbstractController
         $types = $typeRepository?->findAll();
 
         // Return status code 500 if $types is empty
-        if ($types === null) { return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_NOT_FOUND); }
+        if ($types === null) {
+            return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_NOT_FOUND);
+        }
 
         return $this->json($types, Response::HTTP_OK, [], ["groups" => ["read:Type:item"]]);
     }
@@ -97,7 +99,9 @@ class TypeController extends AbstractController
     public function read(Type $type = null): JsonResponse
     {
         // Return status code 404 if $Type is empty
-        if ($type === null) { return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND); }
+        if ($type === null) {
+            return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND);
+        }
 
         // Return Type and status code 200
         return $this->json($type, Response::HTTP_OK, [], ["groups" => ["read:Type:item"]]);
@@ -161,21 +165,28 @@ class TypeController extends AbstractController
     )]
     public function edit(Type $type = null, Request $request, SerializerInterface $serializerInterface, TypeRepository $TypeRepository): JsonResponse
     {
-        if ($type === null) { return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND); }
+        if ($type === null) {
+            return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND);
+        }
 
-        // Get Request Body
-        $json = $request->getContent();
+        if ($this->isGranted('ROLE_ADMIN')) {
 
-        // Deserialzation with entity Type and object Type in context, check and insert new modification
-        $serializerInterface->deserialize($json, Type::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $type]);
+            // Get Request Body
+            $json = $request->getContent();
 
-        $type->setUpdatedAt(new \DateTimeImmutable());
+            // Deserialzation with entity Type and object Type in context, check and insert new modification
+            $serializerInterface->deserialize($json, Type::class, 'json', [AbstractNormalizer::OBJECT_TO_POPULATE => $type]);
 
-        // Save Type into database
-        $TypeRepository->add($type, true);
+            $type->setUpdatedAt(new \DateTimeImmutable());
 
-        // Return Type and status code 202
-        return $this->json($type, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Type:item"]]);
+            // Save Type into database
+            $TypeRepository->add($type, true);
+
+            // Return Type and status code 202
+            return $this->json($type, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Type:item"]]);
+        }
+
+        return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -236,29 +247,34 @@ class TypeController extends AbstractController
     )]
     public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, TypeRepository $typeRepository): JsonResponse
     {
-        // Get Request Body
-        $json = $request->getContent();
+        if ($this->isGranted('ROLE_ADMIN')) {
 
-        // Return status code 400 if $json is empty
-        if ($json === "") {
-            return $this->json(["code" => 400, "message" => "Invalid JSON"], Response::HTTP_BAD_REQUEST);
+            // Get Request Body
+            $json = $request->getContent();
+
+            // Return status code 400 if $json is empty
+            if ($json === "") {
+                return $this->json(["code" => 400, "message" => "Invalid JSON"], Response::HTTP_BAD_REQUEST);
+            }
+
+            // Deserialization with entity Product, insert field
+            $type = $serializerInterface->deserialize($json, Type::class, 'json');
+
+            $errors = $validatorInterface->validate($type);
+
+            if (count($errors) > 0) {
+                $errorValidationConstraints = new ErrorValidationConstraints($errors);
+                return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            }
+
+            // Save Type into database
+            $typeRepository->add($type, true);
+
+            // Return Type and status code 200
+            return $this->json($type, Response::HTTP_CREATED, [], ["groups" => ["read:Type:item"]]);
         }
 
-        // Deserialization with entity Product, insert field
-        $type = $serializerInterface->deserialize($json, Type::class, 'json');
-
-        $errors = $validatorInterface->validate($type);
-
-        if (count($errors) > 0) {
-            $errorValidationConstraints = new ErrorValidationConstraints($errors);
-            return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
-        }
-
-        // Save Type into database
-        $typeRepository->add($type, true);
-
-        // Return Type and status code 200
-        return $this->json($type, Response::HTTP_CREATED, [], ["groups" => ["read:Type:item"]]);
+        return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
     }
 
     /**
@@ -309,12 +325,19 @@ class TypeController extends AbstractController
     public function delete(Type $type = null, TypeRepository $typeRepository): JsonResponse
     {
         // Return status code 404 if $Type is empty
-        if ($type === null) { return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND); }
+        if ($type === null) {
+            return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND);
+        }
 
-        // Remove Order into database
-        $typeRepository->remove($type, true);
+        if ($this->isGranted('ROLE_ADMIN')) {
 
-        // Return status code 204
-        return $this->json(null, Response::HTTP_NO_CONTENT);
+            // Remove Order into database
+            $typeRepository->remove($type, true);
+
+            // Return status code 204
+            return $this->json(null, Response::HTTP_NO_CONTENT);
+        }
+
+        return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
     }
 }
