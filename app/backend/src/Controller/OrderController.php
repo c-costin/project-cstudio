@@ -75,27 +75,32 @@ class OrderController extends AbstractController
     )]
     public function browse(Request $request, OrderRepository $orderRepository): JsonResponse
     {
-        // Parameters into query
-        if ($request->query->all() !== []) {
+        if ($this->isGranted('ROLE_ADMIN')) {
+            // Parameters into query
+            if ($request->query->all() !== []) {
 
-            // Parameter "user"
-            if (array_key_exists('user', $request->query->all())) {
+                // Parameter "user"
+                if (array_key_exists('user', $request->query->all())) {
 
-                // Find all Orders by User ID
-                $result = $orderRepository->findOrdersByUserId($request->query->all()['user']);
+                    // Find all Orders by User ID
+                    $result = $orderRepository->findOrdersByUserId($request->query->all()['user']);
 
-                return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Order:item"]]);
-            } else {
-                return $this->json(["code" => 404, "message" => "No Order was found"], Response::HTTP_NOT_FOUND);
+                    return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Order:item"]]);
+                } else {
+                    return $this->json(["code" => 404, "message" => "No Order was found"], Response::HTTP_NOT_FOUND);
+                }
             }
+
+        }
+        
+        $orders = $orderRepository?->findAll();
+
+        // Return status code 500 if $categories is empty
+        if ($orders === null) {
+            return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_INTERNAL_SERVER_ERROR);
         }
 
-        // Check permission for browse all Orders
-        // if ($this->isGranted("ROLE_ADMIN")) {
-            return $this->json($orderRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Order:item"]]);
-        // } else {
-        //     return $this->json(["code" => 403, "message" => "Access Denied"], Response::HTTP_FORBIDDEN);
-        // }
+        return $this->json($orderRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Order:item"]]);
     }
 
     /**

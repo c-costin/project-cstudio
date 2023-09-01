@@ -94,6 +94,13 @@ class ProductController extends AbstractController
             }
         }
 
+        $products = $productRepository?->findAll();
+
+        // Return status code 500 if $products is empty
+        if ($products === null) {
+            return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
         return $this->json($productRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
     }
 

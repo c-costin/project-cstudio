@@ -68,6 +68,13 @@ class CategoryController extends AbstractController
         }
     }
 
+    $categories = $categoryRepository?->findAll();
+
+    // Return status code 500 if $categories is empty
+    if ($categories === null) {
+        return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_INTERNAL_SERVER_ERROR);
+    }
+
     return $this->json($categoryRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
 }
 

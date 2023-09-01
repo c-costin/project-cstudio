@@ -67,6 +67,13 @@ class TypeController extends AbstractController
                 }
             }
         }
+
+        $types = $typeRepository?->findAll();
+
+        // Return status code 500 if $types is empty
+        if ($types === null) {
+            return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
     
         return $this->json($typeRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Type:item"]]);
     }
