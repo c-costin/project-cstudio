@@ -39,11 +39,11 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
-    public function findCategoriesByProductId(int $id): ?array
+    public function findCategoryByName(string $keyword): ?array
     {
         return $this->createQueryBuilder('c')
-            ->where("c.product = :id")
-            ->setParameter('id', $id)
+            ->where("c.name LIKE :keyword")
+            ->setParameter('keyword', "%{$keyword}%")
             ->getQuery()
             ->getResult();
     } 

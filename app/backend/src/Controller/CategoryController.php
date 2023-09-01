@@ -49,17 +49,27 @@ class CategoryController extends AbstractController
         )
     )]
     #[Security(name: null)]
-    public function browse(CategoryRepository $categoryRepository): JsonResponse
+    public function browse(Request $request, CategoryRepository $categoryRepository): JsonResponse
     {
-        $categories = $categoryRepository?->findAll();
+    // Parameters into query
+    if ($request->query->all() !== []) {
 
-        // Return status code 500 if $categories is empty
-        if ($categories === null) {
-            return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_INTERNAL_SERVER_ERROR);
+        // Parameter "name"
+        if (array_key_exists('name', $request->query->all())) {
+
+            // Find all Category by name
+            $result = $categoryRepository->findCategoryByName($request->query->all()['name']);
+
+            if ($result !== []) {
+                return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
+            } else {
+                return $this->json(["code" => 404, "message" => "No Category was found"], Response::HTTP_NOT_FOUND);
+            }
         }
-
-        return $this->json($categoryRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
     }
+
+    return $this->json($categoryRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
+}
 
     /**
      * Read a Category
