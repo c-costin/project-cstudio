@@ -116,7 +116,7 @@ class CategoryController extends AbstractController
     #[Route('/edit/{id<\d+>}', name: 'app_category_edit', methods: ['PATCH'])]
     #[OA\Patch(
         summary: "Edit a Category",
-        description: "Edit a Category identified by ID",
+        description: "Editing a Category identified by ID",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",

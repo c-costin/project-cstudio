@@ -18,11 +18,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api/type')]
 class TypeController extends AbstractController
 {
-    // List all the Types
+    /**
+     * Browse all Types
+     */
     #[Route('/', name: 'app_type_browse', methods: 'GET')]
     #[OA\Get(
-        summary: "Retrieve the collection of Type resources",
-        description: "Retrieve the collection of Type",
+        summary: "Browse all Types",
+        description: "Browse all objects Type",
     )]
     #[OA\Response(
         response: 200,
@@ -44,26 +46,33 @@ class TypeController extends AbstractController
         )
     )]
     #[OA\Response(
-        response: 404,
-        description: "Not Found",
+        response: 500,
+        description: "Internal Server Error",
         content: new OA\JsonContent(
             type: "object",
             properties: [
-                new OA\Property(property: "code", example: 404),
-                new OA\Property(property: "message", example: "No Products was found")
+                new OA\Property(property: "code", example: 500),
+                new OA\Property(property: "message", example: "Internal Server Error")
             ]
         )
     )]
     public function browse(TypeRepository $typeRepository): JsonResponse
     {
-        return $this->json($typeRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Type:item"]]);
+        $types = $typeRepository?->findAll();
+
+        // Return status code 500 if $types is empty
+        if ($types === null) { return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_NOT_FOUND); }
+
+        return $this->json($types, Response::HTTP_OK, [], ["groups" => ["read:Type:item"]]);
     }
 
-    // Show a Type
+    /**
+     * Read a Type
+     */
     #[Route('/{id<\d+>}', name: 'app_type_read', methods: ['GET'])]
     #[OA\Get(
-        summary: "Retrieve a Type resource",
-        description: "Retrieve a Type resource",
+        summary: "Read a Type",
+        description: "Reading a Type object",
     )]
     #[OA\Response(
         response: 200,
@@ -95,19 +104,19 @@ class TypeController extends AbstractController
     public function read(Type $type = null): JsonResponse
     {
         // Return status code 404 if $Type is empty
-        if ($type === null) {
-            return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND);
-        }
+        if ($type === null) { return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND); }
 
         // Return Type and status code 200
         return $this->json($type, Response::HTTP_OK, [], ["groups" => ["read:Type:item"]]);
     }
 
-    // Update a Type
+    /**
+     * Edit a Type
+     */
     #[Route('/edit/{id<\d+>}', name: 'app_type_edit', methods: ['PATCH'])]
     #[OA\Patch(
-        summary: "Update a Type resource",
-        description: "Update a Type resource",
+        summary: "Edit a Type",
+        description: "Editing a Type identified by ID",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
@@ -159,9 +168,7 @@ class TypeController extends AbstractController
     )]
     public function edit(Type $type = null, Request $request, SerializerInterface $serializerInterface, TypeRepository $TypeRepository): JsonResponse
     {
-        if ($type === null) {
-            return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND);
-        }
+        if ($type === null) { return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND); }
 
         // Get Request Body
         $json = $request->getContent();
@@ -178,11 +185,13 @@ class TypeController extends AbstractController
         return $this->json($type, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Type:item"]]);
     }
 
-    // Create a Type
+    /**
+     * Add a Type
+     */
     #[Route('/add', name: 'app_type_add', methods: ['POST'])]
     #[OA\Post(
-        summary: "Create a Product resource",
-        description: "Create a Product resource",
+        summary: "Add a Type",
+        description: "Adding a new Type object",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
@@ -252,11 +261,13 @@ class TypeController extends AbstractController
         return $this->json($type, Response::HTTP_CREATED, [], ["groups" => ["read:Type:item"]]);
     }
 
-    // Remove a Type
+    /**
+     * Delete a Type
+     */
     #[Route('/delete/{id<\d+>}', name: 'app_type_delete', methods: ['DELETE'])]
     #[OA\Delete(
-        summary: "Remove a Type resource",
-        description: "Remove a Type resource",
+        summary: "Delete a Type",
+        description: "Deleting a Type object",
     )]
     #[OA\Response(
         response: 204,
@@ -298,9 +309,7 @@ class TypeController extends AbstractController
     public function delete(Type $type = null, TypeRepository $typeRepository): JsonResponse
     {
         // Return status code 404 if $Type is empty
-        if ($type === null) {
-            return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND);
-        }
+        if ($type === null) { return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND); }
 
         // Remove Order into database
         $typeRepository->remove($type, true);

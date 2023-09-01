@@ -47,7 +47,7 @@ class ProductController extends AbstractController
     )]
     #[OA\Response(
         response: 500,
-        description: "Not Found",
+        description: "Internal Server Error",
         content: new OA\JsonContent(
             type: "object",
             properties: [
@@ -121,7 +121,7 @@ class ProductController extends AbstractController
     #[Route('/edit/{id<\d+>}', name: 'app_product_edit', methods: ['PATCH'])]
     #[OA\Patch(
         summary: "Edit a Product",
-        description: "Edit a Product identified by ID",
+        description: "Editing a Product identified by ID",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",

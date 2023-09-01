@@ -50,7 +50,7 @@ class LikeController extends AbstractController
     )]
     #[OA\Response(
         response: 500,
-        description: "Not Found",
+        description: "Internal Server Error",
         content: new OA\JsonContent(
             type: "object",
             properties: [
