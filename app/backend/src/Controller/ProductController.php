@@ -49,17 +49,52 @@ class ProductController extends AbstractController
         )
     )]
     #[Security(name: null)]
-    public function browse(ProductRepository $productRepository): JsonResponse
+    public function browse(Request $request, ProductRepository $productRepository): JsonResponse
     {
-        $products = $productRepository?->findAll();
+        // Parameters into query
+        if ($request->query->all() !== []) {
 
-        // Return status code 404 if $product is empty
-        if ($products === null) {
-            return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_NOT_FOUND);
+            // Parameter "name"
+            if (array_key_exists('name', $request->query->all())) {
+
+                // Find all Product by name
+                $result = $productRepository->findProductByName($request->query->all()['name']);
+
+                if ($result !== []) {
+                    return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
+                } else {
+                    return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
+                }
+            }
+
+            // Parameter "type"
+            if (array_key_exists('type', $request->query->all())) {
+
+                // Find all Product by type
+                $result = $productRepository->findProductByType($request->query->all()['type']);
+
+                if ($result !== []) {
+                    return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
+                } else {
+                    return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
+                }
+            }
+
+            // Parameter "category"
+            if (array_key_exists('category', $request->query->all())) {
+
+                // Find all Product by category
+                $result = $productRepository->findProductByCategory($request->query->all()['category']);
+
+                if ($result !== []) {
+                    return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
+                } else {
+                    return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
+                }
+            }
         }
 
-        // Return all Product
-        return $this->json($products, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
+        return $this->json($productRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
     }
 
     /**
