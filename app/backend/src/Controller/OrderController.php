@@ -4,17 +4,72 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Repository\OrderRepository;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use OpenApi\Attributes as OA;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+#[OA\Tag('Order')]
 #[Route('/api/order')]
 class OrderController extends AbstractController
 {
-    // List the collection of Orders
+    /**
+     * Browse all Orders
+     */
     #[Route('/', name: 'app_order_browse', methods: 'GET')]
+    #[OA\Get(
+        summary: "Browse all Orders",
+        description: "Receive all objects in the category or all orders from the user identified by the user ID",
+    )]
+    #[OA\Parameter(
+        name: "user",
+        description: "User ID",
+        in: "query"
+    )]
+    #[OA\Response(
+        response: 200,
+        description: "Success - OK",
+        content: new OA\JsonContent(
+            type: 'array',
+            items: new OA\Items(ref: new Model(type: Order::class, groups: ['read:Order:item']))
+        ),
+    )]
+    #[OA\Response(
+        response: 401,
+        description: "Unauthorized",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 401),
+                new OA\Property(property: "message", example: "Invalid credentials")
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: 403,
+        description: "Forbidden",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 403),
+                new OA\Property(property: "message", example: "Access Denied")
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: 404,
+        description: "Not Found",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 404),
+                new OA\Property(property: "message", example: "No Order was found")
+            ]
+        )
+    )]
     public function browse(Request $request, OrderRepository $orderRepository): JsonResponse
     {
         // Parameters into query

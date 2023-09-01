@@ -22,10 +22,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column(length: 180, unique: true)]
     #[Assert\NotBlank]
-    #[Assert\Email(
-        message: "L'email '{{ value }}' n'est pas un e-mail valide.",
-        mode: "strict"
-    )]
+    // #[Assert\Email(
+    //     message: "L'email '{{ value }}' n'est pas un e-mail valide.",
+    //     mode: "strict"
+    // )]
      #[Groups('read:User:item')]
     private ?string $email = null;
 
@@ -112,14 +112,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        // $roles[] = 'ROLE_USER';
 
         return array_unique($roles);
     }
 
-    public function setRoles(array $roles): static
+    public function setRoles(string $roles): static
     {
-        $this->roles = $roles;
+        $this->roles[] = $roles;
 
         return $this;
     }
