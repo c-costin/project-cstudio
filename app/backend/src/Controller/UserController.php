@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Models\ErrorValidationConstraints;
 use App\Repository\UserRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA\Tag('User')]
 #[Route('/api/user')]
@@ -184,7 +186,7 @@ class UserController extends AbstractController
         )
     )]
     #[Security(name: null)]
-    public function add(Request $request, SerializerInterface $serializerInterface, UserRepository $userRepository): JsonResponse
+    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, UserRepository $userRepository): JsonResponse
     {
         // Get Request Body
         $json = $request->getContent();
@@ -194,6 +196,13 @@ class UserController extends AbstractController
 
         // Deserialization with entity user, insert field
         $user = $serializerInterface->deserialize($json, User::class, 'json');
+
+        $errors = $validatorInterface->validate($user);
+
+        if (count($errors) > 0) {
+            $errorValidationConstraints = new ErrorValidationConstraints($errors);
+            return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         // Save user into database
         $userRepository->add($user, true);

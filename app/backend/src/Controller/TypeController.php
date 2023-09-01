@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Type;
+use App\Models\ErrorValidationConstraints;
 use App\Repository\TypeRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA\Tag('Type')]
 #[Route('/api/type')]
@@ -232,7 +234,7 @@ class TypeController extends AbstractController
             ]
         )
     )]
-    public function add(Request $request, SerializerInterface $serializerInterface, TypeRepository $typeRepository): JsonResponse
+    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, TypeRepository $typeRepository): JsonResponse
     {
         // Get Request Body
         $json = $request->getContent();
@@ -244,6 +246,13 @@ class TypeController extends AbstractController
 
         // Deserialization with entity Product, insert field
         $type = $serializerInterface->deserialize($json, Type::class, 'json');
+
+        $errors = $validatorInterface->validate($type);
+
+        if (count($errors) > 0) {
+            $errorValidationConstraints = new ErrorValidationConstraints($errors);
+            return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         // Save Type into database
         $typeRepository->add($type, true);

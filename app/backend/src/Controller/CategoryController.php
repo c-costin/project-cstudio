@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Models\ErrorValidationConstraints;
 use App\Repository\CategoryRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA\Tag('Category')]
 #[Route('/api/category')]
@@ -232,7 +234,7 @@ class CategoryController extends AbstractController
             ]
         )
     )]
-    public function add(Request $request, SerializerInterface $serializerInterface, CategoryRepository $categoryRepository): JsonResponse
+    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, CategoryRepository $categoryRepository): JsonResponse
     {
         // Get Request Body
         $json = $request->getContent();
@@ -242,6 +244,13 @@ class CategoryController extends AbstractController
 
         // Deserialization with entity Product, insert field
         $category = $serializerInterface->deserialize($json, Category::class, 'json');
+
+        $errors = $validatorInterface->validate($category);
+
+        if (count($errors) > 0) {
+            $errorValidationConstraints = new ErrorValidationConstraints($errors);
+            return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         // Save Category into database
         $categoryRepository->add($category, true);

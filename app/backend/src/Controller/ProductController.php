@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Models\ErrorValidationConstraints;
 use App\Repository\ProductRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
@@ -14,6 +15,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA\Tag('Product')]
 #[Route('/api/product')]
@@ -242,7 +244,7 @@ class ProductController extends AbstractController
             ]
         )
     )]
-    public function add(Request $request, SerializerInterface $serializerInterface, ProductRepository $productRepository): JsonResponse
+    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, ProductRepository $productRepository): JsonResponse
     {
         // Get Request Body
         $json = $request->getContent();
@@ -254,6 +256,13 @@ class ProductController extends AbstractController
 
         // Deserialization with entity Product, insert field
         $product = $serializerInterface->deserialize($json, Product::class, 'json');
+
+        $errors = $validatorInterface->validate($product);
+
+        if (count($errors) > 0) {
+            $errorValidationConstraints = new ErrorValidationConstraints($errors);
+            return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+        }
 
         // Save Product into database
         $productRepository->add($product, true);
