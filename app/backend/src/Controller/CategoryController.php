@@ -18,15 +18,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 #[Route('/api/category')]
 class CategoryController extends AbstractController
 {
-    // List all the Categories
+    /**
+     * Browse all Categories
+     */
     #[Route('/', name: 'app_category_browse', methods: 'GET')]
     #[OA\Get(
-        summary: "Retrieve the collection of Category resources",
-        description: "Retrieve the collection of Category",
+        summary: "Browse all Categories",
+        description: "Receive all Category objects",
     )]
     #[OA\Response(
         response: 200,
-        description: "Success",
+        description: "Success - OK",
         content: new OA\JsonContent(
             type: 'array',
             items: new OA\Items(ref: new Model(type: Category::class, groups: ['read:Category:item']))
@@ -44,30 +46,37 @@ class CategoryController extends AbstractController
         )
     )]
     #[OA\Response(
-        response: 404,
-        description: "Not Found",
+        response: 500,
+        description: "Internal Server Error",
         content: new OA\JsonContent(
             type: "object",
             properties: [
-                new OA\Property(property: "code", example: 404),
-                new OA\Property(property: "message", example: "No Categories was found")
+                new OA\Property(property: "code", example: 500),
+                new OA\Property(property: "message", example: "Internal Server Error")
             ]
         )
     )]
     public function browse(CategoryRepository $categoryRepository): JsonResponse
     {
+        $categories = $categoryRepository?->findAll();
+
+        // Return status code 500 if $categories is empty
+        if ($categories === null) { return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_INTERNAL_SERVER_ERROR);}
+
         return $this->json($categoryRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
     }
 
-    // Show a Category
+    /**
+     * Read a Category
+     */
     #[Route('/{id<\d+>}', name: 'app_category_read', methods: ['GET'])]
     #[OA\Get(
-        summary: "Retrieve a Category resource",
-        description: "Retrieve a Category resource",
+        summary: "Read a Category",
+        description: "Read a Category object identified by ID",
     )]
     #[OA\Response(
         response: 200,
-        description: "Success",
+        description: "Success - OK",
         content: new Model(type: Category::class, groups: ['read:Category:item'])
     )]
     #[OA\Response(
@@ -101,11 +110,13 @@ class CategoryController extends AbstractController
         return $this->json($category, Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
     }
 
-    // Update a Category
+    /**
+     * Edit a Category
+     */
     #[Route('/edit/{id<\d+>}', name: 'app_category_edit', methods: ['PATCH'])]
     #[OA\Patch(
-        summary: "Update a Category resource",
-        description: "Update a Category resource",
+        summary: "Edit a Category",
+        description: "Edit a Category identified by ID",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
@@ -174,11 +185,13 @@ class CategoryController extends AbstractController
         return $this->json($category, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Category:item"]]);
     }
 
-    // Create a Category
+    /**
+     * Add a Category
+     */
     #[Route('/add', name: 'app_category_add', methods: ['POST'])]
     #[OA\Post(
-        summary: "Create a Category resource",
-        description: "Create a Category resource",
+        summary: "Add a Category",
+        description: "Adding new category object",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
@@ -246,11 +259,13 @@ class CategoryController extends AbstractController
         return $this->json($category, Response::HTTP_CREATED, [], ["groups" => ["read:Category:item"]]);
     }
 
-    // Remove a Category
+    /**
+     * Delete a Category
+     */
     #[Route('/delete/{id<\d+>}', name: 'app_category_delete', methods: ['DELETE'])]
     #[OA\Delete(
-        summary: "Remove a Category resource",
-        description: "Remove a Category resource",
+        summary: "Delete a Category",
+        description: "Deleting a Category object",
     )]
     #[OA\Response(
         response: 204,
