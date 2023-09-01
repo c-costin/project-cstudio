@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Product;
+use App\Service\LikeService;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use OpenApi\Attributes as OA;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -59,16 +60,16 @@ class LikeController extends AbstractController
             ]
         )
     )]
-    public function browse(Request $request,): JsonResponse
+    public function browse(Request $request, LikeService $likeService): JsonResponse
     {
         // Parameters into query
         if ($request->query->all() !== []) {
             if (array_key_exists("user", $request->query->all())) {
 
-                $result = []; //TODO Make find method into like service
+                $result = $likeService->findAll($request->query->all()["user"]);
 
                 if ($result !== []) {
-                    return $this->json($result, Response::HTTP_OK, []); //TODO Find solution for serialization
+                    return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
                 } else {
                     return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_NOT_FOUND);
                 }
@@ -82,7 +83,7 @@ class LikeController extends AbstractController
     /**
      * Add a Like
      */
-    #[Route('/add', name: 'app_like_add', methods: 'GET')]
+    #[Route('/add', name: 'app_like_add', methods: 'POST')]
     #[OA\Post(
         summary: "Add a Like",
         description: "Adding a new Like object with two parameters to the query",
@@ -136,18 +137,16 @@ class LikeController extends AbstractController
             ]
         )
     )]
-    public function add(Request $request): JsonResponse
+    public function add(Request $request, LikeService $likeService): JsonResponse
     {
         // Parameters into query
         if ($request->query->all() !== []) {
             if (array_key_exists("product", $request->query->all()) && array_key_exists("user", $request->query->all())) {
 
-                $result = []; //TODO Make find method into like service
+                $result = $likeService->add($request->query->all()["product"], $request->query->all()["user"]);
 
-                if ($result !== []) {
-                    return $this->json(null, Response::HTTP_NO_CONTENT, []); //TODO Find solution for serialization
-                } else {
-                    return $this->json(["code" => 404, "message" => "No Like was found"], Response::HTTP_NOT_FOUND);
+                if ($result) {
+                    return $this->json(null, Response::HTTP_NO_CONTENT, []);
                 }
             }
         }
@@ -159,10 +158,22 @@ class LikeController extends AbstractController
     /**
      * Delete a Like
      */
-    #[Route('/delete', name: 'app_like_delete', methods: 'GET')]
+    #[Route('/delete', name: 'app_like_delete', methods: 'DELETE')]
     #[OA\Delete(
         summary: "Delete a Like",
         description: "Deleting a Like object",
+    )]
+    #[OA\Parameter(
+        name: "product",
+        description: "Product ID",
+        in: "query",
+        required: true
+    )]
+    #[OA\Parameter(
+        name: "user",
+        description: "User ID",
+        in: "query",
+        required: true
     )]
     #[OA\Response(
         response: 204,
@@ -201,22 +212,16 @@ class LikeController extends AbstractController
             ]
         )
     )]
-    public function delete(Request $request): JsonResponse
+    public function delete(Request $request, LikeService $likeService): JsonResponse
     {
         // Parameters into query
         if ($request->query->all() !== []) {
             if (array_key_exists("product", $request->query->all()) && array_key_exists("user", $request->query->all())) {
 
-                $result = []; //TODO Make find method into like service
+                $result = $likeService->delete($request->query->all()["product"], $request->query->all()["user"]);
 
-                if ($result !== []) {
-
-                    // Remove Like into database
-                    // $addressRepository->remove($address, true); //TODO Make remove method into like service
-
-                    return $this->json(null, Response::HTTP_NO_CONTENT);
-                } else {
-                    return $this->json(["code" => 404, "message" => "No Like was found"], Response::HTTP_NOT_FOUND);
+                if ($result) {
+                    return $this->json(null, Response::HTTP_NO_CONTENT, []);
                 }
             }
         }
