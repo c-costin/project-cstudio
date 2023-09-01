@@ -15,10 +15,13 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/api/like')]
 class LikeController extends AbstractController
 {
+    /**
+     * Browse all Likes
+     */
     #[Route('/', name: 'app_like_browse', methods: 'GET')]
     #[OA\Get(
-        summary: "Retrieve the collection of Like resources",
-        description: "Retrieve the collection of Like",
+        summary: "Browse all Likes",
+        description: "Browse all user Likes with user ID ",
     )]
     #[OA\Parameter(
         name: "user",
@@ -46,13 +49,13 @@ class LikeController extends AbstractController
         )
     )]
     #[OA\Response(
-        response: 404,
+        response: 500,
         description: "Not Found",
         content: new OA\JsonContent(
             type: "object",
             properties: [
-                new OA\Property(property: "code", example: 404),
-                new OA\Property(property: "message", example: "No Likes was found")
+                new OA\Property(property: "code", example: 500),
+                new OA\Property(property: "message", example: "Internal Server Error")
             ]
         )
     )]
@@ -67,7 +70,7 @@ class LikeController extends AbstractController
                 if ($result !== []) {
                     return $this->json($result, Response::HTTP_OK, []); //TODO Find solution for serialization
                 } else {
-                    return $this->json(["code" => 404, "message" => "No Like was found"], Response::HTTP_NOT_FOUND);
+                    return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_NOT_FOUND);
                 }
             }
         }
@@ -76,10 +79,13 @@ class LikeController extends AbstractController
         return $this->json(["code" => 400, "message" => "Bad request"], Response::HTTP_NOT_FOUND);
     }
 
+    /**
+     * Add a Like
+     */
     #[Route('/add', name: 'app_like_add', methods: 'GET')]
     #[OA\Post(
-        summary: "Create a Like resource",
-        description: "Create a Like resource",
+        summary: "Add a Like",
+        description: "Add a new Like object with two parameters to the query",
     )]
     #[OA\Parameter(
         name: "product",
@@ -150,10 +156,13 @@ class LikeController extends AbstractController
         return $this->json(["code" => 400, "message" => "Bad request"], Response::HTTP_NOT_FOUND);
     }
 
+    /**
+     * Delete a Like
+     */
     #[Route('/delete', name: 'app_like_delete', methods: 'GET')]
     #[OA\Delete(
-        summary: "Remove a Product resource",
-        description: "Remove a Product resource",
+        summary: "Delete a Like",
+        description: "Deleting a Like object",
     )]
     #[OA\Response(
         response: 204,
