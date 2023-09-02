@@ -92,6 +92,19 @@ class ProductController extends AbstractController
                     return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
                 }
             }
+
+            // Parameter "home"
+            if (array_key_exists('home', $request->query->all())) {
+
+                // Find selected Product for home page
+                $result = $productRepository->findProductBySelection($request->query->all()['home']);
+
+                if ($result !== []) {
+                    return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
+                } else {
+                    return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
+                }
+            }
         }
 
         $products = $productRepository?->findAll();
