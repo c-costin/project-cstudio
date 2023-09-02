@@ -8,6 +8,7 @@ use App\Repository\OrderRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use App\Models\ErrorValidationConstraints;
 use App\Repository\UserRepository;
+use App\Service\OrderService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -172,7 +173,7 @@ class OrderController extends AbstractController
             ]
         )
     )]
-    public function add(Request $request, UserRepository $userRepository, ValidatorInterface $validatorInterface, OrderRepository $orderRepository): JsonResponse
+    public function add(Request $request, UserRepository $userRepository, OrderService $orderService, ValidatorInterface $validatorInterface, OrderRepository $orderRepository): JsonResponse
     {
         // Get Request Body
         $json = $request->getContent();
@@ -187,8 +188,6 @@ class OrderController extends AbstractController
         $isUser = $userRepository->find($order["user"]);
 
         if ($this->isGranted("user_add", $isUser)) {
-
-            var_dump("ok");
 
             // $errors = $validatorInterface->validate($order);
 
