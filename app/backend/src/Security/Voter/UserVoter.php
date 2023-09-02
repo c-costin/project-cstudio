@@ -9,7 +9,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class UserVoter extends Voter
 {
-   
+
     public const USER_READ = 'user_read';
     public const USER_EDIT = 'user_edit';
     public const USER_DELETE = 'user_delete';
@@ -46,7 +46,6 @@ class UserVoter extends Voter
             case self::USER_DELETE:
                 return $this->canDelete($subject, $user);
                 break;
-            
         }
         return false;
     }
