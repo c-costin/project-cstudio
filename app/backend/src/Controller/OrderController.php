@@ -7,6 +7,7 @@ use OpenApi\Attributes as OA;
 use App\Repository\OrderRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use App\Models\ErrorValidationConstraints;
+use App\Repository\UserRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,6 +15,10 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
+use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+
+use function PHPSTORM_META\type;
 
 #[OA\Tag('Order')]
 #[Route('/api/order')]
@@ -73,34 +78,42 @@ class OrderController extends AbstractController
             ]
         )
     )]
-    public function browse(Request $request, OrderRepository $orderRepository): JsonResponse
+    public function browse(Request $request, UserRepository $userRepository, OrderRepository $orderRepository): JsonResponse
     {
-        if ($this->isGranted('ROLE_ADMIN')) {
-            // Parameters into query
-            if ($request->query->all() !== []) {
+        // Parameters into query
+        if ($request->query->all() !== []) {
 
-                // Parameter "user"
-                if (array_key_exists('user', $request->query->all())) {
+            // Parameter "user"
+            if (array_key_exists('user', $request->query->all())) {
 
+                $isUser = $userRepository->find($request->query->all()['user']);
+
+                if ($this->isGranted("user_read", $isUser)) {
                     // Find all Orders by User ID
                     $result = $orderRepository->findOrdersByUserId($request->query->all()['user']);
 
-                    return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Order:item"]]);
-                } else {
+                    if ($result !== []) {
+                        return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Order:item"]]);
+                    }
+
                     return $this->json(["code" => 404, "message" => "No Order was found"], Response::HTTP_NOT_FOUND);
                 }
+
+                return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_NOT_FOUND);
+            }
+        }
+
+        if ($this->isGranted('ROLE_ADMIN')) {
+
+            $orders = $orderRepository?->findAll();
+
+            // Return status code 500 if $categories is empty
+            if ($orders === null) {
+                return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_INTERNAL_SERVER_ERROR);
             }
 
+            return $this->json($orderRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Order:item"]]);
         }
-        
-        $orders = $orderRepository?->findAll();
-
-        // Return status code 500 if $categories is empty
-        if ($orders === null) {
-            return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_INTERNAL_SERVER_ERROR);
-        }
-
-        return $this->json($orderRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Order:item"]]);
     }
 
     /**
@@ -159,33 +172,36 @@ class OrderController extends AbstractController
             ]
         )
     )]
-    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, OrderRepository $orderRepository): JsonResponse
+    public function add(Request $request, UserRepository $userRepository, ValidatorInterface $validatorInterface, OrderRepository $orderRepository): JsonResponse
     {
-        if ($this->isGranted('ROLE_ADMIN')) {
+        // Get Request Body
+        $json = $request->getContent();
 
-            // Get Request Body
-            $json = $request->getContent();
+        // Return status code 400 if $json is empty
+        if ($json === "") {
+            return $this->json(["code" => 400, "message" => "Bad request"], Response::HTTP_BAD_REQUEST);
+        }
 
-            // Return status code 400 if $json is empty
-            if ($json === "") {
-                return $this->json(["code" => 400, "message" => "Invalid JSON"], Response::HTTP_BAD_REQUEST);
-            }
+        $order = json_decode($json, true);
 
-            // Deserialization with entity Order, insert field
-            $order = $serializerInterface->deserialize($json, Order::class, 'json');
+        $isUser = $userRepository->find($order["user"]);
 
-            $errors = $validatorInterface->validate($order);
+        if ($this->isGranted("user_add", $isUser)) {
 
-            if (count($errors) > 0) {
-                $errorValidationConstraints = new ErrorValidationConstraints($errors);
-                return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
-            }
+            var_dump("ok");
+
+            // $errors = $validatorInterface->validate($order);
+
+            // if (count($errors) > 0) {
+            //     $errorValidationConstraints = new ErrorValidationConstraints($errors);
+            //     return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            // }
 
             // Save Order into database
-            $orderRepository->add($order, true);
+            // $orderRepository->add($order, true);
 
             // Return Order and status code 200
-            return $this->json($order, Response::HTTP_CREATED, [], ["groups" => ["read:Order:item"]]);
+            // return $this->json($order, Response::HTTP_CREATED, [], ["groups" => ["read:Order:item"]]);s
         }
 
         return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
