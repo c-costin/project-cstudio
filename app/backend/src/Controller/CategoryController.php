@@ -213,7 +213,7 @@ class CategoryController extends AbstractController
     #[Route('/add', name: 'app_category_add', methods: ['POST'])]
     #[OA\Post(
         summary: "Add a Category",
-        description: "Adding new category object identified by ID",
+        description: "Adding new category object",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
