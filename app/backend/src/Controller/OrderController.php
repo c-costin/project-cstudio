@@ -40,7 +40,7 @@ class OrderController extends AbstractController
     )]
     #[OA\Response(
         response: 200,
-        description: "Success - OK",
+        description: "Success",
         content: new OA\JsonContent(
             type: 'array',
             items: new OA\Items(ref: new Model(type: Order::class, groups: ['read:Order:item']))
@@ -76,6 +76,17 @@ class OrderController extends AbstractController
             properties: [
                 new OA\Property(property: "code", example: 404),
                 new OA\Property(property: "message", example: "No Order was found")
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: 500,
+        description: "Internal Server Error",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 500),
+                new OA\Property(property: "message", example: "Internal Server Error")
             ]
         )
     )]
@@ -123,13 +134,20 @@ class OrderController extends AbstractController
     #[Route('/add', name: 'app_order_add', methods: ['POST'])]
     #[OA\Post(
         summary: "Add an Order",
-        description: "Adding a new Order object",
+        description: "Adding a new Order object with two parameters to the query",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
                 schema: new OA\Schema(
                     properties: [
-                        new OA\Property(property: "name", example: "OS01"),
+                        new OA\Property(property: "user", example: "1"),
+                        new OA\Property(
+                            property: "products",
+                            example: [
+                                "{product: 1, quantity: 2}",
+                                "{product: 2, quantity: 1}",
+                            ]
+                        ),
                     ]
                 )
             )
@@ -137,7 +155,7 @@ class OrderController extends AbstractController
     )]
     #[OA\Response(
         response: 201,
-        description: "Success - Created",
+        description: "Created",
         content: new Model(type: Order::class, groups: ['read:Order:item'])
     )]
     #[OA\Response(
@@ -193,7 +211,7 @@ class OrderController extends AbstractController
 
             // if (count($errors) > 0) {
             //     $errorValidationConstraints = new ErrorValidationConstraints($errors);
-            //     return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            //     return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_BAD_REQUEST);
             // }
 
             // Save Order into database
