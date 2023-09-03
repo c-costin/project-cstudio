@@ -46,6 +46,17 @@ class UserController extends AbstractController
         )
     )]
     #[OA\Response(
+        response: 403,
+        description: "Forbidden",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 403),
+                new OA\Property(property: "message", example: "Access Denied")
+            ]
+        )
+    )]
+    #[OA\Response(
         response: 404,
         description: "Not Found",
         content: new OA\JsonContent(
@@ -95,7 +106,7 @@ class UserController extends AbstractController
     )]
     #[OA\Response(
         response: 202,
-        description: "Success - Accepted",
+        description: "Accepted",
         content: new Model(type: User::class, groups: ['read:User:item'])
     )]
     #[OA\Response(
@@ -185,7 +196,7 @@ class UserController extends AbstractController
     )]
     #[OA\Response(
         response: 201,
-        description: "Success - Created",
+        description: "Created",
         content: new Model(type: User::class, groups: ['read:User:item'])
     )]
     #[OA\Response(
@@ -217,7 +228,7 @@ class UserController extends AbstractController
 
         if (count($errors) > 0) {
             $errorValidationConstraints = new ErrorValidationConstraints($errors);
-            return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+            return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_BAD_REQUEST);
         }
 
         // Save user into database
@@ -233,11 +244,11 @@ class UserController extends AbstractController
     #[Route('/delete/{id<\d+>}', name: 'app_user_delete', methods: ['DELETE'])]
     #[OA\Delete(
         summary: "Delete a User",
-        description: "Deleting a User object",
+        description: "Deleting a User object identified by User ID",
     )]
     #[OA\Response(
         response: 204,
-        description: "Success - No Content",
+        description: "No Content",
     )]
     #[OA\Response(
         response: 401,

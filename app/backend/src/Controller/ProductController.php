@@ -36,12 +36,12 @@ class ProductController extends AbstractController
     )]
     #[OA\Parameter(
         name: "type",
-        description: "Type name",
+        description: "Type ID",
         in: "query",
     )]
     #[OA\Parameter(
         name: "category",
-        description: "Category name",
+        description: "Category ID",
         in: "query",
     )]
     #[OA\Parameter(
@@ -63,7 +63,7 @@ class ProductController extends AbstractController
             type: "object",
             properties: [
                 new OA\Property(property: "code", example: 404),
-                new OA\Property(property: "message", example: "No Category was found")
+                new OA\Property(property: "message", example: "No Product was found")
             ]
         )
     )]

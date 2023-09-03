@@ -29,6 +29,11 @@ class TypeController extends AbstractController
         summary: "Browse all Types",
         description: "Browse all objects Type",
     )]
+    #[OA\Parameter(
+        name: "type",
+        description: "Type name",
+        in: "query",
+    )]
     #[OA\Response(
         response: 200,
         description: "Success",
@@ -36,6 +41,17 @@ class TypeController extends AbstractController
             type: 'array',
             items: new OA\Items(ref: new Model(type: Type::class, groups: ['read:Type:item']))
         ),
+    )]
+    #[OA\Response(
+        response: 404,
+        description: "Not Found",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 404),
+                new OA\Property(property: "message", example: "No Type was found")
+            ]
+        )
     )]
     #[OA\Response(
         response: 500,
@@ -55,7 +71,7 @@ class TypeController extends AbstractController
         if ($request->query->all() !== []) {
     
             // Parameter "name"
-            if (array_key_exists('name', $request->query->all())) {
+            if (array_key_exists('type', $request->query->all())) {
     
                 // Find all Type by name
                 $result = $typeRepository->findTypeByName($request->query->all()['name']);
@@ -144,7 +160,7 @@ class TypeController extends AbstractController
     )]
     #[OA\Response(
         response: 202,
-        description: "Success - Accepted",
+        description: "Accepted",
         content: new Model(type: Type::class, groups: ['read:Type:item'])
     )]
     #[OA\Response(
@@ -226,7 +242,7 @@ class TypeController extends AbstractController
     )]
     #[OA\Response(
         response: 201,
-        description: "Success - Created",
+        description: "Created",
         content: new Model(type: Type::class, groups: ['read:Type:item'])
     )]
     #[OA\Response(
@@ -281,7 +297,7 @@ class TypeController extends AbstractController
 
             if (count($errors) > 0) {
                 $errorValidationConstraints = new ErrorValidationConstraints($errors);
-                return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+                return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_BAD_REQUEST);
             }
 
             // Save Type into database
@@ -304,7 +320,7 @@ class TypeController extends AbstractController
     )]
     #[OA\Response(
         response: 204,
-        description: "Success - No Content",
+        description: "No Content",
     )]
     #[OA\Response(
         response: 401,
