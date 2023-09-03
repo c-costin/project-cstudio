@@ -29,6 +29,11 @@ class CategoryController extends AbstractController
         summary: "Browse all Categories",
         description: "Receive all Category objects",
     )]
+    #[OA\Parameter(
+        name: "category",
+        description: "Category name",
+        in: "query",
+    )]
     #[OA\Response(
         response: 200,
         description: "Success",
@@ -66,7 +71,7 @@ class CategoryController extends AbstractController
         if ($request->query->all() !== []) {
 
             // Parameter "name"
-            if (array_key_exists('name', $request->query->all())) {
+            if (array_key_exists('category', $request->query->all())) {
 
                 // Find all Category by name
                 $result = $categoryRepository->findCategoryByName($request->query->all()['name']);
