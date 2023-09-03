@@ -23,7 +23,7 @@ class LikeController extends AbstractController
     #[Route('/', name: 'app_like_browse', methods: 'GET')]
     #[OA\Get(
         summary: "Browse all Likes",
-        description: "Browse all user Likes with user ID ",
+        description: "Browse all user Likes with user ID",
     )]
     #[OA\Parameter(
         name: "user",
@@ -40,6 +40,17 @@ class LikeController extends AbstractController
         ),
     )]
     #[OA\Response(
+        response: 400,
+        description: "Bad request",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 400),
+                new OA\Property(property: "message", example: "Invalid request")
+            ]
+        )
+    )]
+    #[OA\Response(
         response: 401,
         description: "Unauthorized",
         content: new OA\JsonContent(
@@ -51,13 +62,24 @@ class LikeController extends AbstractController
         )
     )]
     #[OA\Response(
-        response: 500,
-        description: "Internal Server Error",
+        response: 403,
+        description: "Forbidden",
         content: new OA\JsonContent(
             type: "object",
             properties: [
-                new OA\Property(property: "code", example: 500),
-                new OA\Property(property: "message", example: "Internal Server Error")
+                new OA\Property(property: "code", example: 403),
+                new OA\Property(property: "message", example: "Access Denied")
+            ]
+        )
+    )]
+    #[OA\Response(
+        response: 404,
+        description: "Not Found",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 404),
+                new OA\Property(property: "message", example: "No Likes was found")
             ]
         )
     )]
@@ -110,7 +132,7 @@ class LikeController extends AbstractController
     )]
     #[OA\Response(
         response: 204,
-        description: "Success - No Content",
+        description: "No Content",
     )]
     #[OA\Response(
         response: 400,
@@ -145,6 +167,17 @@ class LikeController extends AbstractController
             ]
         )
     )]
+    #[OA\Response(
+        response: 404,
+        description: "Not Found",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 404),
+                new OA\Property(property: "message", example: "No User or Product was found")
+            ]
+        )
+    )]
     public function add(Request $request, UserRepository $userRepository, LikeService $likeService): JsonResponse
     {
         // Parameters into query
@@ -160,7 +193,7 @@ class LikeController extends AbstractController
                         return $this->json(null, Response::HTTP_NO_CONTENT, []);
                     }
 
-                    return $this->json(["code" => 404, "message" => "No Likes was found"], Response::HTTP_NOT_FOUND);
+                    return $this->json(["code" => 404, "message" => "No User or Product was found"], Response::HTTP_NOT_FOUND);
                 }
 
                 return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
@@ -177,7 +210,7 @@ class LikeController extends AbstractController
     #[Route('/delete', name: 'app_like_delete', methods: 'DELETE')]
     #[OA\Delete(
         summary: "Delete a Like",
-        description: "Deleting a Like object",
+        description: "Deleting a Like object with two parameters to the query",
     )]
     #[OA\Parameter(
         name: "product",
@@ -193,7 +226,18 @@ class LikeController extends AbstractController
     )]
     #[OA\Response(
         response: 204,
-        description: "Success - No Content",
+        description: "No Content",
+    )]
+    #[OA\Response(
+        response: 400,
+        description: "Bad request",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 400),
+                new OA\Property(property: "message", example: "Invalid request")
+            ]
+        )
     )]
     #[OA\Response(
         response: 401,
@@ -224,7 +268,7 @@ class LikeController extends AbstractController
             type: "object",
             properties: [
                 new OA\Property(property: "code", example: 404),
-                new OA\Property(property: "message", example: "No Like was found")
+                new OA\Property(property: "message", example: "No User or Product was found")
             ]
         )
     )]

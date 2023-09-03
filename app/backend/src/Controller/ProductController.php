@@ -29,6 +29,25 @@ class ProductController extends AbstractController
         summary: "Browse all Products",
         description: "Browse all objects Product",
     )]
+    #[OA\Parameter(
+        name: "product",
+        description: "Product name",
+        in: "query",
+    )]
+    #[OA\Parameter(
+        name: "type",
+        description: "Type name",
+        in: "query",
+    )]
+    #[OA\Parameter(
+        name: "category",
+        description: "Category name",
+        in: "query",
+    )]
+    #[OA\Parameter(
+        name: "home",
+        in: "query",
+    )]
     #[OA\Response(
         response: 200,
         description: "Success",
@@ -36,6 +55,17 @@ class ProductController extends AbstractController
             type: 'array',
             items: new OA\Items(ref: new Model(type: Product::class, groups: ['read:Product:item']))
         ),
+    )]
+    #[OA\Response(
+        response: 404,
+        description: "Not Found",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 404),
+                new OA\Property(property: "message", example: "No Category was found")
+            ]
+        )
     )]
     #[OA\Response(
         response: 500,
@@ -55,16 +85,16 @@ class ProductController extends AbstractController
         if ($request->query->all() !== []) {
 
             // Parameter "name"
-            if (array_key_exists('name', $request->query->all())) {
+            if (array_key_exists('product', $request->query->all())) {
 
                 // Find all Product by name
                 $result = $productRepository->findProductByName($request->query->all()['name']);
 
                 if ($result !== []) {
                     return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
-                } else {
-                    return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
                 }
+
+                return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
             }
 
             // Parameter "type"
@@ -75,9 +105,9 @@ class ProductController extends AbstractController
 
                 if ($result !== []) {
                     return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
-                } else {
-                    return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
                 }
+
+                return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
             }
 
             // Parameter "category"
@@ -88,9 +118,9 @@ class ProductController extends AbstractController
 
                 if ($result !== []) {
                     return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
-                } else {
-                    return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
                 }
+
+                return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
             }
 
             // Parameter "home"
@@ -101,9 +131,9 @@ class ProductController extends AbstractController
 
                 if ($result !== []) {
                     return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
-                } else {
-                    return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
                 }
+
+                return $this->json(["code" => 404, "message" => "No Product was found"], Response::HTTP_NOT_FOUND);
             }
         }
 
@@ -177,7 +207,7 @@ class ProductController extends AbstractController
     )]
     #[OA\Response(
         response: 202,
-        description: "Success - Accepted",
+        description: "Accepted",
         content: new Model(type: Product::class, groups: ['read:Product:item'])
     )]
     #[OA\Response(
@@ -268,7 +298,7 @@ class ProductController extends AbstractController
     )]
     #[OA\Response(
         response: 201,
-        description: "Success - Created",
+        description: "Created",
         content: new Model(type: Product::class, groups: ['read:Product:item'])
     )]
     #[OA\Response(
@@ -323,7 +353,7 @@ class ProductController extends AbstractController
 
             if (count($errors) > 0) {
                 $errorValidationConstraints = new ErrorValidationConstraints($errors);
-                return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+                return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_BAD_REQUEST);
             }
 
             // Save Product into database
@@ -346,7 +376,7 @@ class ProductController extends AbstractController
     )]
     #[OA\Response(
         response: 204,
-        description: "Success - No Content",
+        description: "No Content",
     )]
     #[OA\Response(
         response: 401,
