@@ -31,11 +31,22 @@ class CategoryController extends AbstractController
     )]
     #[OA\Response(
         response: 200,
-        description: "Success - OK",
+        description: "Success",
         content: new OA\JsonContent(
             type: 'array',
             items: new OA\Items(ref: new Model(type: Category::class, groups: ['read:Category:item']))
         ),
+    )]
+    #[OA\Response(
+        response: 404,
+        description: "Not Found",
+        content: new OA\JsonContent(
+            type: "object",
+            properties: [
+                new OA\Property(property: "code", example: 404),
+                new OA\Property(property: "message", example: "No Category was found")
+            ]
+        )
     )]
     #[OA\Response(
         response: 500,
@@ -51,32 +62,32 @@ class CategoryController extends AbstractController
     #[Security(name: null)]
     public function browse(Request $request, CategoryRepository $categoryRepository): JsonResponse
     {
-    // Parameters into query
-    if ($request->query->all() !== []) {
+        // Parameters into query
+        if ($request->query->all() !== []) {
 
-        // Parameter "name"
-        if (array_key_exists('name', $request->query->all())) {
+            // Parameter "name"
+            if (array_key_exists('name', $request->query->all())) {
 
-            // Find all Category by name
-            $result = $categoryRepository->findCategoryByName($request->query->all()['name']);
+                // Find all Category by name
+                $result = $categoryRepository->findCategoryByName($request->query->all()['name']);
 
-            if ($result !== []) {
-                return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
-            } else {
-                return $this->json(["code" => 404, "message" => "No Category was found"], Response::HTTP_NOT_FOUND);
+                if ($result !== []) {
+                    return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
+                } else {
+                    return $this->json(["code" => 404, "message" => "No Category was found"], Response::HTTP_NOT_FOUND);
+                }
             }
         }
+
+        $categories = $categoryRepository?->findAll();
+
+        // Return status code 500 if $categories is empty
+        if ($categories === null) {
+            return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_INTERNAL_SERVER_ERROR);
+        }
+
+        return $this->json($categoryRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
     }
-
-    $categories = $categoryRepository?->findAll();
-
-    // Return status code 500 if $categories is empty
-    if ($categories === null) {
-        return $this->json(["code" => 500, "message" => "Internal Server Error"], Response::HTTP_INTERNAL_SERVER_ERROR);
-    }
-
-    return $this->json($categoryRepository->findAll(), Response::HTTP_OK, [], ["groups" => ["read:Category:item"]]);
-}
 
     /**
      * Read a Category
@@ -88,19 +99,8 @@ class CategoryController extends AbstractController
     )]
     #[OA\Response(
         response: 200,
-        description: "Success - OK",
+        description: "Success",
         content: new Model(type: Category::class, groups: ['read:Category:item'])
-    )]
-    #[OA\Response(
-        response: 401,
-        description: "Unauthorized",
-        content: new OA\JsonContent(
-            type: "object",
-            properties: [
-                new OA\Property(property: "code", example: 401),
-                new OA\Property(property: "message", example: "Invalid credentials")
-            ]
-        )
     )]
     #[OA\Response(
         response: 404,
@@ -113,6 +113,7 @@ class CategoryController extends AbstractController
             ]
         )
     )]
+    #[Security(name: null)]
     public function read(Category $category = null): JsonResponse
     {
         // Return status code 404 if $category is empty
@@ -144,7 +145,7 @@ class CategoryController extends AbstractController
     )]
     #[OA\Response(
         response: 202,
-        description: "Success - Accepted",
+        description: "Accepted",
         content: new Model(type: Category::class, groups: ['read:Category:item'])
     )]
     #[OA\Response(
@@ -212,7 +213,7 @@ class CategoryController extends AbstractController
     #[Route('/add', name: 'app_category_add', methods: ['POST'])]
     #[OA\Post(
         summary: "Add a Category",
-        description: "Adding new category object",
+        description: "Adding new category object identified by ID",
         requestBody: new OA\RequestBody(
             content: new OA\MediaType(
                 mediaType: "application/json",
@@ -226,7 +227,7 @@ class CategoryController extends AbstractController
     )]
     #[OA\Response(
         response: 201,
-        description: "Success - Created",
+        description: "Created",
         content: new Model(type: Category::class, groups: ['read:Category:item'])
     )]
     #[OA\Response(
@@ -281,7 +282,7 @@ class CategoryController extends AbstractController
 
             if (count($errors) > 0) {
                 $errorValidationConstraints = new ErrorValidationConstraints($errors);
-                return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_UNPROCESSABLE_ENTITY);
+                return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_BAD_REQUEST);
             }
 
             // Save Category into database
@@ -300,11 +301,11 @@ class CategoryController extends AbstractController
     #[Route('/delete/{id<\d+>}', name: 'app_category_delete', methods: ['DELETE'])]
     #[OA\Delete(
         summary: "Delete a Category",
-        description: "Deleting a Category object",
+        description: "Deleting a Category object identified by ID",
     )]
     #[OA\Response(
         response: 204,
-        description: "Success - No Content",
+        description: "No Content",
     )]
     #[OA\Response(
         response: 401,
