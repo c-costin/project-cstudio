@@ -17,7 +17,7 @@ class UserVoter extends Voter
 
     protected function supports(string $attribute, $subject): bool
     {
-        return in_array($attribute, [self::USER_READ, self::USER_EDIT, self::USER_DELETE]) && $subject instanceof \App\Entity\User;
+        return in_array($attribute, [self::USER_READ,self::USER_EDIT, self::USER_ADD, self::USER_DELETE]) && $subject instanceof \App\Entity\User;
     }
 
     protected function voteOnAttribute(string $attribute, mixed $subject, TokenInterface $token): bool
