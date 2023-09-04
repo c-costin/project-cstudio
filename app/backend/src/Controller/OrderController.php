@@ -6,18 +6,14 @@ use App\Entity\Order;
 use OpenApi\Attributes as OA;
 use App\Repository\OrderRepository;
 use Nelmio\ApiDocBundle\Annotation\Model;
-use App\Models\ErrorValidationConstraints;
 use App\Repository\UserRepository;
 use App\Service\OrderService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 use function PHPSTORM_META\type;
 
@@ -142,11 +138,14 @@ class OrderController extends AbstractController
                     properties: [
                         new OA\Property(property: "user", example: "1"),
                         new OA\Property(
+                            type: "array",
                             property: "products",
-                            example: [
-                                "{product: 1, quantity: 2}",
-                                "{product: 2, quantity: 1}",
-                            ]
+                            items: new OA\Items(
+                                properties: [
+                                    new OA\Property(property: "product", example: 1),
+                                    new OA\Property(property: "quantity", example: 4)
+                                ]
+                            ),
                         ),
                     ]
                 )
@@ -207,18 +206,10 @@ class OrderController extends AbstractController
 
         if ($this->isGranted("user_add", $isUser)) {
 
-            // $errors = $validatorInterface->validate($order);
+            $order = $orderService->create($order, $isUser);
 
-            // if (count($errors) > 0) {
-            //     $errorValidationConstraints = new ErrorValidationConstraints($errors);
-            //     return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_BAD_REQUEST);
-            // }
-
-            // Save Order into database
-            // $orderRepository->add($order, true);
-
-            // Return Order and status code 200
-            // return $this->json($order, Response::HTTP_CREATED, [], ["groups" => ["read:Order:item"]]);s
+            // Return Order and status code 201
+            return $this->json($order, Response::HTTP_CREATED, [], ["groups" => ["read:Order:item"]]);
         }
 
         return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
