@@ -50,6 +50,23 @@ class OrderRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    // public function findOrdersByUserId(int $id): ?array
+    // {
+    //     $sql = "
+    //         SELECT
+    //             order.id
+    //         FROM order
+    //         LEFT JOIN user ON order.user_id = user.id
+    //         WHERE order.id;
+    //     ";
+
+    //     $connexion = $this->getEntityManager()->getConnection();
+    //     $stmt = $connexion->prepare($sql);
+    //     $result = $stmt->executeQuery(["id" => $id]);
+
+    //     return $result->fetchAllAssociative();
+    // }
+
 //    /**
 //     * @return Order[] Returns an array of Order objects
 //     */
