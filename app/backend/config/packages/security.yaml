@@ -37,9 +37,12 @@ security:
 
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/product, roles: PUBLIC_ACCESS, method: ["GET"]}
+        - { path: ^/api/category, roles: PUBLIC_ACCESS, method: ["GET"]}
+        - { path: ^/api/type, roles: PUBLIC_ACCESS, method: ["GET"]}
+        - { path: ^/api/user/add, roles: PUBLIC_ACCESS, method: ["POST"]}
         - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
-        - { path: ^/, roles: PUBLIC_ACCESS } #TODO Remove in PROD
-        # - { path: ^/, roles: ROLE_ADMIN }
+        - { path: ^/, roles: PUBLIC_ACCESS }
 
     role_hierarchy:
         ROLE_ADMIN: ROLE_MANAGER

@@ -65,8 +65,8 @@ class FileController extends AbstractController
         return $this->json(["code" => 403, "message" => "Forbidden"], Response::HTTP_FORBIDDEN);
     }
 
-    #[Route('/delete', name: 'app_file_delete', methods: ['POST'])]
-    #[OA\Post(
+    #[Route('/delete', name: 'app_file_delete', methods: ['DELETE'])]
+    #[OA\Delete(
         summary: "Delete a File",
         description: "Deleting a File",
     )]
