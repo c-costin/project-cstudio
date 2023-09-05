@@ -2,9 +2,9 @@
 namespace App\EventListener;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\ExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\HttpExceptionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
 
@@ -24,11 +24,13 @@ class ExceptionListener implements EventSubscriberInterface {
     public function onKernelException(ExceptionEvent $event): void
     {
         $exception = $event->getThrowable();
-        if (!$exception instanceof NotFoundHttpException) {
-            return;
-        }
+        
+        $content = [
+            'code' => $exception instanceof HttpExceptionInterface ? $exception->getStatusCode() : 500,
+            'message' => $exception->getMessage(),
+        ];
 
         // Send a not found in JSON format
-        $event->setResponse(new JsonResponse(["code" => "404", "message" => "Not Found"], 404));
+        $event->setResponse(new JsonResponse($content, $content['code']));
     }
 }
