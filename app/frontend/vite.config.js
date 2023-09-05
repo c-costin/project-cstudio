@@ -7,8 +7,8 @@ export default defineConfig({
 		preprocessorOptions: {
 			scss: {
 				additionalData: `
-					@use '$lib/styles/variables as vr'
-					@use '$lib/styles/mixins as mx'
+					@use '$lib/styles/variables';
+					@use '$lib/styles/mixins';
 				`
 			}
 		}

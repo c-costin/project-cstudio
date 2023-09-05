@@ -1,0 +1,28 @@
+@use 'reset';
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+body {
+  font-family: variables.$font-primary;
+  max-width: 1280px;
+  min-height: 100vh;
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.main {
+  padding: 1.5rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.disable-scroll {
+  overflow-y: hidden;
+}
