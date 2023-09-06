@@ -1,41 +1,48 @@
 <script>
-    import '$lib/styles/app.scss';
-	import { writable } from 'svelte/store';
+	import '$lib/styles/app.scss';
+	import iconMinus from '$lib/icons/minus.svg';
+	import iconPlus from '$lib/icons/plus.svg';
 
-    let quantity = 1;
+	// Declare variables
+	let quantity = 1;
 	let price = 1200;
-	$: Calculatedprice = quantity * price;
-    
-	const increment = () => quantity++;
 
+	export let dataId = 0;
+	export let total = price;
+
+	// Declare functions
+	const increment = () => quantity++;
 	const decrement = () => {
 		if (quantity <= 1) {
 			return;
 		}
 		quantity--;
-	}
+	};
+
+	// Handle statements
+	$: total = quantity * price;
 </script>
 
-<article class="cart-product">
-    <img class="cart-product__img" src="" alt="Image" />
-    <div class="cart-product__container-center">
-        <h3 class="cart-product__name">Nature</h3>
-        <div class="cart-product___quantity">
-            <button on:click={decrement}
-                ><i class="iconoir-minus cart-product__icon" />
-            </button>
-            <p class="cart-product___number">{quantity}</p>
-            <button on:click={increment}
-                ><i class="iconoir-plus cart-product__icon" />
-            </button>
-        </div>
-    </div>
-    <div class="cart-product__container-end">
-        <p class="cart-product___price">{Calculatedprice}€</p>
-        <button class="cart-product___btn-delete"
-            ><i class="iconoir-delete-circle cart-product__icon" /></button
-        >
-    </div>
+<article class="cart-product" data-id={dataId}>
+	<img class="cart-product__img" src="" alt="" />
+	<div class="cart-product__container-center">
+		<h3 class="cart-product__name">Nature</h3>
+		<div class="cart-product___quantity">
+			<button on:click={decrement}>
+				<img src={iconMinus} alt="Icon diminution da la quantité" class="product__icon" />
+			</button>
+			<p class="cart-product__number">{quantity}</p>
+			<button on:click={increment}>
+				<img src={iconPlus} alt="Icon ajout da la quantité" class="product__icon" />
+			</button>
+		</div>
+	</div>
+	<div class="cart-product__container-end">
+		<p class="cart-product___price">{total} €</p>
+		<button class="cart-product___btn-delete">
+			<i class="iconoir-delete-circle cart-product__icon" />
+		</button>
+	</div>
 </article>
 
 <style lang="scss">
@@ -75,11 +82,11 @@
 			padding: 0.25rem;
 			background: none;
 		}
-		&___number {
-			padding: 0.25rem 0.5rem;
-			text-align: center;
-			background: gainsboro;
-		}
+		// &___number {
+		// 	padding: 0.25rem 0.5rem;
+		// 	text-align: center;
+		// 	background: gainsboro;
+		// }
 	}
 
 	.cart-product___quantity {
