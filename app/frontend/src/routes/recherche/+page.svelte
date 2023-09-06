@@ -30,7 +30,7 @@
 
 <Footer />
 
-<style>
+<style lang="scss">
 
 .result {
     margin-inline: auto;
@@ -51,33 +51,6 @@
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
-}
-
-.card {
-  &__img {
-    width: 100%;
-    aspect-ratio: 4/5;
-    border-radius: .5rem;
-    background: lightslategray;
-    &:hover {
-      border-radius: .5rem;
-      border: 2px solid black
-    }
-  }
-  &__content{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
-}
-
-.cart-is-big {
-  grid-column : span 2;
-  grid-row : span 2;
-}
-
-.cart-is-big .card {
-  width: 100%;
 }
 
 @media screen and (min-width: 640px) {
