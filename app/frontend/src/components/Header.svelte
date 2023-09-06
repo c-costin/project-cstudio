@@ -15,10 +15,10 @@
 	let isCartOpen = false;
 
 	// Declare Functions
-	const toggleOpenMenu = () => (isMenuOpen = !isMenuOpen);
-	const toggleOpenSearch = () => (isSearchOpen = !isSearchOpen);
-	const toggleOpenProfil = () => (isProfilOpen = !isProfilOpen);
-	const toggleOpenCart = () => (isCartOpen = !isCartOpen);
+	const toggleOpenMenu = () => {isMenuOpen = !isMenuOpen};
+	const toggleOpenSearch = () => {isSearchOpen = !isSearchOpen};
+	const toggleOpenProfil = () => {isProfilOpen = !isProfilOpen};
+	const toggleOpenCart = () => {isCartOpen = !isCartOpen};
 
 	// Hanlde statements
 	$: {
