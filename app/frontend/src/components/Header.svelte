@@ -1,28 +1,67 @@
 <script>
+	import Search from './Search.svelte';
 	import Menu from './Menu.svelte';
+	import DropdownProfil from './DropdownProfil.svelte';
+	import DropdownCart from './DropdownCart.svelte';
+	import iconMenu from '$lib/icons/menu.svg';
+	import iconSearch from '$lib/icons/search.svg';
+	import iconProfil from '$lib/icons/profile-circle.svg';
+	import iconCart from '$lib/icons/simple-cart.svg';
 
-	const handleDisplaySearch = function() {}
+	// Declare variables
+	let isMenuOpen = false;
+	let isSearchOpen = false;
+	let isProfilOpen = false;
+	let isCartOpen = false;
 
-	export let active = false;
+	// Declare Functions
+	const toggleOpenMenu = () => (isMenuOpen = !isMenuOpen);
+	const toggleOpenSearch = () => (isSearchOpen = !isSearchOpen);
+	const toggleOpenProfil = () => (isProfilOpen = !isProfilOpen);
+	const toggleOpenCart = () => (isCartOpen = !isCartOpen);
 
-	function toggleMenu() {
-		active = !active;
+	// Hanlde statements
+	$: {
+		if (isSearchOpen || isMenuOpen) {
+			isProfilOpen = false;
+			isCartOpen = false;
+		}
+		if (isProfilOpen && !isCartOpen) {
+			isCartOpen = false
+		}
 	}
 </script>
 
 <header class="header">
-	{#if active}
-		<Menu on:toggleMenuChild={toggleMenu}/>
-	{/if}
+
+	{#if isSearchOpen} <Search /> {/if}
+
+	{#if isMenuOpen} <Menu on:closeMenu={toggleOpenMenu} /> {/if}
+
 	<div class="header__left">
-		<i class="iconoir-menu header__icon js-icon-open" on:click={toggleMenu}/>
-		<i class="iconoir-search header__icon js-search" on:click={handleDisplaySearch}/>
+		<button on:click={toggleOpenMenu}>
+			<img src="{iconMenu}" alt="Icon du menu" class="header__icon">
+		</button>
+		<button on:click={toggleOpenSearch}>
+			<img src="{iconSearch}" alt="Icon de la recherche" class="header__icon">
+		</button>
 	</div>
-	<a href="#" class="header__title">C-Studio</a>
+
+	<a href="/" class="header__title">C-Studio</a>
+
 	<div class="header__right">
-		<i class="iconoir-profile-circle header__icon js-profil-icon" />
-		<i class="iconoir-simple-cart header__icon js-cart-icon" />
+		<button on:click={toggleOpenProfil}>
+			<img src="{iconProfil}" alt="Icon du profil" class="header__icon">
+		</button>
+		<button on:click={toggleOpenCart}>
+			<img src="{iconCart}" alt="Icon du panier" class="header__icon">
+		</button>
 	</div>
+
+	{#if isProfilOpen} <DropdownProfil /> {/if}
+
+	{#if isCartOpen} <DropdownCart /> {/if}
+
 </header>
 
 <style lang="scss">
@@ -31,6 +70,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+		flex-wrap: wrap;
 		&__left {
 			display: flex;
 			align-items: center;
@@ -53,12 +93,6 @@
 		}
 		&__icon:nth-child(3) {
 			z-index: 10;
-		}
-	}
-
-	@media screen and (min-width: 992px) {
-		.js-icon-open {
-			display: none;
 		}
 	}
 </style>

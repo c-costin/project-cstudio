@@ -1,5 +1,6 @@
 <script>
 	import '$lib/styles/app.scss';
+	import iconArrowUp from '$lib/icons/arrow-up-circle.svg';
 </script>
 
 <footer class="footer">
@@ -9,18 +10,20 @@
 			<h2 class="footer__slogan">Slogan de ouf !</h2>
 			<p class="footer__resume">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
 		</div>
-		<a href="#"><i class="iconoir-arrow-up-circle footer__icon" /></a>
+		<a href="/">
+			<img src="{iconArrowUp}" alt="" class="footer__icon">
+		</a>
 	</section>
 	<section class="footer__links">
 		<div class="footer__infos">
-			<a href="#">CGV</a>
-			<a href="#">Mentions Légales</a>
-			<a href="#">Nous Contacter</a>
+			<a href="/">CGV</a>
+			<a href="/">Mentions Légales</a>
+			<a href="/">Nous Contacter</a>
 		</div>
 		<nav class="footer__socials">
-			<a href="#" target="_blank" rel="noopener noreferrer">Twitter</a>
-			<a href="#" target="_blank" rel="noopener noreferrer">Youtube</a>
-			<a href="#" target="_blank" rel="noopener noreferrer">Instagram</a>
+			<a href="/" target="_blank" rel="noopener noreferrer">Twitter</a>
+			<a href="/" target="_blank" rel="noopener noreferrer">Youtube</a>
+			<a href="/" target="_blank" rel="noopener noreferrer">Instagram</a>
 		</nav>
 	</section>
 </footer>
@@ -49,9 +52,6 @@
 		}
 		&__slogan {
 			font-size: 1rem;
-		}
-		&__description {
-			font-size: 0.8rem;
 		}
 		&__icon {
 			margin: 0.5rem;

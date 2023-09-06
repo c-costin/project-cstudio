@@ -1,21 +1,24 @@
 <script>
 	import '$lib/styles/app.scss';
 	import { createEventDispatcher } from 'svelte';
+	import iconCloseMenu from '$lib/icons/cancel.svg';
 
 	const dispatch = createEventDispatcher();
-	const toggleMenu = () => dispatch('toggleMenuChild');
+	const closeMenu = () => dispatch('closeMenu');
 </script>
 
 <nav class="menu">
-	<i class="iconoir-cancel menu__icon" on:click={toggleMenu} />
+	<button on:click={closeMenu}>
+		<img src="{iconCloseMenu}" alt="Icon pour fermeture menu" class="menu__icon">
+	</button>
 	<div class="menu__links">
-		<a href="../index.html" class="menu__link">Accueil</a>
-		<a href="./about.html" class="menu__link">A Propos</a>
+		<a href="/" class="menu__link">Accueil</a>
+		<a href="/" class="menu__link">A Propos</a>
 	</div>
 	<div class="menu__refs">
-		<a href="" class="menu__ref">Mentions Légales</a>
-		<a href="" class="menu__ref">CGV</a>
-		<a href="" class="menu__ref">Contact</a>
+		<a href="/" class="menu__ref">Mentions Légales</a>
+		<a href="/" class="menu__ref">CGV</a>
+		<a href="/" class="menu__ref">Contact</a>
 	</div>
 </nav>
 

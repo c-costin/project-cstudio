@@ -1,17 +1,17 @@
 <script>
     import '$lib/styles/app.scss';
-	import Search from '../components/Search.svelte';
 	import Header from '../components/Header.svelte';
     import Footer from "../components/Footer.svelte";
 </script>
 
 <svelte:head>
-    <title>Accueil</title>
+    <title>C-Studio - Accueil</title>
 </svelte:head>
 
 <div class="wrapper">
-    <Search />
     <Header />
+    <main style="height: 160vh;"></main>
 </div>
+
 <Footer />
 
