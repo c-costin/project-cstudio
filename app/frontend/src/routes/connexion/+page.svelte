@@ -24,7 +24,7 @@
                     class="connexion-data__input" required />
             </div>
             <div class="connexion-data__checkbox">
-                <input type="checkbox" id="rememberMe" name="rememberMe" unchecked />
+                <input type="checkbox" id="rememberMe" name="rememberMe" />
                 <label for="rememberMe">se souvenir de moi</label>
             </div>
             <div class="connexion-data__validate">
