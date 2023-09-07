@@ -4,8 +4,14 @@
 	import Footer from '../components/Footer.svelte';
 	import Card from '../components/Card.svelte';
 	import Hero from '../components/Hero.svelte';
+	import { token, user } from '$lib/stores.js';
 
 	let products = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+	$: {
+		console.log($token);
+		console.log($user);
+	}
 </script>
 
 <svelte:head>

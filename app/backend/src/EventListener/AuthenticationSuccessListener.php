@@ -23,11 +23,15 @@ class AuthenticationSuccessListener
 
         if (!$user instanceof User) return;
 
-        $payload['user'] = $this->serializer->serialize($user, 'json', [
-            "groups" => ["read:User:item"]
-        ]);
-
-        // dd($payload);
+        $payload['user'] = [
+            "id" => $user->getId(),
+            "email" => $user->getEmail(),
+            "role" => $user->getRoles(),
+            "fistName" => $user->getFirstName(),
+            "lastName" => $user->getLastName(),
+            "phone" => $user->getPhone(),
+            "address" => $user->getAddress()
+        ];
 
         $event->setData($payload);
     }
