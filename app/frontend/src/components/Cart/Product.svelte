@@ -27,7 +27,7 @@
 	<img class="cart-product__img" src="" alt="" />
 	<div class="cart-product__container-center">
 		<h3 class="cart-product__name">Nature</h3>
-		<div class="cart-product___quantity">
+		<div class="cart-product__quantity">
 			<button on:click={decrement}>
 				<img src={iconMinus} alt="Icon diminution da la quantité" class="product__icon" />
 			</button>
@@ -38,8 +38,8 @@
 		</div>
 	</div>
 	<div class="cart-product__container-end">
-		<p class="cart-product___price">{total} €</p>
-		<button class="cart-product___btn-delete">
+		<p class="cart-product__price">{total} €</p>
+		<button class="cart-product__btn-delete">
 			<i class="iconoir-delete-circle cart-product__icon" />
 		</button>
 	</div>
@@ -78,7 +78,7 @@
 			justify-content: space-between;
 			align-items: flex-end;
 		}
-		&___btn-delete {
+		&__btn-delete {
 			padding: 0.25rem;
 			background: none;
 		}
@@ -89,7 +89,7 @@
 		// }
 	}
 
-	.cart-product___quantity {
+	.cart-product__quantity {
 		display: flex;
 		gap: 0.75rem;
 	}
