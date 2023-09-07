@@ -968,7 +968,7 @@ a:not([class]) {
   justify-content: space-between;
   align-items: flex-end;
 }
-.cart-product___btn-delete {
+.cart-product__btn-delete {
   padding: 0.25rem;
   background: none;
 }
@@ -978,7 +978,7 @@ a:not([class]) {
   background: gainsboro;
 }
 
-.cart-product___quantity {
+.cart-product__quantity {
   display: flex;
   gap: 0.75rem;
 }

@@ -30,7 +30,7 @@
     justify-content: space-between;
     align-items: flex-end;
   }
-  &___btn-delete {
+  &__btn-delete {
     padding: .25rem;
     background: none;
   }
@@ -41,7 +41,7 @@
   }
 }
 
-.cart-product___quantity {
+.cart-product__quantity {
   display: flex;
   gap: 0.75rem;
 }
