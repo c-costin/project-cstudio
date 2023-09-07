@@ -5,7 +5,20 @@
 	import Product from '../../components/Dashboard/Product.svelte';
 	import Order from '../../components/Dashboard/Order.svelte';
 
+	// Declare variables
 	let data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+	let isProductOpen = true;
+	let isOrderOpen = false;
+
+	// Declare Functions
+	const openProduct = () => {
+		isProductOpen = true;
+		isOrderOpen = false;
+	};
+	const openOrder = () => {
+		isProductOpen = false;
+		isOrderOpen = true;
+	};
 </script>
 
 <div class="wrapper">
@@ -15,11 +28,16 @@
 		<main class="main-dashboard">
 			<div class="dashboard-actions">
 				<nav class="dashboard-menu">
-					<button class="dashboard-menu__btn dashboard-menu__btn-active">Produits</button>
-					<button class="dashboard-menu__btn">Commandes</button>
+					<button 
+						on:click={openProduct}
+						class="dashboard-menu__btn {isProductOpen ? 'dashboard-menu__btn-active' : ''}">Produits</button>
+					<button 
+						on:click={openOrder}
+						class="dashboard-menu__btn {isOrderOpen ? 'dashboard-menu__btn-active' : ''}">Commandes</button>
 				</nav>
+
 				<div class="dashboard-filters">
-					<p>Filtre :</p>
+					<p>Filtres :</p>
 					<select name="" id="">
 						<option selected disabled>Type</option>
 						<option value="photogaphie">Photogaphie</option>
@@ -35,9 +53,9 @@
 				</div>
 			</div>
 
-            {#if true} <Product products={data} /> {/if}
-            {#if true} <Order orders={data} /> {/if}
-			
+			{#if isProductOpen} <Product products={data} /> {/if}
+			{#if isOrderOpen} <Order orders={data} /> {/if}
+
 			<Pagination />
 		</main>
 	{:else}
