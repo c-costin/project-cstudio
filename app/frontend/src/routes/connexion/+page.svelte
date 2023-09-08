@@ -2,7 +2,6 @@
 	import '$lib/styles/app.scss';
 	import Header from '../../components/Header.svelte';
 	import Footer from '../../components/Footer.svelte';
-	import { persistable } from '$lib/persist.js';
 	import { token, user } from '$lib/stores.js';
 
 	// Declare functions
@@ -19,8 +18,9 @@
 			})
 		});
 		const data = await response.json();
-		persistable('token', data.token);
-		persistable('user', data.user);
+
+		$token = data.token;
+		$user = data.user;
 	};
 
 	// Checking

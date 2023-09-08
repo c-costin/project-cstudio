@@ -28,12 +28,16 @@
 		<main class="main-dashboard">
 			<div class="dashboard-actions">
 				<nav class="dashboard-menu">
-					<button 
+					<button
 						on:click={openProduct}
-						class="dashboard-menu__btn {isProductOpen ? 'dashboard-menu__btn-active' : ''}">Produits</button>
-					<button 
+						class="dashboard-menu__btn {isProductOpen ? 'dashboard-menu__btn-active' : ''}"
+						>Produits</button
+					>
+					<button
 						on:click={openOrder}
-						class="dashboard-menu__btn {isOrderOpen ? 'dashboard-menu__btn-active' : ''}">Commandes</button>
+						class="dashboard-menu__btn {isOrderOpen ? 'dashboard-menu__btn-active' : ''}"
+						>Commandes</button
+					>
 				</nav>
 
 				<div class="dashboard-filters">
