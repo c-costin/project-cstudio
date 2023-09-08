@@ -64,7 +64,7 @@ class AppFixtures extends Fixture
         $adminUser->setFirstName('John')
             ->setLastName('Doe')
             ->setEmail('admin@mail.com')
-            ->setRoles(["ROLE_ADMIN"])
+            ->setRoles("ROLE_ADMIN")
             ->setPassword(password_hash('admin', PASSWORD_BCRYPT))
             ->setPhone('')
             ->setAddress('');
@@ -90,7 +90,7 @@ class AppFixtures extends Fixture
             $user->setFirstName($firstName)
                 ->setLastName($lastName)
                 ->setEmail($email)
-                ->setRoles(["ROLE_USER"])
+                ->setRoles("ROLE_USER")
                 ->setPassword(password_hash('user', PASSWORD_BCRYPT))
                 ->setPhone($faker->phoneNumber())
                 ->setAddress($faker->address());
