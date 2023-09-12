@@ -1,15 +1,25 @@
 <script>
 	import '$lib/styles/app.scss';
+
 	export let isBig = false;
+
+	export let id;
+	export let title;
+	export let artist;
+	export let price;
+	export let picture;
+	export let description;
+	export let dimensions;
+	export let releaseDate;
 </script>
 
-<a href="/" class="product-link {isBig ? 'cart-is-big' : ''}">
-	<article class="card">
+<a href="/produit/{id}" class="product-link {isBig ? 'cart-is-big' : ''}">
+	<article class="card" data-product-id="{id}">
 		<!-- svelte-ignore a11y-img-redundant-alt -->
-		<img class="card__img" src="/" alt="image" />
+		<img class="card__img" src="{picture}" alt="Image de {title}" />
 		<div class="card__content">
-			<h3 class="card__title">Produit</h3>
-			<p class="card__price">2450€</p>
+			<h3 class="card__title">{title}</h3>
+			<p class="card__price">{price}</p>
 		</div>
 	</article>
 </a>
