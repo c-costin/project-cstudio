@@ -62,38 +62,38 @@ class ProductRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    // Find Product by type
-    public function findProductByType(string $keyword): ?array
+    // Find Product by Type Id
+    public function findProductByTypeId(int $id): ?array
     {
         $sql = "
             SELECT
-                product.name
+                *
             FROM product
             LEFT JOIN type ON product.type_id = type.id
-            WHERE product.name LIKE :keyword;
+            WHERE type.id LIKE :id;
         ";
 
         $connexion = $this->getEntityManager()->getConnection();
         $stmt = $connexion->prepare($sql);
-        $result = $stmt->executeQuery(["keyword" => "%{$keyword}%"]);
+        $result = $stmt->executeQuery(["id" => $id]);
 
         return $result->fetchAllAssociative();
     }
 
-    // Find Product by category
-    public function findProductByCategory(string $keyword): ?array
+    // Find Product by Category Id
+    public function findProductByCategoryId(int $id): ?array
     {
         $sql = "
             SELECT
-                product.name
+                *
             FROM product
-            LEFT JOIN category ON product.category_id = category.id
-            WHERE product.name LIKE :keyword;
+            LEFT JOIN product_category ON product_category.product_id = product.id
+            WHERE product_category.category_id LIKE :id;
         ";
 
         $connexion = $this->getEntityManager()->getConnection();
         $stmt = $connexion->prepare($sql);
-        $result = $stmt->executeQuery(["keyword" => "%{$keyword}%"]);
+        $result = $stmt->executeQuery(["id" => $id]);
 
         return $result->fetchAllAssociative();
     }

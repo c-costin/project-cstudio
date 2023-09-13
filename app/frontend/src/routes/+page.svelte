@@ -5,7 +5,40 @@
 	import Card from '../components/Card.svelte';
 	import Hero from '../components/Hero.svelte';
 
-	let products = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+	/** @type {import('./$types').PageData} */
+	export let data;
+
+	let products = data.products.slice(0, 10);
+	let types = data.types;
+	let categories = data.categories;
+
+	const onFiltredByType = async (e) => {
+		const typeId = e.target.value;
+		const response = await fetch(`http://localhost:8000/api/product/?type=${typeId}`, {
+			method: 'GET',
+			headers: {
+				Accept: '*/*',
+				'Content-Type': 'application/json'
+			}
+		});
+		const data = await response.json();
+		products = data.slice(0, 10);
+	};
+	const onFiltredByCategory = async (e) => {
+		const categoryId = e.target.value;
+		const response = await fetch(`http://localhost:8000/api/product/?category=${categoryId}`, {
+			method: 'GET',
+			headers: {
+				Accept: '*/*',
+				'Content-Type': 'application/json'
+			}
+		});
+		const data = await response.json();
+		products = data.slice(0, 10);
+	};
+	const onResetListProducts = () => {
+		products = data.products.slice(0, 10);
+	}
 </script>
 
 <svelte:head>
@@ -20,20 +53,27 @@
 	<main class="main">
 		<ul class="filter">
 			<h2 class="filter__title">C-Studio catégories</h2>
-			<li class="filter__item"><button class="filter__btn">catégorie 1</button></li>
-			<li class="filter__item"><button class="filter__btn">catégorie 2</button></li>
-			<li class="filter__item"><button class="filter__btn">catégorie 3</button></li>
-			<li class="filter__item"><button class="filter__btn">catégorie 4</button></li>
-			<li class="filter__item"><button class="filter__btn">catégorie 5</button></li>
-			<li class="filter__item"><button class="filter__btn">catégorie 6</button></li>
+			<select on:click={onFiltredByType}>
+				<option selected disabled>Type</option>
+				{#each types as type (type.id)}
+					<option value={type.id}>{type.name}</option>
+				{/each}
+			</select>
+			<select on:click={onFiltredByCategory}>
+				<option selected disabled>Catégorie</option>
+				{#each categories as category}
+					<option value={category.id}>{category.name}</option>
+				{/each}
+			</select>
+			<button on:click={onResetListProducts}>Tous</button>
 		</ul>
 
 		<section class="list-products">
 			{#each products as product, i}
 				{#if i === 6 || i === 7}
-					<Card isBig={true} />
+					<Card {...product} isBig={true} />
 				{:else}
-					<Card />
+					<Card {...product} />
 				{/if}
 			{/each}
 		</section>

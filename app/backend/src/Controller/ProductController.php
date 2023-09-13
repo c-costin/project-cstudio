@@ -101,7 +101,7 @@ class ProductController extends AbstractController
             if (array_key_exists('type', $request->query->all())) {
 
                 // Find all Product by type
-                $result = $productRepository->findProductByType($request->query->all()['type']);
+                $result = $productRepository->findProductByTypeId($request->query->all()['type']);
 
                 if ($result !== []) {
                     return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
@@ -114,7 +114,7 @@ class ProductController extends AbstractController
             if (array_key_exists('category', $request->query->all())) {
 
                 // Find all Product by category
-                $result = $productRepository->findProductByCategory($request->query->all()['category']);
+                $result = $productRepository->findProductByCategoryId($request->query->all()['category']);
 
                 if ($result !== []) {
                     return $this->json($result, Response::HTTP_OK, [], ["groups" => ["read:Product:item"]]);
