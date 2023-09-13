@@ -149,7 +149,7 @@ class AppFixtures extends Fixture
             $product->setTitle($faker->firstName())
                 ->setDescription($faker->sentence(9))
                 ->setDimensions($faker->numberBetween(10, 50) . 'cm' . 'x' . $faker->numberBetween(10, 50) . 'cm')
-                ->setPrice($faker->getPrice($type->getName()) . " €")
+                ->setPrice($faker->getPrice($type->getName()))
                 ->setPicture($picture)
                 ->setReleaseDate($releaseDateToString)
                 ->setArtist($faker->name())
