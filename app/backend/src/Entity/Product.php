@@ -16,41 +16,41 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:item', 'read:Products:item'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 64)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:item', 'read:Products:item'])]
     #[Assert\NotBlank]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:item', 'read:Products:item'])]
     #[Assert\NotBlank]
     private ?string $description = null;
 
     #[ORM\Column(length: 32)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:item', 'read:Products:item'])]
     #[Assert\NotBlank]
     private ?string $dimensions = null;
 
     #[ORM\Column(length: 32)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:item', 'read:Products:item'])]
     #[Assert\NotBlank]
     private ?string $price = null;
 
     #[ORM\Column(length: 128)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:item', 'read:Products:item'])]
     #[Assert\NotBlank]
     private ?string $picture = null;
 
     #[ORM\Column(length: 64)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:item', 'read:Products:item'])]
     #[Assert\NotBlank]
     private ?string $releaseDate = null;
 
     #[ORM\Column(length: 64)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:item', 'read:Products:item'])]
     #[Assert\NotBlank]
     private ?string $artist = null;
 
@@ -66,9 +66,11 @@ class Product
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['read:Products:item'])]
     private ?Type $type = null;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'products')]
+    #[Groups(['read:Products:item'])]
     private Collection $categories;
 
     #[ORM\ManyToMany(targetEntity: Order::class, inversedBy: 'products')]

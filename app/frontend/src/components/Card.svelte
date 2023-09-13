@@ -19,7 +19,7 @@
 		<img class="card__img" src="{picture}" alt="Image de {title}" />
 		<div class="card__content">
 			<h3 class="card__title">{title}</h3>
-			<p class="card__price">{price}</p>
+			<p class="card__price">{price}€</p>
 		</div>
 	</article>
 </a>
@@ -40,6 +40,9 @@
 			padding: 0.5rem 0.25rem;
 			display: flex;
 			justify-content: space-between;
+		}
+		&__content {
+			font-weight:bold;
 		}
 		&:hover &__img {
 			border: 2px solid black;

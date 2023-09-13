@@ -20,7 +20,7 @@ class Type
 
     #[ORM\Column(length: 64)]
     #[Assert\NotBlank]
-    #[Groups('read:Type:item')]
+    #[Groups(['read:Type:item', 'read:Products:item'])]
     private ?string $name = null;
 
     #[ORM\Column]

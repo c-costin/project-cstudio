@@ -10,7 +10,6 @@
 	export let data;
 
 	let product = Object.entries(data)
-	console.log(product)
 	let quantity = 1;
 	let price = product[4][1];
 	$: Calculatedprice = quantity * price;
@@ -36,9 +35,9 @@
 			<!-- svelte-ignore a11y-img-redundant-alt -->
 			<img class="product__img" src="{product[5][1]}" alt="Image du produit - " />
 			<div class="product__info">
-				<h1 class="product__type">type</h1>
+				<h1 class="product__type">{product[8][1].name}</h1>
 				<h2 class="product__title">{product[1][1]}</h2>
-				<h3 class="product__category">Catégorie</h3>
+				<h3 class="product__category">{product[9][1][0].name}</h3>
 				<summary class="product__description">
 					{product[2][1]}
 				</summary>
