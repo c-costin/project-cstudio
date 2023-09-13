@@ -22,8 +22,7 @@
 			}
 		});
 		const data = await response.json();
-
-		products = data.products.slice(0, 10);
+		products = data.slice(0, 10);
 	};
 	const onFiltredByCategory = async (e) => {
 		const categoryId = e.target.value;
@@ -35,9 +34,11 @@
 			}
 		});
 		const data = await response.json();
-
-		products = data.products.slice(0, 10);
+		products = data.slice(0, 10);
 	};
+	const onResetListProducts = () => {
+		products = data.products.slice(0, 10);
+	}
 </script>
 
 <svelte:head>
@@ -64,6 +65,7 @@
 					<option value={category.id}>{category.name}</option>
 				{/each}
 			</select>
+			<button on:click={onResetListProducts}>Tous</button>
 		</ul>
 
 		<section class="list-products">
