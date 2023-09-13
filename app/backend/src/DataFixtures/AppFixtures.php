@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\DataFixtures\Provider\ProductProvider;
 use App\Entity\Category;
 use App\Entity\Order;
 use App\Entity\Product;
@@ -57,6 +58,9 @@ class AppFixtures extends Fixture
         // Dataset seed
         $faker->seed(428);
 
+        // Adding dataset provider
+        $faker->addProvider(new ProductProvider($faker));
+
         // Create Admin user
         $adminUser = new User();
 
@@ -73,9 +77,6 @@ class AppFixtures extends Fixture
         $this->users[] = $adminUser;
 
         $manager->persist($adminUser);
-
-        // Instanciation FakerPHP
-        $faker = Factory::create("fr_FR");
 
         // => Loop for generation Users
         for ($i = 0; $i <= 100; $i++) {
@@ -137,19 +138,23 @@ class AppFixtures extends Fixture
             $product = new Product();
 
             // Declare variables
+            $type = $this->types[array_rand($this->types)];
+            $pictureType = $faker->getPictures($type->getName());
+            $pictureCategory = $pictureType[array_rand($pictureType)];
+            $picture = $pictureCategory[array_rand($pictureCategory)];
             $releaseDate = $faker->dateTimeBetween('-2000 years', 'now');
             $releaseDateToString = $releaseDate->format('Y');
 
             // Set properties
-            $product->setTitle($faker->word(3, true))
+            $product->setTitle($faker->firstName())
                 ->setDescription($faker->sentence(9))
                 ->setDimensions($faker->numberBetween(10, 50) . 'cm' . 'x' . $faker->numberBetween(10, 50) . 'cm')
-                ->setPrice(mt_rand(100, 10000000). '€')
-                ->setPicture('http://localhost:8000/img/...')
+                ->setPrice($faker->getPrice($type->getName()) . " €")
+                ->setPicture($picture)
                 ->setReleaseDate($releaseDateToString)
                 ->setArtist($faker->name())
                 ->setStock(mt_rand(1, 100))
-                ->setType($this->types[array_rand($this->types)])
+                ->setType($type)
                 ->addCategory($this->categories[array_rand($this->categories)]);
 
             $this->products[] = $product;
