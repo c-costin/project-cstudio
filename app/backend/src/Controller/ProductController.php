@@ -158,7 +158,7 @@ class ProductController extends AbstractController
     #[OA\Response(
         response: 200,
         description: "Success",
-        content: new Model(type: Product::class, groups: ['read:Products:item'])
+        content: new Model(type: Product::class, groups: ['read:ProductById:item'])
     )]
     #[OA\Response(
         response: 404,
@@ -180,7 +180,7 @@ class ProductController extends AbstractController
         }
 
         // Return Product and status code 200
-        return $this->json($product, Response::HTTP_OK, [], ["groups" => ["read:Products:item"]]);
+        return $this->json($product, Response::HTTP_OK, [], ["groups" => ["read:ProductById:item"]]);
     }
 
     /**
