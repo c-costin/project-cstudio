@@ -20,7 +20,7 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 64)]
-    #[Groups('read:Category:item')]
+    #[Groups(['read:Category:item', 'read:Product:collection'])]
     #[Assert\NotBlank]
     private ?string $name = null;
 

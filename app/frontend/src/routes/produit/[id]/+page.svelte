@@ -1,13 +1,18 @@
 <script>
 	import '$lib/styles/app.scss';
-	import Header from '../../components/Header.svelte';
-	import Footer from '../../components/Footer.svelte';
+	import Header from '../../../components/Header.svelte';
+	import Footer from '../../../components/Footer.svelte';
 
 	import iconMinus from '$lib/icons/minus.svg';
 	import iconPlus from '$lib/icons/plus.svg';
 
+	/** @type {import('./$types').PageData} */
+	export let data;
+
+	const product = data.product
+	console.log(product)
 	let quantity = 1;
-	let price = 1200;
+	let price = product.price;
 	$: Calculatedprice = quantity * price;
 
 	const increment = () => quantity++;
@@ -29,16 +34,13 @@
 	<main class="main">
 		<section class="product">
 			<!-- svelte-ignore a11y-img-redundant-alt -->
-			<img class="product__img" src="" alt="Image du produit - " />
+			<img class="product__img" src="{product.picture}" alt="Image du produit - " />
 			<div class="product__info">
-				<h1 class="product__type">Type</h1>
-				<h2 class="product__title">Titre du produit</h2>
-				<h3 class="product__category">Catégorie</h3>
+				<h1 class="product__type">{product.type.name}</h1>
+				<h2 class="product__title">{product.title}</h2>
+				<h3 class="product__category">{product.categories[0].name}</h3>
 				<summary class="product__description">
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Saepe ab ex dignissimos facilis
-					commodi, placeat tempora ipsa autem voluptatem blanditiis inventore iusto quos suscipit
-					repellat ea est quo dicta dolore. Lorem ipsum dolor sit amet consectetur adipisicing elit.
-					Quas aspernatur sunt, dolor temporibus facere voluptatum beatae aut, sit magni aliquam!
+					{product.description}
 				</summary>
 
 				<div class="product__purchase">
@@ -90,6 +92,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
+			gap: 0.5rem;
 		}
 
 		&__price {
@@ -134,6 +137,7 @@
 			}
 			&__img {
 				margin: 0;
+				width: 75%;
 			}
 		}
 	}
