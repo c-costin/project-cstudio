@@ -15,7 +15,7 @@
 <style lang="scss">
 	.dropdown-profil {
 		position: absolute;
-		top: 4rem;
+		top: 4.5rem;
 		right: 1rem;
 		padding: 0.75rem 1rem;
 		width: 156px;

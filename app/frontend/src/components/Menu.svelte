@@ -13,12 +13,12 @@
 	</button>
 	<div class="menu__links">
 		<a href="/" class="menu__link">Accueil</a>
-		<a href="/" class="menu__link">A Propos</a>
+		<a href="/a-propos" class="menu__link">A Propos</a>
 	</div>
 	<div class="menu__refs">
-		<a href="/" class="menu__ref">Mentions Légales</a>
-		<a href="/" class="menu__ref">CGV</a>
-		<a href="/" class="menu__ref">Contact</a>
+		<a href="/cgv" class="menu__ref">CGV</a>
+		<a href="/mentions-legales" class="menu__ref">Mentions Légales</a>
+		<a href="/contact" class="menu__ref">Contact</a>
 	</div>
 </nav>
 
@@ -62,12 +62,12 @@
 		}
 	}
 
-	@media screen and (min-width: 1024px) {
+	@media screen and (min-width: 992px) {
 		.menu {
 			position: relative;
 			padding: 0;
 			width: fit-content;
-			display: flex !important;
+			display: flex;
 			flex-direction: row;
 			gap: 0;
 			background: none;
@@ -78,7 +78,7 @@
 				gap: 1.75rem;
 			}
 			&__link {
-				font-size: 1.2rem;
+				font-size: 1.4rem;
 				&:hover {
 					color: gray;
 				}

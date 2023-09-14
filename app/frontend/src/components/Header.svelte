@@ -1,4 +1,6 @@
 <script>
+	import logo from '$lib/icons/logo.svg';
+
 	import Search from './Search.svelte';
 	import Menu from './Menu.svelte';
 	import DropdownProfil from './DropdownProfil.svelte';
@@ -11,6 +13,7 @@
 	export let isColoredBackground = false;
 
 	// Declare variables
+	let screenSize = 0;
 	let isMenuOpen = false;
 	let isSearchOpen = false;
 	let isProfilOpen = false;
@@ -39,24 +42,33 @@
 		if (isProfilOpen && !isCartOpen) {
 			isCartOpen = false;
 		}
+		// if (innerWidth <= 992) {
+		// 	let isMenuOpen = true;
+		// }
 	}
 </script>
 
+<svelte:window bind:innerWidth={screenSize} />
+
 {#if isSearchOpen} <Search /> {/if}
 
-<header class="header" style="{isColoredBackground ? 'border-bottom: $color-yellow;' : "" }">
-	{#if isMenuOpen} <Menu on:closeMenu={toggleOpenMenu} /> {/if}
-
-	<div class="header__left">
-		<button on:click={toggleOpenMenu}>
-			<img src={iconMenu} alt="Icon du menu" class="header__icon" />
-		</button>
-		<button on:click={toggleOpenSearch}>
-			<img src={iconSearch} alt="Icon de la recherche" class="header__icon" />
-		</button>
+<header class="header" style={isColoredBackground ? 'border-bottom: $color-yellow;' : ''}>
+	<div class="header__left-isDesktop">
+		{#if isMenuOpen || screenSize > 992} <Menu on:closeMenu={toggleOpenMenu} /> {/if}
+		
+		<div class="header__left">
+			<button on:click={toggleOpenMenu}>
+				<img src={iconMenu} alt="Icon du menu" class="header__icon header__icon-isOpenMenu" />
+			</button>
+			<button on:click={toggleOpenSearch}>
+				<img src={iconSearch} alt="Icon de la recherche" class="header__icon" />
+			</button>
+		</div>
 	</div>
 
-	<a href="/" class="header__title">C-Studio</a>
+	<a href="/" class="header__logo">
+		<img src="{logo}" alt="Logo de l'entreprise C-Studio">
+	</a>
 
 	<div class="header__right">
 		<button on:click={toggleOpenProfil}>
@@ -87,9 +99,9 @@
 			align-items: center;
 			gap: 1rem;
 		}
-		&__title {
+		&__logo {
 			z-index: 10;
-			font-size: 1.5rem;
+			width: 96px;
 		}
 		&__right {
 			z-index: 10;
@@ -102,8 +114,23 @@
 				cursor: pointer;
 			}
 		}
-		&__icon:nth-child(3) {
+		&__icon:nth-child(1) {
 			z-index: 10;
+		}
+	}
+
+	@media screen and (min-width: 992px) {
+		.header__icon-isOpenMenu {
+			display: none;
+		}
+		.header__left-isDesktop {
+			width: 256px;
+			display: flex;
+			gap: 1rem;
+		}
+		.header__right {
+			width: 256px;
+			justify-content: flex-end;
 		}
 	}
 </style>

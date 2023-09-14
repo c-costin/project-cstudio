@@ -1,25 +1,26 @@
 <script>
 	import '$lib/styles/app.scss';
+	import logo from '$lib/icons/logo.svg';
 	import iconArrowUp from '$lib/icons/arrow-up-circle.svg';
 </script>
 
 <footer class="footer">
 	<div class="container">
-		<p class="footer__logo">C-Studio</p>
+		<img class="footer__logo" src="{logo}" alt="" />
 		<section class="footer__desc">
 			<div class="footer__text">
 				<h2 class="footer__slogan">Slogan de ouf !</h2>
 				<p class="footer__resume">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
 			</div>
-			<a href="/">
+			<a href="/" class="footer__up">
 				<img src="{iconArrowUp}" alt="" class="footer__icon">
 			</a>
 		</section>
 		<section class="footer__links">
 			<div class="footer__infos">
-				<a href="/">CGV</a>
-				<a href="/">Mentions Légales</a>
-				<a href="/">Nous Contacter</a>
+				<a href="/cgv">CGV</a>
+				<a href="/mentions-legales">Mentions Légales</a>
+				<a href="/contact">Nous Contacter</a>
 			</div>
 			<nav class="footer__socials">
 				<a href="/" target="_blank" rel="noopener noreferrer">Twitter</a>
@@ -35,16 +36,13 @@
 	.footer {
 		margin-top: 3rem;
 		padding: 2rem;
-		display: flex;
-		// flex-direction: column;
-		gap: 1.5rem;
 		background: $color-yellow;
 		border-top: 3px solid $color-black;
 		&__logo {
-			font-size: 1.2rem;
-			font-style: italic;
+			width: 128px;
 		}
 		&__desc {
+			margin-bottom: 1rem;
 			display: flex;
 			justify-content: space-between;
 		}
@@ -54,9 +52,14 @@
 		&__slogan {
 			font-size: 1rem;
 		}
+		&__up {
+			margin-right: 1.5rem;
+			width: 32px;
+			height: 32px;
+		}
 		&__icon {
-			margin: 0.5rem;
-			font-size: 3rem;
+			width: 100%;
+			height: 100%;
 		}
 		&__links {
 			display: flex;
@@ -70,13 +73,6 @@
 		&__socials {
 			display: flex;
 			flex-direction: column;
-		}
-	}
-
-	@media screen and (min-width: 1280px) {
-		.footer {
-			padding-inline: 4rem;
-			border-radius: 0.5rem 0.5rem 0rem 0rem;
 		}
 	}
 </style>
