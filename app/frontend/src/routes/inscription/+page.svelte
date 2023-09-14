@@ -1,6 +1,6 @@
 <script>
     import '$lib/styles/app.scss';
-  import Header from '../../components/Header.svelte';
+    import Header from '../../components/Header.svelte';
     import Footer from '../../components/Footer.svelte';
 
 </script>
@@ -13,7 +13,7 @@
 <div class="wrapper">
 <Header />
 <main>
-    <form action="" method="" class="inscription-data">
+    <form action="?/register" method="POST" class="inscription-data">
         <h1 class="inscription-data__title">Inscription</h1>
         <div class="inscription-data__row">
             <input type="text" name="name" id="name" placeholder="Nom" class="inscription-data__input"
