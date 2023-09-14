@@ -3,6 +3,10 @@
     import Header from '../../components/Header.svelte';
     import Footer from '../../components/Footer.svelte';
 
+    	/** @type {import('./$types').PageData} */
+	    export let data;
+	    export let form;
+
 </script>
 
 <svelte:head>
@@ -13,23 +17,26 @@
 <div class="wrapper">
 <Header />
 <main>
-    <form action="?/register" method="POST" class="inscription-data">
+    {#if form?.error}
+        <p class="error">{form.error.message}</p>
+    {/if}
+    <form action="?/create" method="POST" class="inscription-data">
         <h1 class="inscription-data__title">Inscription</h1>
         <div class="inscription-data__row">
             <input type="text" name="name" id="name" placeholder="Nom" class="inscription-data__input"
-                required />
+                />
         </div>
         <div class="inscription-data__row">
             <input type="text" name="firstname" id="firstname" placeholder="Prénom"
-                class="inscription-data__input" required />
+                class="inscription-data__input"/>
         </div>
         <div class="inscription-data__row">
             <input type="email" name="email" id="email" placeholder="Email" class="inscription-data__input"
-                required />
+            required />
         </div>
         <div class="inscription-data__row">
             <input type="text" name="phone" id="phone" placeholder="Téléphone" class="inscription-data__input"
-                required />
+              />
         </div>
         <div class="inscription-data__row">
             <input type="password" name="password" id="paswword" placeholder="Mot de passe"
