@@ -2,28 +2,6 @@ import { setAuthToken } from '$lib/utils';
 import { fail, redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageServerLoad} */
-// export async function load({
-//     fetch
-// }) {
-//     const findUser = async () => {
-//         const response = await fetch(
-//             "http://localhost:8000/api/product/", {
-//                 method: "GET",
-//                 headers: {
-//                     "Accept": "*/*",
-//                     "Content-Type": "application/json",
-//                 }
-//             }
-//         )
-//         const data = await response.json();
-
-//         return data;
-//     }
-
-//     return {
-//         user: findUser()
-//     };
-// }
 
 /** @type {import('./$types').Actions} */
 export const actions = {
