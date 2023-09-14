@@ -36,8 +36,8 @@
 			<!-- svelte-ignore a11y-img-redundant-alt -->
 			<img class="product__img" src="{product.picture}" alt="Image du produit - " />
 			<div class="product__info">
-				<h1 class="product__type">{product.type.name}</h1>
-				<h2 class="product__title">{product.title}</h2>
+				<h2 class="product__type">{product.type.name}</h2>
+				<h1 class="product__title">{product.title}</h1>
 				<h3 class="product__category">{product.categories[0].name}</h3>
 				<summary class="product__description">
 					{product.description}
@@ -81,11 +81,10 @@
 
 		&__img {
 			width: 100%;
+			max-width: 540px;
 			height: auto;
-			aspect-ratio: 5/4;
-			border-radius: 0.25rem;
-			background: lightslategrey;
 			margin-bottom: 2rem;
+			object-fit: cover;
 		}
 
 		&__purchase {

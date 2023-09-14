@@ -5,21 +5,16 @@
 
 	export let id;
 	export let title;
-	//export let artist;
 	export let price;
 	export let picture;
-	//export let description;
-	//export let dimensions;
-	//export let releaseDate;
 </script>
 
 <a href="/produit/{id}" class="product-link {isBig ? 'cart-is-big' : ''}">
 	<article class="card" data-product-id="{id}">
-		<!-- svelte-ignore a11y-img-redundant-alt -->
 		<img class="card__img" src="{picture}" alt="Image de {title}" />
 		<div class="card__content">
 			<h3 class="card__title">{title}</h3>
-			<p class="card__price">{price}€</p>
+			<p class="card__price">{price} €</p>
 		</div>
 	</article>
 </a>
@@ -31,10 +26,12 @@
 		height: fit-content;
 		&__img {
 			width: 100%;
-			aspect-ratio: 5/5;
-			border-radius: 0.5rem;
-			border: 2px solid transparent;
-			background: lightslategray;
+			aspect-ratio: 5/6;
+			border-radius: 1.5rem;
+			border: 3px solid transparent;
+			filter: brightness(0.9);
+			object-fit: cover;
+			transition: 0.1s ease-in-out;
 		}
 		&__content {
 			padding: 0.5rem 0.25rem;
@@ -45,7 +42,8 @@
 			font-weight:bold;
 		}
 		&:hover &__img {
-			border: 2px solid black;
+			scale: 98%;
+			border: 3px solid black;
 		}
 	}
 	.cart-is-big {

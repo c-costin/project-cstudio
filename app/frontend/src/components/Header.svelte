@@ -8,6 +8,8 @@
 	import iconProfil from '$lib/icons/profile-circle.svg';
 	import iconCart from '$lib/icons/simple-cart.svg';
 
+	export let isColoredBackground = false;
+
 	// Declare variables
 	let isMenuOpen = false;
 	let isSearchOpen = false;
@@ -15,10 +17,18 @@
 	let isCartOpen = false;
 
 	// Declare Functions
-	const toggleOpenMenu = () => {isMenuOpen = !isMenuOpen};
-	const toggleOpenSearch = () => {isSearchOpen = !isSearchOpen};
-	const toggleOpenProfil = () => {isProfilOpen = !isProfilOpen};
-	const toggleOpenCart = () => {isCartOpen = !isCartOpen};
+	const toggleOpenMenu = () => {
+		isMenuOpen = !isMenuOpen;
+	};
+	const toggleOpenSearch = () => {
+		isSearchOpen = !isSearchOpen;
+	};
+	const toggleOpenProfil = () => {
+		isProfilOpen = !isProfilOpen;
+	};
+	const toggleOpenCart = () => {
+		isCartOpen = !isCartOpen;
+	};
 
 	// Hanlde statements
 	$: {
@@ -27,23 +37,22 @@
 			isCartOpen = false;
 		}
 		if (isProfilOpen && !isCartOpen) {
-			isCartOpen = false
+			isCartOpen = false;
 		}
 	}
 </script>
 
-<header class="header">
+{#if isSearchOpen} <Search /> {/if}
 
-	{#if isSearchOpen} <Search /> {/if}
-
+<header class="header" style="{isColoredBackground ? 'border-bottom: $color-yellow;' : "" }">
 	{#if isMenuOpen} <Menu on:closeMenu={toggleOpenMenu} /> {/if}
 
 	<div class="header__left">
 		<button on:click={toggleOpenMenu}>
-			<img src="{iconMenu}" alt="Icon du menu" class="header__icon">
+			<img src={iconMenu} alt="Icon du menu" class="header__icon" />
 		</button>
 		<button on:click={toggleOpenSearch}>
-			<img src="{iconSearch}" alt="Icon de la recherche" class="header__icon">
+			<img src={iconSearch} alt="Icon de la recherche" class="header__icon" />
 		</button>
 	</div>
 
@@ -51,26 +60,28 @@
 
 	<div class="header__right">
 		<button on:click={toggleOpenProfil}>
-			<img src="{iconProfil}" alt="Icon du profil" class="header__icon">
+			<img src={iconProfil} alt="Icon du profil" class="header__icon" />
 		</button>
 		<button on:click={toggleOpenCart}>
-			<img src="{iconCart}" alt="Icon du panier" class="header__icon">
+			<img src={iconCart} alt="Icon du panier" class="header__icon" />
 		</button>
 	</div>
 
 	{#if isProfilOpen} <DropdownProfil /> {/if}
 
 	{#if isCartOpen} <DropdownCart /> {/if}
-
 </header>
 
 <style lang="scss">
+	@use '../lib/styles/variables' as *;
+
 	.header {
 		padding: 1.5rem;
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		flex-wrap: wrap;
+		background: transparent;
 		&__left {
 			display: flex;
 			align-items: center;

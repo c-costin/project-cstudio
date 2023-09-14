@@ -3,25 +3,19 @@
 </script>
 
 <section class="hero">
-	<a href="/" class="hero__link">
-		<!-- svelte-ignore a11y-img-redundant-alt -->
-		<img src="/" alt="Image" class="hero__img" />
-	</a>
 </section>
 
 <style lang="scss">
+	@use '../lib/styles/variables' as *;
 	.hero {
-		padding: 1.5rem 2.5rem;
+		z-index: -1;
+		position: absolute;
+		top: 0;
+		left: 0;
+		padding-top: 6rem;
 		width: 100%;
-		height: fit-content;
-		border-bottom: 1px solid black;
-		&__img {
-			margin-inline: auto;
-			width: 100%;
-			max-width: 512px;
-			aspect-ratio: 5/3;
-			border-radius: 0.5rem;
-			background: lightslategray;
-		}
+		height: 296px;
+		border-bottom: 3px solid $color-black;
+		background: $color-yellow;
 	}
 </style>
