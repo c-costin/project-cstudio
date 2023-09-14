@@ -5,12 +5,12 @@
 
 	export let id;
 	export let title;
-	export let artist;
+	//export let artist;
 	export let price;
 	export let picture;
-	export let description;
-	export let dimensions;
-	export let releaseDate;
+	//export let description;
+	//export let dimensions;
+	//export let releaseDate;
 </script>
 
 <a href="/produit/{id}" class="product-link {isBig ? 'cart-is-big' : ''}">
