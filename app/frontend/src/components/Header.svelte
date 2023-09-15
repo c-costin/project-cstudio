@@ -42,9 +42,6 @@
 		if (isProfilOpen && !isCartOpen) {
 			isCartOpen = false;
 		}
-		// if (innerWidth <= 992) {
-		// 	let isMenuOpen = true;
-		// }
 	}
 </script>
 

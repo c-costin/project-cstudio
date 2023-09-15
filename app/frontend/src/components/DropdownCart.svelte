@@ -60,7 +60,7 @@
 <style lang="scss">
 	.dropdown-cart {
 		position: absolute;
-		top: 4.5rem;
+		top: 4rem;
 		right: 1rem;
 		padding: 0.75rem 1rem;
 		width: 196px;

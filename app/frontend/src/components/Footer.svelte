@@ -9,8 +9,10 @@
 		<img class="footer__logo" src="{logo}" alt="" />
 		<section class="footer__desc">
 			<div class="footer__text">
-				<h2 class="footer__slogan">Slogan de ouf !</h2>
-				<p class="footer__resume">Lorem, ipsum dolor sit amet consectetur adipisicing elit.</p>
+				<h2 class="footer__slogan">De l'art en boite !</h2>
+				<p class="footer__resume">
+					C-Studio, vente de l'art en ligne, offre une plateforme permettant aux artistes de vendre leurs créations et aux acheteurs de découvrir et d'acheter des œuvres d'art.
+				</p>
 			</div>
 			<a href="/" class="footer__up">
 				<img src="{iconArrowUp}" alt="" class="footer__icon">

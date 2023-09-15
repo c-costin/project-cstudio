@@ -39,7 +39,7 @@
 			justify-content: space-between;
 		}
 		&__content {
-			font-weight:bold;
+			font-weight: 700;
 		}
 		&:hover &__img {
 			scale: 98%;
