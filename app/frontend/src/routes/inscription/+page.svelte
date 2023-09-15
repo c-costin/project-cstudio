@@ -23,12 +23,12 @@
     <form action="?/create" method="POST" class="inscription-data">
         <h1 class="inscription-data__title">Inscription</h1>
         <div class="inscription-data__row">
-            <input type="text" name="name" id="name" placeholder="Nom" class="inscription-data__input"
+            <input type="text" name="lastName" id="lastName" placeholder="Nom" class="inscription-data__input"
                 />
         </div>
         <div class="inscription-data__row">
-            <input type="text" name="firstname" id="firstname" placeholder="Prénom"
-                class="inscription-data__input"/>
+            <input type="text" name="firstName" id="firstName" placeholder="Prénom"
+                class="inscription-data__input" required/>
         </div>
         <div class="inscription-data__row">
             <input type="email" name="email" id="email" placeholder="Email" class="inscription-data__input"
@@ -47,7 +47,7 @@
                 placeholder="Confirmez le mot de passe" class="inscription-data__input" required />
         </div>
         <div class="inscription-data__checkbox">
-            <input type="checkbox" id="conditionsApproval" name="conditionsApproval" />
+            <input type="checkbox" />
             <label for="conditionsApproval">J'accepte les conditions</label>
         </div>
         <div class="inscription-data__row">

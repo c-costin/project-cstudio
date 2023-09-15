@@ -2,104 +2,73 @@
 //     createUser
 // } from "$lib/user";
 import {
-    setAuthToken,
-    setUser
-} from "$lib/utils";
-import {
     fail,
     redirect
 } from "@sveltejs/kit";
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-    create: async ({
-        cookies,
-        request
-    }) => {
+    create: async ({ request }) => {
         const formData = Object.fromEntries(await request.formData());
-        const {
-            lastname,
-            firstname,
-            email,
-            phone,
-            password
-        } = formData;
+        const { email, password, confirmPassword, lastName, firstName, phone } = formData;
 
-        // if (!lastname || !firstname || !email || !phone || !password) {
-        //     const error = {
-        //         message: 'Veuillez remplir tous les champs du formulaire.',
-        //         code: 400
-        //     };
-        //     return fail(error.code, {
-        //         error
-        //     });
-        // }
-
-        const addUser = async (lastname, firstname, email, phone, password) => {
+        const addUser = async (email = '', password = '', lastName  = '', firstName = '', phone = '', address = '54qa3faa',  roles = 'ROLE_USER') => {
             const response = await fetch(
-                'http://localhost:8000/api/user/add', {
+                'http://localhost:8000/api/user/add',
+                {
                     method: 'POST',
                     headers: {
-                        Accept: '*/*',
+                        Accepte: '*/*',
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({
-                        lastname: lastname,
-                        firstname: firstname,
                         email: email,
+                        password: password,
+                        roles: roles,
+                        lastName: lastName,
+                        firstName: firstName,
                         phone: phone,
-                        password: password
+                        address: address
                     })
                 }
             );
 
-            if (response.status === 200) {
-                const data = await response.json();
+            if (response.status === 201) {
 
-                return {
-                    token: data.token,
-                    user: data.user
-                };
-            } else if (response.status === 401) {
-                return {
+                return { create: true };
+
+            } else if (response.status === 400) {
+
+                return { 
                     error: {
                         message: 'Requête incorrecte. Veuillez vérifier vos données.',
-                        code: 401
+                        code: 400
                     }
                 };
+
             } else {
+
                 return {
                     error: {
                         message: 'Une erreur s\'est produite lors de la connexion. Veuillez réessayer.',
                         code: 500
                     }
                 };
+
             }
         }
 
-        const {
-            error,
-            token,
-            user
-        } = await addUser(lastname, firstname, email, phone, password);
+        if (password != confirmPassword) {
+            return fail(422, {
+                message: 'mot de passe invalide'
+            });
+        }
+
+        const {create, error} = await addUser(email, password, lastName, firstName, phone);
 
         if (error) {
-            console.log({
-                error
-            });
-            return fail(error.code, {
-                error
-            });
+            return fail(error.code, { error });
         } else {
-            setAuthToken({
-                cookies,
-                token
-            });
-            setUser({
-                cookies,
-                user
-            });
-
             throw redirect(302, "/connexion");
         }
     }
