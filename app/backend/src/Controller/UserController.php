@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Models\ErrorValidationConstraints;
 use App\Repository\UserRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Nelmio\ApiDocBundle\Annotation\Model;
 use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Attributes as OA;
@@ -22,7 +23,7 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 class UserController extends AbstractController
 {
     /**
-     * Read a User
+     * Read an User
      */
     #[Route('/{id<\d+>}', name: 'app_user_read', methods: ['GET'])]
     #[OA\Get(
@@ -84,7 +85,7 @@ class UserController extends AbstractController
     }
 
     /**
-     * Edit a User
+     * Edit an User
      */
     #[Route('/edit/{id<\d+>}', name: 'app_user_edit', methods: ['PATCH'])]
     #[OA\Patch(
@@ -142,14 +143,14 @@ class UserController extends AbstractController
             ]
         )
     )]
-    public function edit(Request $request, SerializerInterface $serializerInterface, User $user = null, userRepository $userRepository): JsonResponse
+    public function edit(Request $request, SerializerInterface $serializerInterface, User $user = null, EntityManagerInterface $entityManager): JsonResponse
     {
         // Return status code 404 if $user is empty
         if ($user === null) {
             return $this->json(["code" => 404, "message" => "No User was found"], Response::HTTP_NOT_FOUND);
         }
 
-        // Check permission for update a User
+        // Check permission for update an User
         if ($this->isGranted("user_edit", $user)) {
             // Get Request Body
             $json = $request->getContent();
@@ -160,8 +161,9 @@ class UserController extends AbstractController
             // Set date to update at
             $user->setUpdatedAt(new \DateTimeImmutable());
 
-            // Save User into database
-            $userRepository->add($user, true);
+            // Save user into database
+            $entityManager->persist($user);
+            $entityManager->flush();
 
             // Return User and status code 202
             return $this->json($user, Response::HTTP_ACCEPTED, [], ["groups" => ["read:user:item"]]);
@@ -211,7 +213,7 @@ class UserController extends AbstractController
         )
     )]
     #[Security(name: null)]
-    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, UserRepository $userRepository): JsonResponse
+    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, EntityManagerInterface $entityManager): JsonResponse
     {
         // Get Request Body
         $json = $request->getContent();
@@ -224,15 +226,21 @@ class UserController extends AbstractController
         // Deserialization with entity user, insert field
         $user = $serializerInterface->deserialize($json, User::class, 'json');
 
+
         $errors = $validatorInterface->validate($user);
+
 
         if (count($errors) > 0) {
             $errorValidationConstraints = new ErrorValidationConstraints($errors);
             return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_BAD_REQUEST);
         }
 
+        $passwordTextPlain = $user->getPassword();
+        $user->setPassword(password_hash($passwordTextPlain,  PASSWORD_BCRYPT));
+
         // Save user into database
-        $userRepository->add($user, true);
+        $entityManager->persist($user);
+        $entityManager->flush();
 
         // Return user and status code 201
         return $this->json($user, Response::HTTP_CREATED, [], ["groups" => ["read:User:item"]]);
@@ -283,7 +291,7 @@ class UserController extends AbstractController
             ]
         )
     )]
-    public function delete(User $user = null, UserRepository $userRepository): JsonResponse
+    public function delete(User $user = null, EntityManagerInterface $entityManager): JsonResponse
     {
         // Return status code 404 if $user is empty
         if ($user === null) {
@@ -293,7 +301,7 @@ class UserController extends AbstractController
         // Check permission for delete User
         if ($this->isGranted("user_delete", $user)) {
             // Remove User into database
-            $userRepository->remove($user, true); //? Check method remove
+            $entityManager->remove($user, true);
             // Return status code 204
             return $this->json(null, Response::HTTP_NO_CONTENT);
         }
