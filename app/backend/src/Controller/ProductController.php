@@ -425,6 +425,7 @@ class ProductController extends AbstractController
 
             // Remove Product into database
             $entityManager->remove($product, true); //? Check method remove
+            $entityManager->flush();
 
             // Return status code 204
             return $this->json(null, Response::HTTP_NO_CONTENT);
