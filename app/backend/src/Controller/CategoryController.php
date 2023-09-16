@@ -358,7 +358,7 @@ class CategoryController extends AbstractController
         if ($this->isGranted('ROLE_ADMIN')) {
 
             // Remove Order into database
-            $entityManager->remove($category, true);
+            $entityManager->remove($category);
             $entityManager->flush();
 
             // Return status code 204

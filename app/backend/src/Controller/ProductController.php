@@ -424,7 +424,7 @@ class ProductController extends AbstractController
         if ($this->isGranted('ROLE_ADMIN')) {
 
             // Remove Product into database
-            $entityManager->remove($product, true); //? Check method remove
+            $entityManager->remove($product); //? Check method remove
             $entityManager->flush();
 
             // Return status code 204

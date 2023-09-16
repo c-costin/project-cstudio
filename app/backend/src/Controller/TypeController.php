@@ -368,7 +368,7 @@ class TypeController extends AbstractController
         if ($this->isGranted('ROLE_ADMIN')) {
 
             // Remove Type into database
-            $entityManager->remove($type, true);
+            $entityManager->remove($type);
             $entityManager->flush();
 
             // Return status code 204
