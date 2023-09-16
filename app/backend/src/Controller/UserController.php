@@ -302,6 +302,7 @@ class UserController extends AbstractController
         if ($this->isGranted("user_delete", $user)) {
             // Remove User into database
             $entityManager->remove($user, true);
+            $entityManager->flush();
             // Return status code 204
             return $this->json(null, Response::HTTP_NO_CONTENT);
         }

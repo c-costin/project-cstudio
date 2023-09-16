@@ -369,6 +369,7 @@ class TypeController extends AbstractController
 
             // Remove Type into database
             $entityManager->remove($type, true);
+            $entityManager->flush();
 
             // Return status code 204
             return $this->json(null, Response::HTTP_NO_CONTENT);
