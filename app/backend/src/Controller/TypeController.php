@@ -3,19 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Type;
-use App\Models\ErrorValidationConstraints;
-use App\Repository\TypeRepository;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Attributes as OA;
+use App\Repository\TypeRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use App\Models\ErrorValidationConstraints;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA\Tag('Type')]
 #[Route('/api/type')]
@@ -196,7 +197,7 @@ class TypeController extends AbstractController
             ]
         )
     )]
-    public function edit(Type $type = null, Request $request, SerializerInterface $serializerInterface, TypeRepository $TypeRepository): JsonResponse
+    public function edit(Type $type = null, Request $request, SerializerInterface $serializerInterface, EntityManagerInterface $entityManager): JsonResponse
     {
         if ($type === null) {
             return $this->json(["code" => 404, "message" => "No Type was found"], Response::HTTP_NOT_FOUND);
@@ -212,8 +213,9 @@ class TypeController extends AbstractController
 
             $type->setUpdatedAt(new \DateTimeImmutable());
 
-            // Save Type into database
-            $TypeRepository->add($type, true);
+            // Save type into database
+            $entityManager->persist($type);
+            $entityManager->flush();
 
             // Return Type and status code 202
             return $this->json($type, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Type:item"]]);
@@ -278,7 +280,7 @@ class TypeController extends AbstractController
             ]
         )
     )]
-    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, TypeRepository $typeRepository): JsonResponse
+    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, EntityManagerInterface $entityManager): JsonResponse
     {
         if ($this->isGranted('ROLE_ADMIN')) {
 
@@ -300,8 +302,9 @@ class TypeController extends AbstractController
                 return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_BAD_REQUEST);
             }
 
-            // Save Type into database
-            $typeRepository->add($type, true);
+            // Save type into database
+        $entityManager->persist($type);
+        $entityManager->flush();
 
             // Return Type and status code 200
             return $this->json($type, Response::HTTP_CREATED, [], ["groups" => ["read:Type:item"]]);
@@ -355,7 +358,7 @@ class TypeController extends AbstractController
             ]
         )
     )]
-    public function delete(Type $type = null, TypeRepository $typeRepository): JsonResponse
+    public function delete(Type $type = null, EntityManagerInterface $entityManager): JsonResponse
     {
         // Return status code 404 if $Type is empty
         if ($type === null) {
@@ -364,8 +367,9 @@ class TypeController extends AbstractController
 
         if ($this->isGranted('ROLE_ADMIN')) {
 
-            // Remove Order into database
-            $typeRepository->remove($type, true);
+            // Remove Type into database
+            $entityManager->remove($type);
+            $entityManager->flush();
 
             // Return status code 204
             return $this->json(null, Response::HTTP_NO_CONTENT);

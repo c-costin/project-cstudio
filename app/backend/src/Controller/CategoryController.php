@@ -3,19 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Category;
-use App\Models\ErrorValidationConstraints;
-use App\Repository\CategoryRepository;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Attributes as OA;
+use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use App\Models\ErrorValidationConstraints;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[OA\Tag('Category')]
 #[Route('/api/category')]
@@ -186,7 +187,7 @@ class CategoryController extends AbstractController
             ]
         )
     )]
-    public function edit(Category $category = null, Request $request, SerializerInterface $serializerInterface, CategoryRepository $categoryRepository): JsonResponse
+    public function edit(Category $category = null, Request $request, SerializerInterface $serializerInterface, EntityManagerInterface $entityManager): JsonResponse
     {
         if ($category === null) {
             return $this->json(["code" => 404, "message" => "No Category was found"], Response::HTTP_NOT_FOUND);
@@ -203,7 +204,8 @@ class CategoryController extends AbstractController
             $category->setUpdatedAt(new \DateTimeImmutable());
 
             // Save Category into database
-            $categoryRepository->add($category, true);
+            $entityManager->persist($category);
+            $entityManager->flush();
 
             // Return Category and status code 202
             return $this->json($category, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Category:item"]]);
@@ -268,7 +270,7 @@ class CategoryController extends AbstractController
             ]
         )
     )]
-    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, CategoryRepository $categoryRepository): JsonResponse
+    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, EntityManagerInterface $entityManager): JsonResponse
     {
         if ($this->isGranted('ROLE_ADMIN')) {
 
@@ -291,7 +293,8 @@ class CategoryController extends AbstractController
             }
 
             // Save Category into database
-            $categoryRepository->add($category, true);
+            $entityManager->persist($category);
+            $entityManager->flush();
 
             // Return Category and status code 200
             return $this->json($category, Response::HTTP_CREATED, [], ["groups" => ["read:Category:item"]]);
@@ -345,7 +348,7 @@ class CategoryController extends AbstractController
             ]
         )
     )]
-    public function delete(Category $category = null, CategoryRepository $categoryRepository): JsonResponse
+    public function delete(Category $category = null, EntityManagerInterface $entityManager): JsonResponse
     {
         // Return status code 404 if $category is empty
         if ($category === null) {
@@ -355,7 +358,8 @@ class CategoryController extends AbstractController
         if ($this->isGranted('ROLE_ADMIN')) {
 
             // Remove Order into database
-            $categoryRepository->remove($category, true);
+            $entityManager->remove($category);
+            $entityManager->flush();
 
             // Return status code 204
             return $this->json(null, Response::HTTP_NO_CONTENT);

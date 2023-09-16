@@ -3,19 +3,20 @@
 namespace App\Controller;
 
 use App\Entity\Product;
-use App\Models\ErrorValidationConstraints;
-use App\Repository\ProductRepository;
-use Nelmio\ApiDocBundle\Annotation\Model;
-use Nelmio\ApiDocBundle\Annotation\Security;
 use OpenApi\Attributes as OA;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
+use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Nelmio\ApiDocBundle\Annotation\Model;
+use App\Models\ErrorValidationConstraints;
+use Nelmio\ApiDocBundle\Annotation\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Serializer\Normalizer\AbstractNormalizer;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[OA\Tag('Product')]
 #[Route('/api/product')]
@@ -243,7 +244,7 @@ class ProductController extends AbstractController
             ]
         )
     )]
-    public function edit(Request $request, SerializerInterface $serializerInterface, Product $product = null, ProductRepository $productRepository): JsonResponse
+    public function edit(Request $request, SerializerInterface $serializerInterface, Product $product = null, EntityManagerInterface $entityManager): JsonResponse
     {
         // Return status code 404 if $product is empty
         if ($product === null) {
@@ -261,8 +262,9 @@ class ProductController extends AbstractController
             // Set date to update at
             $product->setUpdatedAt(new \DateTimeImmutable());
 
-            // Save Product into database
-            $productRepository->add($product, true);
+            // Save product into database
+            $entityManager->persist($product);
+            $entityManager->flush();
 
             // Return Product and status code 202
             return $this->json($product, Response::HTTP_ACCEPTED, [], ["groups" => ["read:Product:item"]]);
@@ -334,7 +336,7 @@ class ProductController extends AbstractController
             ]
         )
     )]
-    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, ProductRepository $productRepository): JsonResponse
+    public function add(Request $request, SerializerInterface $serializerInterface, ValidatorInterface $validatorInterface, EntityManagerInterface $entityManager): JsonResponse
     {
         if ($this->isGranted('ROLE_ADMIN')) {
 
@@ -356,8 +358,9 @@ class ProductController extends AbstractController
                 return $this->json($errorValidationConstraints->getAllMessage(), Response::HTTP_BAD_REQUEST);
             }
 
-            // Save Product into database
-            $productRepository->add($product, true);
+            // Save product into database
+            $entityManager->persist($product);
+            $entityManager->flush();
 
             // Return Product and status code 201
             return $this->json($product, Response::HTTP_CREATED, [], ["groups" => ["read:Product:item"]]);
@@ -411,7 +414,7 @@ class ProductController extends AbstractController
             ]
         )
     )]
-    public function delete(Product $product = null, ProductRepository $productRepository): JsonResponse
+    public function delete(Product $product = null, EntityManagerInterface $entityManager): JsonResponse
     {
         // Return status code 404 if $product is empty
         if ($product === null) {
@@ -421,7 +424,8 @@ class ProductController extends AbstractController
         if ($this->isGranted('ROLE_ADMIN')) {
 
             // Remove Product into database
-            $productRepository->remove($product, true); //? Check method remove
+            $entityManager->remove($product); //? Check method remove
+            $entityManager->flush();
 
             // Return status code 204
             return $this->json(null, Response::HTTP_NO_CONTENT);
