@@ -1,4 +1,5 @@
 @use 'reset';
+@use 'variables' as *;
 
 a {
   text-decoration: none;
@@ -11,16 +12,21 @@ button {
 
 body {
   font-family: variables.$font-primary;
-  max-width: 1280px;
   min-height: 100vh;
-  margin-inline: auto;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  color: $color-text;
+  background: $color-background;
 }
 
 .main {
   padding: 1.5rem;
+}
+
+.container {
+  max-width: 1280px;
+  margin-inline: auto;
 }
 
 .hidden {

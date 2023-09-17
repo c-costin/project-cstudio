@@ -51,38 +51,43 @@
 	<Hero />
 
 	<main class="main">
-		<ul class="filter">
-			<h2 class="filter__title">C-Studio catégories</h2>
-			<select on:click={onFiltredByType}>
-				<option selected disabled>Type</option>
-				{#each types as type (type.id)}
-					<option value={type.id}>{type.name}</option>
+		<div class="container">
+			<ul class="filter">
+				<h2 class="filter__title">C-Studio catégories</h2>
+				<select on:click={onFiltredByType}>
+					<option selected disabled>Type</option>
+					{#each types as type (type.id)}
+						<option value={type.id}>{type.name}</option>
+					{/each}
+				</select>
+				<select on:click={onFiltredByCategory}>
+					<option selected disabled>Catégorie</option>
+					{#each categories as category}
+						<option value={category.id}>{category.name}</option>
+					{/each}
+				</select>
+				<button on:click={onResetListProducts}>Tous</button>
+			</ul>
+	
+			<section class="list-products">
+				{#each products as product, i}
+					{#if i === 6 || i === 7}
+						<Card {...product} isBig={true} />
+					{:else}
+						<Card {...product} />
+					{/if}
 				{/each}
-			</select>
-			<select on:click={onFiltredByCategory}>
-				<option selected disabled>Catégorie</option>
-				{#each categories as category}
-					<option value={category.id}>{category.name}</option>
-				{/each}
-			</select>
-			<button on:click={onResetListProducts}>Tous</button>
-		</ul>
-
-		<section class="list-products">
-			{#each products as product, i}
-				{#if i === 6 || i === 7}
-					<Card {...product} isBig={true} />
-				{:else}
-					<Card {...product} />
-				{/if}
-			{/each}
-		</section>
+			</section>
+		</div>
 	</main>
 </div>
 
 <Footer />
 
 <style lang="scss">
+	.main {
+		margin-top: 14rem;
+	}
 	.filter {
 		margin-inline: auto;
 		padding-top: 2rem;

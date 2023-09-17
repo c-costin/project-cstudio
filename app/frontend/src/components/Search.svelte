@@ -10,20 +10,24 @@
 </aside>
 
 <style lang="scss">
+	@use '../lib/styles/variables' as *;
+
 	.aside-search {
-        margin-bottom: 1.5rem;
+        // margin-bottom: 1.5rem;
 		width: 100vw;
 		height: 4rem;
+		background: $color-background;
+		border-bottom: 3px solid $color-black;
 	}
 
 	.search {
+		padding-block: 2rem;
 		padding-left: 0.75rem;
 		width: 100%;
 		height: 3rem;
 		display: flex;
 		align-items: center;
 		gap: 0.75rem;
-		border-bottom: 2px solid black;
 		&__icon {
 			font-size: 1.2rem;
 		}

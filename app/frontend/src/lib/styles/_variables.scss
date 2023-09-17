@@ -1,1 +1,11 @@
-$font-primary: sans-serif;
+@import url(https://fonts.bunny.net/css?family=urbanist:300,700);
+
+$font-primary: 'Urbanist', sans-serif;
+
+$color-yellow: #ffc700;
+$color-green: #10a958;
+$color-white: #fff;
+$color-black: #1d2424;
+
+$color-background: $color-white;
+$color-text: $color-black;

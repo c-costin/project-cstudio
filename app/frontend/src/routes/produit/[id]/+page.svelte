@@ -9,8 +9,8 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 
-	const product = data.product
-	console.log(product)
+	const product = data.product;
+
 	let quantity = 1;
 	let price = product.price;
 	$: Calculatedprice = quantity * price;
@@ -34,10 +34,10 @@
 	<main class="main">
 		<section class="product">
 			<!-- svelte-ignore a11y-img-redundant-alt -->
-			<img class="product__img" src="{product.picture}" alt="Image du produit - " />
+			<img class="product__img" src={product.picture} alt="Image du produit - " />
 			<div class="product__info">
-				<h1 class="product__type">{product.type.name}</h1>
-				<h2 class="product__title">{product.title}</h2>
+				<h2 class="product__type">{product.type.name}</h2>
+				<h1 class="product__title">{product.title}</h1>
 				<h3 class="product__category">{product.categories[0].name}</h3>
 				<summary class="product__description">
 					{product.description}
@@ -46,11 +46,11 @@
 				<div class="product__purchase">
 					<div class="product__quantity">
 						<button on:click={decrement}>
-							<img src="{iconMinus}" alt="Icon diminution da la quantité" class="product__icon">
+							<img src={iconMinus} alt="Icon diminution da la quantité" class="product__icon" />
 						</button>
 						<p class="product__number">{quantity}</p>
 						<button on:click={increment}>
-							<img src="{iconPlus}" alt="Icon ajout da la quantité" class="product__icon">
+							<img src={iconPlus} alt="Icon ajout da la quantité" class="product__icon" />
 						</button>
 					</div>
 					<div class="product__price">
@@ -66,40 +66,35 @@
 <Footer />
 
 <style lang="scss">
+	@use '../../../lib/styles/variables' as *;
 	.product {
 		display: flex;
 		flex-direction: column;
 		margin-top: 5rem;
 		max-width: 892px;
 		margin-inline: auto;
-
 		&__info {
 			display: flex;
 			flex-direction: column;
 			gap: 0.75rem;
 		}
-
 		&__img {
 			width: 100%;
+			max-width: 540px;
 			height: auto;
-			aspect-ratio: 5/4;
-			border-radius: 0.25rem;
-			background: lightslategrey;
 			margin-bottom: 2rem;
+			object-fit: cover;
 		}
-
 		&__purchase {
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
 			gap: 0.5rem;
 		}
-
 		&__price {
 			font-size: 1.2rem;
 			font-weight: bold;
 		}
-
 		&__quantity {
 			width: fit-content;
 			display: flex;
@@ -108,16 +103,25 @@
 			gap: 1rem;
 			margin: 1rem 0;
 		}
-
-		&__number {
-			border: solid 1px lightgray;
-			border-radius: 5%;
-			background-color: lightgray;
-			padding: 0 0.3rem;
+		&__icon {
+			border-radius: 100%;
+			border: 2px solid $color-black;
 		}
-
+		&__number {
+			font-size: 1.4rem;
+			font-weight: 700;
+		}
 		&__addToCart {
+			padding-block: 1rem;
 			width: 100%;
+			font-weight: 700;
+			font-size: 1.25rem;
+			border-radius: 0.5rem;
+			background: $color-green;
+			transition: 0.15s ease-in-out;
+			&:hover {
+				color: $color-white;
+			}
 		}
 	}
 
