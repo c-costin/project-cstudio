@@ -17,7 +17,7 @@
 	<section class="footer__links">
 		<div class="footer__infos">
 			<a href="/">CGV</a>
-			<a href="/">Mentions Légales</a>
+			<a href="/mentions-legales">Mentions Légales</a>
 			<a href="/">Nous Contacter</a>
 		</div>
 		<nav class="footer__socials">

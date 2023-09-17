@@ -1114,6 +1114,38 @@ a:not([class]) {
     margin: 0;
   }
 }
+.mentions-legales {
+  margin: auto;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.mentions-legales__title {
+  margin-bottom: 0.5rem;
+}
+.mentions-legales__summary {
+  text-align: justify;
+}
+
+.article {
+  margin: auto;
+  margin-bottom: 2rem;
+}
+.article__title {
+  margin-bottom: 0.5rem;
+}
+.article__content {
+  margin-bottom: 1rem;
+  text-align: justify;
+}
+
+@media screen and (min-width: 768px) {
+  .mentions-legales {
+    width: 75%;
+  }
+  .article {
+    width: 75%;
+  }
+}
 a {
   text-decoration: none;
   color: inherit;
