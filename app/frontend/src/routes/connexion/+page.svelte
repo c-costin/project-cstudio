@@ -2,49 +2,11 @@
 	import '$lib/styles/app.scss';
 	import Header from '../../components/Header.svelte';
 	import Footer from '../../components/Footer.svelte';
-	// import { token, user } from '$lib/stores.js';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
+	export let form;
 
-	// let email = data.user.email;
-  	// let password = data.user.password;
-  	// let error = '';
-
-	// Declare functions
-// 	async function onAuthenticate {
-// 		const credentials = { email, password };
-
-// 		try {
-// 			const response = await fetch('http://localhost:8000/api/login_check', {
-// 			method: 'POST',
-// 			headers: {
-// 				Accept: '*/*',
-// 				'Content-Type': 'application/json'
-// 			},
-// 			body: JSON.stringify(credentials)
-// 		});
-		
-// 		if (response.ok) {
-// 		const data = await response.json();
-//         const token = data.token;
-
-//         localStorage.setItem('token', token);
-
-//         window.location.href = '/';
-//       } else {
-//         error = 'Identifiants incorrects. Veuillez réessayer.';
-//       }
-//     } catch (e) {
-//       console.error('Erreur de connexion :', e);
-//     }
-//   }
-
-	// Checking
-	// $: {
-	// 	console.log($token);
-	// 	console.log($user);
-	// }
 </script>
 
 <svelte:head>
@@ -54,6 +16,9 @@
 <div class="wrapper">
 	<Header />
 	<main class="main">
+		{#if form?.error}
+        <p class="error">{form.error.message}</p>
+    	{/if}
 		<form method="POST" action="?/login" class="connexion-data">
 			<h1 class="connexion-data__title">Connexion</h1>
 			<div class="connexion-data__row">

@@ -14,7 +14,7 @@
 					C-Studio, vente de l'art en ligne, offre une plateforme permettant aux artistes de vendre leurs créations et aux acheteurs de découvrir et d'acheter des œuvres d'art.
 				</p>
 			</div>
-			<a href="/" class="footer__up">
+		<a href="/" class="footer__up">
 				<img src="{iconArrowUp}" alt="" class="footer__icon">
 			</a>
 		</section>
