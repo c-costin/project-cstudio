@@ -58,8 +58,8 @@
 // => Result page
 @use 'components/result/result';
 
-// ======== Generals rules ========
-
+// => Mentions page
+@use 'components/mentions-legales/mentions-legales';
 a {
   text-decoration: none;
   color: inherit;
