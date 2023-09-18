@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 
 /** @type {import('@sveltejs/kit').Handle} */
 export async function handle({ event, resolve }) {
@@ -8,28 +8,16 @@ export async function handle({ event, resolve }) {
 
 	if (event.url.pathname.startsWith('/profil')) {
 		if (!connectedUser) {
-			throw error(403, {
-				message: 'Access Denied'
-			});
+			throw redirect(303, "/connexion");
 		}
 	}
 
-	// const isAdmin = checkIsAdmin(cookies);
-
-	// if (event.url.pathname.startsWith('/admin')) {
-	// 	if (!isAdmin) {
-	// 		throw error(403, {
-	// 			message: 'Access Denied'
-	// 		});
-	// 	}
-	// }
+	if (event.url.pathname.startsWith('/admin')) {
+		if (!connectedUser) {
+			throw redirect(303, "/connexion");
+		}
+	}
 
 	const response = await resolve(event);
 	return response;
 }
-
-// const checkIsAdmin = (cookies) => {
-// 	const connectedUser = cookies.get('ConnectedUser');
-
-// 	return connectedUser.role === "ROLE_ADMIN" 
-// }
