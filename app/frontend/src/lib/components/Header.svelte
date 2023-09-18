@@ -22,6 +22,7 @@
 	// Declare Functions
 	const toggleOpenMenu = () => {
 		isMenuOpen = !isMenuOpen;
+		document.body.classList.toggle("scroll-lock")
 	};
 	const toggleOpenSearch = () => {
 		isSearchOpen = !isSearchOpen;
@@ -51,7 +52,9 @@
 
 <header class="header" style={isColoredBackground ? 'border-bottom: $color-yellow;' : ''}>
 	<div class="header__left-isDesktop">
-		{#if isMenuOpen || screenSize > 992} <Menu on:closeMenu={toggleOpenMenu} /> {/if}
+		{#if isMenuOpen || screenSize > 992}
+			<Menu on:closeMenu={toggleOpenMenu} /> 
+		{/if}
 		
 		<div class="header__left">
 			<button on:click={toggleOpenMenu}>
@@ -82,7 +85,7 @@
 </header>
 
 <style lang="scss">
-	@use '$lib/styles/variables' as *;
+	@use '../styles/variables' as *;
 
 	.header {
 		padding: 1.5rem;

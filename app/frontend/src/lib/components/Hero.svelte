@@ -6,7 +6,7 @@
 </section>
 
 <style lang="scss">
-	@use '$lib/styles/variables' as *;
+	@use '../styles/variables' as *;
 	.hero {
 		z-index: -1;
 		position: absolute;
