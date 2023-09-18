@@ -69,7 +69,7 @@
 		</div>
 
 		<div class="slide">
-			<img class="slide__image" src={sliderDessinImage} alt="sculpture" />
+			<img class="slide__image" src={sliderDessinImage} alt="dessin" />
 			<div class="overlay">
 				<h1>Explorer</h1>
 			</div>
@@ -78,7 +78,7 @@
 		</div>
 
 		<div class="slide">
-			<img class="slide__image" src={sliderPhotoImage} alt="sculpture" />
+			<img class="slide__image" src={sliderPhotoImage} alt="photographie" />
 			<div class="overlay">
 				<h1>Explorer</h1>
 			</div>
@@ -87,7 +87,7 @@
 		</div>
 
 		<div class="slide">
-			<img class="slide__image" src={sliderTableauImage} alt="sculpture" />
+			<img class="slide__image" src={sliderTableauImage} alt="tableau" />
 			<div class="overlay">
 				<h1>Explorer</h1>
 			</div>

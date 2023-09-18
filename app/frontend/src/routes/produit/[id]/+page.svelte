@@ -10,7 +10,6 @@
 	export let data;
 
 	const product = data.product;
-	console.log(product)
 	let quantity = 1;
 	let price = product.price;
 	$: Calculatedprice = quantity * price;
