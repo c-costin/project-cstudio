@@ -72,7 +72,7 @@
 
 <style lang="scss">
 	.main {
-		margin-top: 14rem;
+		margin-top: 1rem;
 	}
 	.filter {
 		margin-inline: auto;
@@ -110,11 +110,17 @@
 	.list-products {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
-		gap: 1rem;
+		font-size: small;
 	}
 	@media screen and (min-width: 640px) {
 		.list-products {
 			grid-template-columns: repeat(4, 1fr);
+		}
+	}
+
+	@media screen and (min-width: 900px) {
+		.list-products {
+			font-size: large;
 		}
 	}
 </style>

@@ -10,7 +10,6 @@
 	export let data;
 
 	const product = data.product;
-
 	let quantity = 1;
 	let price = product.price;
 	$: Calculatedprice = quantity * price;
@@ -42,6 +41,10 @@
 				<summary class="product__description">
 					{product.description}
 				</summary>
+				<div class="product__caracteristics">
+				<p class="product__dimensions">Dimensions:{product.dimensions}</p>
+				<p class="product__date">Création:{product.releaseDate}<p>
+				</div>
 
 				<div class="product__purchase">
 					<div class="product__quantity">
@@ -77,6 +80,10 @@
 			display: flex;
 			flex-direction: column;
 			gap: 0.75rem;
+		}
+		&__caracteristics {
+			display:flex;
+			justify-content: space-between;
 		}
 		&__img {
 			width: 100%;
