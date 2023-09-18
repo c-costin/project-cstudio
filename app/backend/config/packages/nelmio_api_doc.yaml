@@ -4,7 +4,7 @@ nelmio_api_doc:
           - url: http://localhost:8000
             description: DEV SERVER
         info:
-            title: C-Studio API
+            title: API C-Studio
             description: Documentation for using and understanding the C-Studio API
             version: 0.0.1
         components:
