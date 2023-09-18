@@ -1,10 +1,10 @@
 <script>
 	import '$lib/styles/app.scss';
-	import Header from '../../components/Header.svelte';
-	import Footer from '../../components/Footer.svelte';
-	import Profil from '../../components/Profil/Profil.svelte';
-	import Order from '../../components/Profil/Order.svelte';
-	import Favorite from '../../components/Profil/Favorite.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+	import Profil from '$lib/components/Profil/Profil.svelte';
+	import Order from '$lib/components/Profil/Order.svelte';
+	import Favorite from '$lib/components/Profil/Favorite.svelte';
 
 	// Declare variables
 	let isProfilOpen = true;
@@ -28,6 +28,11 @@
 		isFavoriteOpen = true;
 	};
 </script>
+
+<svelte:head>
+	<title>Profil | C-Studio - Plateform de vente en ligne d'oeuvre d'art</title>
+</svelte:head>
+
 
 <div class="wrapper">
 	<Header />

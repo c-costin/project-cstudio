@@ -1,5 +1,5 @@
-@use 'reset';
 @use 'variables' as *;
+@import 'reset.css';
 
 a {
   text-decoration: none;
@@ -11,7 +11,7 @@ button {
 }
 
 body {
-  font-family: variables.$font-primary;
+  font-family: $font-primary;
   min-height: 100vh;
   display: flex;
   flex-direction: column;

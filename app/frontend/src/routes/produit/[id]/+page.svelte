@@ -1,7 +1,7 @@
 <script>
 	import '$lib/styles/app.scss';
-	import Header from '../../../components/Header.svelte';
-	import Footer from '../../../components/Footer.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 
 	import iconMinus from '$lib/icons/minus.svg';
 	import iconPlus from '$lib/icons/plus.svg';
@@ -25,7 +25,7 @@
 </script>
 
 <svelte:head>
-	<title>C-Studio - Product</title>
+	<title>{product.title} | C-Studio - Plateform de vente en ligne d'oeuvre d'art</title>
 </svelte:head>
 
 <div class="wrapper">

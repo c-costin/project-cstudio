@@ -82,7 +82,7 @@
 </header>
 
 <style lang="scss">
-	@use '../lib/styles/variables' as *;
+	@use '$lib/styles/variables' as *;
 
 	.header {
 		padding: 1.5rem;

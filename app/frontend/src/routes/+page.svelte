@@ -1,9 +1,10 @@
 <script>
 	import '$lib/styles/app.scss';
-	import Header from '../components/Header.svelte';
-	import Footer from '../components/Footer.svelte';
-	import Card from '../components/Card.svelte';
-	import Hero from '../components/Hero.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+	import Card from '$lib/components/Card.svelte';
+	import Hero from '$lib/components/Hero.svelte';
+	import { findProductsByCategory, findProductsByType } from '$lib/js/request.js';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -13,36 +14,20 @@
 	let categories = data.categories;
 
 	const onFiltredByType = async (e) => {
-		const typeId = e.target.value;
-		const response = await fetch(`http://localhost:8000/api/product/?type=${typeId}`, {
-			method: 'GET',
-			headers: {
-				Accept: '*/*',
-				'Content-Type': 'application/json'
-			}
-		});
-		const data = await response.json();
-		products = data.slice(0, 10);
-	};
+		products = await findProductsByType(e);
+	}
+
 	const onFiltredByCategory = async (e) => {
-		const categoryId = e.target.value;
-		const response = await fetch(`http://localhost:8000/api/product/?category=${categoryId}`, {
-			method: 'GET',
-			headers: {
-				Accept: '*/*',
-				'Content-Type': 'application/json'
-			}
-		});
-		const data = await response.json();
-		products = data.slice(0, 10);
-	};
+		products = await findProductsByCategory(e);
+	}
+
 	const onResetListProducts = () => {
 		products = data.products.slice(0, 10);
 	}
 </script>
 
 <svelte:head>
-	<title>C-Studio - Accueil</title>
+	<title>Accueil | C-Studio - Plateform de vente en ligne d'oeuvre d'art</title>
 </svelte:head>
 
 <div class="wrapper">

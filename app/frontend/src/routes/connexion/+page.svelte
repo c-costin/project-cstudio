@@ -1,24 +1,22 @@
 <script>
 	import '$lib/styles/app.scss';
-	import Header from '../../components/Header.svelte';
-	import Footer from '../../components/Footer.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
 
-	/** @type {import('./$types').PageData} */
-	export let data;
+	/** @type {import('./$types').ActionData} */
 	export let form;
-
 </script>
 
 <svelte:head>
-	<title>C-Studio - Se connecter</title>
+	<title>Connexion | C-Studio - Plateform de vente en ligne d'oeuvre d'art</title>
 </svelte:head>
 
 <div class="wrapper">
 	<Header />
 	<main class="main">
 		{#if form?.error}
-        <p class="error">{form.error.message}</p>
-    	{/if}
+			<p class="error">{form.error.message}</p>
+		{/if}
 		<form method="POST" action="?/login" class="connexion-data">
 			<h1 class="connexion-data__title">Connexion</h1>
 			<div class="connexion-data__row">
@@ -46,7 +44,7 @@
 				<label for="rememberMe">se souvenir de moi</label>
 			</div>
 			<div class="connexion-data__validate">
-				<a href="./signup.html" class="connexion-data__subscribe">s'inscrire</a>
+				<a href="/inscription" class="connexion-data__subscribe">s'inscrire</a>
 				<button type="submit" class="connexion-data__submit">Connexion</button>
 			</div>
 

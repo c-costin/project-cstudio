@@ -2,9 +2,9 @@
 	// @ts-nocheck
 
 	import '$lib/styles/app.scss';
-	import Header from '../../components/Header.svelte';
-	import Footer from '../../components/Footer.svelte';
-	import Product from '../../components/Cart/Product.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+	import Product from '$lib/components/Cart/Product.svelte';
 
 	// Declare variables
 	let products = [0, 1, 2, 3];
@@ -16,6 +16,10 @@
 	$: totalCheckout = productsTotal.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 
 </script>
+
+<svelte:head>
+	<title>Panier | C-Studio - Plateform de vente en ligne d'oeuvre d'art</title>
+</svelte:head>
 
 <div class="wrapper">
 	<Header />
