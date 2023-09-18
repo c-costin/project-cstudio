@@ -1,6 +1,5 @@
 <script>
 	import '$lib/styles/app.scss';
-	const img = "http://localhost:8000/uploads/product/fzuif.png";
 </script>
 
 <aside class="dropdown-cart js-dropdown-cart hidden">
@@ -15,7 +14,7 @@
 				<article class="dropdown-cart-article">
 					<div class="dropdown-cart-article__top">
 						<!-- svelte-ignore a11y-img-redundant-alt -->
-						<img class="dropdown-cart-article__img" src="{img}" alt="Image" />
+						<img class="dropdown-cart-article__img" src="" alt="Image" />
 						<h3 class="dropdown-cart-article__name">Nature</h3>
 					</div>
 					<div class="dropdown-cart-article__bottom">
@@ -34,7 +33,7 @@
 				<article class="dropdown-cart-article">
 					<div class="dropdown-cart-article__top">
 						<!-- svelte-ignore a11y-img-redundant-alt -->
-						<img class="dropdown-cart-article__img" src="{img}" alt="Image" />
+						<img class="dropdown-cart-article__img" src="" alt="Image" />
 						<h3 class="dropdown-cart-article__name">Sport</h3>
 					</div>
 					<div class="dropdown-cart-article__bottom">
