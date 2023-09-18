@@ -26,6 +26,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $email = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
     #[Groups('read:User:item')]
     private array $roles = [];
 
@@ -41,7 +42,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $phone = null;
 
     #[ORM\Column(length: 128, nullable: true)]
-    #[Assert\NotBlank]
     #[Groups('read:User:item')]
     private ?string $lastName = null;
 
@@ -51,7 +51,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $firstName = null;
 
     #[ORM\Column(length: 128, nullable: true)]
-    #[Assert\NotBlank]
     #[Groups('read:User:item')]
     private ?string $address = null;
 
