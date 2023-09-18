@@ -65,7 +65,7 @@
 			</button>
 		</nav>
 
-		{#if isProfilOpen} <Profil {...user}/> {/if}
+		{#if isProfilOpen} <Profil {...user} /> {/if}
 		{#if isOrderOpen} <Order /> {/if}
 		{#if isFavoriteOpen} <Favorite /> {/if}
 	</main>

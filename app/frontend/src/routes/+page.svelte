@@ -7,6 +7,7 @@
 	import { findProductsByCategory, findProductsByType } from '$lib/js/request.js';
 
 	/** @type {import('./$types').PageData} */
+	/** @type {import('./$types').LayoutServerData} */
 	export let data;
 
 	let products = data.products.slice(0, 10);
