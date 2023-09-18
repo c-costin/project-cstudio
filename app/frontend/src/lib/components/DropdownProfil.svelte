@@ -11,6 +11,9 @@
 		<h4 class="dropdown-profil__title">{user.firstName} {user.lastName}</h4>
 		<div class="dropdown-profil__separator" />
 		<a href="/profil" class="dropdown-profil__link">Profil</a>
+		{#if user.role[0] === 'ROLE_ADMIN'}
+			<a href="/admin" class="dropdown-profil__link">Tableau de bord</a>
+		{/if}
 		<div class="dropdown-profil__separator" />
 		<a href="/connexion?/logout" class="dropdown-profil__link">Déconnexion</a>
 	{:else}

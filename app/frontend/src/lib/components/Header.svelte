@@ -10,7 +10,7 @@
 	import Search from '$lib/components/Search.svelte';
 	import Menu from '$lib/components/Menu.svelte';
 	import DropdownProfil from '$lib/components/DropdownProfil.svelte';
-	import DropdownCart from '$lib/components/DropdownCart.svelte';
+	import DropdownCart from '$lib/components/DropdownCart/DropdownCart.svelte';
 
 	export let isColoredBackground = false;
 
