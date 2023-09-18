@@ -1,14 +1,16 @@
 <script>
+	// Import icons
 	import logo from '$lib/icons/logo.svg';
-
-	import Search from './Search.svelte';
-	import Menu from './Menu.svelte';
-	import DropdownProfil from './DropdownProfil.svelte';
-	import DropdownCart from './DropdownCart.svelte';
 	import iconMenu from '$lib/icons/menu.svg';
 	import iconSearch from '$lib/icons/search.svg';
 	import iconProfil from '$lib/icons/profile-circle.svg';
 	import iconCart from '$lib/icons/simple-cart.svg';
+
+	// Import components
+	import Search from '$lib/components/Search.svelte';
+	import Menu from '$lib/components/Menu.svelte';
+	import DropdownProfil from '$lib/components/DropdownProfil.svelte';
+	import DropdownCart from '$lib/components/DropdownCart/DropdownCart.svelte';
 
 	export let isColoredBackground = false;
 
@@ -22,6 +24,7 @@
 	// Declare Functions
 	const toggleOpenMenu = () => {
 		isMenuOpen = !isMenuOpen;
+		document.body.classList.toggle('scroll-lock');
 	};
 	const toggleOpenSearch = () => {
 		isSearchOpen = !isSearchOpen;
@@ -51,8 +54,10 @@
 
 <header class="header" style={isColoredBackground ? 'border-bottom: $color-yellow;' : ''}>
 	<div class="header__left-isDesktop">
-		{#if isMenuOpen || screenSize > 992} <Menu on:closeMenu={toggleOpenMenu} /> {/if}
-		
+		{#if isMenuOpen || screenSize > 992}
+			<Menu on:closeMenu={toggleOpenMenu} />
+		{/if}
+
 		<div class="header__left">
 			<button on:click={toggleOpenMenu}>
 				<img src={iconMenu} alt="Icon du menu" class="header__icon header__icon-isOpenMenu" />
@@ -64,7 +69,7 @@
 	</div>
 
 	<a href="/" class="header__logo">
-		<img src="{logo}" alt="Logo de l'entreprise C-Studio">
+		<img src={logo} alt="Logo de l'entreprise C-Studio" />
 	</a>
 
 	<div class="header__right">
@@ -82,7 +87,7 @@
 </header>
 
 <style lang="scss">
-	@use '../lib/styles/variables' as *;
+	@use '../styles/variables' as *;
 
 	.header {
 		padding: 1.5rem;

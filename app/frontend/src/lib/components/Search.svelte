@@ -10,7 +10,7 @@
 </aside>
 
 <style lang="scss">
-	@use '../lib/styles/variables' as *;
+	@use '../styles/variables' as *;
 
 	.aside-search {
         // margin-bottom: 1.5rem;

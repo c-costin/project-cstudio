@@ -9,7 +9,8 @@ export const setAuthToken = ({cookies, token}) => {
 };
 
 export const setUser = ({cookies, user}) => {
-    cookies.set('ConnectedUser', JSON.stringify(user), {
+    const connectedUser = JSON.stringify(user)
+    cookies.set('ConnectedUser', connectedUser, {
         httpOnly: true,
         secure: true,
         sameSite: 'strict',

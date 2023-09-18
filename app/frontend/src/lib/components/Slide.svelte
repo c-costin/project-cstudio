@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
 	import sliderSculptureImage from '$lib/sliderpictures/sculpture.jpg';
 	import sliderDessinImage from '$lib/sliderpictures/dessin.webp';
 	import sliderPhotoImage from '$lib/sliderpictures/photo.jpg';

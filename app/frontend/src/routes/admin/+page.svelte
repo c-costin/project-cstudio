@@ -1,12 +1,13 @@
 <script>
-	import Header from '../../components/Header.svelte';
-	import Pagination from '../../components/Pagination.svelte';
-	import Footer from '../../components/Footer.svelte';
-	import Product from '../../components/Dashboard/Product.svelte';
-	import Order from '../../components/Dashboard/Order.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Pagination from '$lib/components/Pagination.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+	import Product from '$lib/components/Dashboard/Product.svelte';
+	import Order from '$lib/components/Dashboard/Order.svelte';
 
 	// Declare variables
-	let data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19];
+	let screenSize = 0;
+	let data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 	let isProductOpen = true;
 	let isOrderOpen = false;
 
@@ -21,10 +22,16 @@
 	};
 </script>
 
+<svelte:head>
+	<title>Tableau de bord | C-Studio - Plateform de vente en ligne d'oeuvre d'art</title>
+</svelte:head>
+
+<svelte:window bind:innerWidth={screenSize} />
+
 <div class="wrapper">
 	<Header />
 
-	{#if true}
+	{#if screenSize > 1024}
 		<main class="main-dashboard">
 			<div class="dashboard-actions">
 				<nav class="dashboard-menu">
@@ -70,27 +77,19 @@
 <Footer />
 
 <style lang="scss">
-	.main-dashboard {
-		display: none;
-	}
 	.main-is-disable {
 		margin-block: 4rem;
 		text-align: center;
 	}
 	@media screen and (min-width: 1024px) {
-		.main-is-disable {
-			display: none;
-		}
-
 		.main-dashboard {
+			padding: 1.5rem;
 			display: block;
 		}
-
 		.dashboard-actions {
 			display: flex;
 			justify-content: space-between;
 		}
-
 		.dashboard-menu {
 			display: flex;
 			row-gap: 0.5rem;

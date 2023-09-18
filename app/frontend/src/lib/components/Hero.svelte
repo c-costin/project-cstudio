@@ -8,7 +8,7 @@
 </section>
 
 <style lang="scss">
-	@use '../lib/styles/variables' as *;
+	@use '../styles/variables' as *;
 	.hero {
 		padding: 1rem 0;
 		width: 100%;

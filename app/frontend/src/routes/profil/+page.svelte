@@ -1,10 +1,17 @@
 <script>
 	import '$lib/styles/app.scss';
-	import Header from '../../components/Header.svelte';
-	import Footer from '../../components/Footer.svelte';
-	import Profil from '../../components/Profil/Profil.svelte';
-	import Order from '../../components/Profil/Order.svelte';
-	import Favorite from '../../components/Profil/Favorite.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+	import Profil from '$lib/components/Profil/Profil.svelte';
+	import Order from '$lib/components/Profil/Order.svelte';
+	import Favorite from '$lib/components/Profil/Favorite.svelte';
+
+	/** @type {import('./$types').PageServerData} */
+	export let data;
+
+	const user = data.user;
+
+	console.log(user);
 
 	// Declare variables
 	let isProfilOpen = true;
@@ -28,6 +35,11 @@
 		isFavoriteOpen = true;
 	};
 </script>
+
+<svelte:head>
+	<title>Profil | C-Studio - Plateform de vente en ligne d'oeuvre d'art</title>
+</svelte:head>
+
 
 <div class="wrapper">
 	<Header />
@@ -53,7 +65,7 @@
 			</button>
 		</nav>
 
-		{#if isProfilOpen} <Profil /> {/if}
+		{#if isProfilOpen} <Profil {...user} /> {/if}
 		{#if isOrderOpen} <Order /> {/if}
 		{#if isFavoriteOpen} <Favorite /> {/if}
 	</main>

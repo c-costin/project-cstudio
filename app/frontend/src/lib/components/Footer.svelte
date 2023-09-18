@@ -34,7 +34,7 @@
 </footer>
 
 <style lang="scss">
-	@use '../lib/styles/variables' as *;
+	@use '../styles/variables' as *;
 	.footer {
 		margin-top: 3rem;
 		padding: 2rem;
