@@ -1,21 +1,18 @@
 <script>
 	import '$lib/styles/app.scss';
+	import Slide from './Slide.svelte';
 </script>
 
 <section class="hero">
+	<Slide />
 </section>
 
 <style lang="scss">
 	@use '../lib/styles/variables' as *;
 	.hero {
-		z-index: -1;
-		position: absolute;
-		top: 0;
-		left: 0;
-		padding-top: 6rem;
+		padding: 1rem 0;
 		width: 100%;
-		height: 296px;
-		border-bottom: 3px solid $color-black;
 		background: $color-yellow;
+		min-height: 28vmin;
 	}
 </style>
