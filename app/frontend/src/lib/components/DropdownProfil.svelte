@@ -22,6 +22,7 @@
 <style lang="scss">
 	@use '../styles/variables' as *;
 	.dropdown-profil {
+		z-index: 1000;
 		position: absolute;
 		top: 4rem;
 		right: 1rem;

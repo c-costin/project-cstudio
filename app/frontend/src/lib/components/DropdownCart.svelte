@@ -58,6 +58,7 @@
 
 <style lang="scss">
 	.dropdown-cart {
+		z-index: 1000;
 		position: absolute;
 		top: 4rem;
 		right: 1rem;
