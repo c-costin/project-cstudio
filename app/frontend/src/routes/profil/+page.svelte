@@ -6,6 +6,13 @@
 	import Order from '$lib/components/Profil/Order.svelte';
 	import Favorite from '$lib/components/Profil/Favorite.svelte';
 
+	/** @type {import('./$types').PageServerData} */
+	export let data;
+
+	const user = data.user;
+
+	console.log(user);
+
 	// Declare variables
 	let isProfilOpen = true;
 	let isOrderOpen = false;
@@ -58,7 +65,7 @@
 			</button>
 		</nav>
 
-		{#if isProfilOpen} <Profil /> {/if}
+		{#if isProfilOpen} <Profil {...user}/> {/if}
 		{#if isOrderOpen} <Order /> {/if}
 		{#if isFavoriteOpen} <Favorite /> {/if}
 	</main>

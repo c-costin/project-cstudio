@@ -1,10 +1,9 @@
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ cookies }) {
-	const connectedUser = cookies.get('connectedUser');
+	const token = cookies.get('AuthorizationToken');
+	const connectedUser = cookies.get('ConnectedUser');
 
-	if (connectedUser) {
-		return {
-			user: JSON.parse(connectedUser)
-		};
-	}
+	return {
+		user: JSON.parse(connectedUser)
+	};
 }

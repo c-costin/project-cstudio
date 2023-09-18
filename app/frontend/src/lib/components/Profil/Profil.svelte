@@ -1,5 +1,13 @@
 <script>
 	import '$lib/styles/app.scss';
+
+	export let id;
+	export let firstName;
+	export let lastName;
+	export let email;
+	export let phone;
+	export let address;
+	export let role;
 </script>
 
 <section class="profil-content">
@@ -7,30 +15,24 @@
 		<div class="profil-data__container">
 			<div class="profil-data__row">
 				<label for="fristName" class="profil-data__label">Prénom</label>
-				<input type="text" name="fristName" class="profil-data__input" placeholder="John" />
+				<input type="text" name="fristName" class="profil-data__input" value="{firstName}" />
 			</div>
 			<div class="profil-data__row">
 				<label for="lastName" class="profil-data__label">Nom</label>
-				<input type="text" name="lastName" class="profil-data__input" placeholder="Doe" />
+				<input type="text" name="lastName" class="profil-data__input" value="{lastName}" />
 			</div>
 		</div>
 		<div class="profil-data__row">
 			<label for="email" class="profil-data__label">Email</label>
-			<input type="email" name="email" class="profil-data__input" placeholder="john.doe@mail.com" />
+			<input type="email" name="email" class="profil-data__input" value="{email}" />
 		</div>
 		<div class="profil-data__row">
-			<label for="oldPassword" class="profil-data__label">Ancien mot de passe</label>
-			<input type="password" name="oldPassword" class="profil-data__input" />
+			<label for="phone" class="profil-data__label">Téléphone</label>
+			<input type="tel" name="phone" class="profil-data__input" value="{phone}"/>
 		</div>
-		<div class="profil-data__container">
-			<div class="profil-data__row">
-				<label for="newPassword" class="profil-data__label">Nouveau mot de passe</label>
-				<input type="password" name="newPassword" class="profil-data__input" />
-			</div>
-			<div class="profil-data__row">
-				<label for="comfirmPassword" class="profil-data__label">Comfirmer mot de passe</label>
-				<input type="password" name="comfirmPassword" class="profil-data__input" />
-			</div>
+		<div class="profil-data__row">
+			<label for="address" class="profil-data__label">Adresse</label>
+			<input type="text" name="address" class="profil-data__input" value="{address}"/>
 		</div>
 	</form>
 	<div class="profil-action">
