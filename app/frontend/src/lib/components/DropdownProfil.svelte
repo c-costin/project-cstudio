@@ -17,7 +17,7 @@
 		<div class="dropdown-profil__separator" />
 		<a href="/connexion?/logout" class="dropdown-profil__link">Déconnexion</a>
 	{:else}
-		<a href="/connexion" class="dropdown-profil__login">Connexion</a>
+		<a href="/connexion" class="dropdown-profil__login">connexion</a>
 		<a href="/inscription" class="dropdown-profil__signup"> pas encore inscrit ?</a>
 	{/if}
 </aside>
@@ -34,7 +34,7 @@
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		gap: 0.75rem;
+		gap: 0.5rem;
 		border-radius: 0.5rem;
 		border: 1px solid rgba(255, 255, 255, 0.15);
 		backdrop-filter: blur(3.1px);
@@ -59,7 +59,7 @@
 			justify-content: center;
 			align-items: center;
 			font-weight: 700;
-			font-size: 1.25rem;
+			font-size: 1.1rem;
 			border-radius: 0.5rem;
 			background: $color-green;
 			transition: 0.15s ease-in-out;

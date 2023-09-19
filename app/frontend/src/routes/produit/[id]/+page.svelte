@@ -1,5 +1,6 @@
 <script>
 	import '$lib/styles/app.scss';
+
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 
@@ -24,7 +25,9 @@
 </script>
 
 <svelte:head>
-	<title>{product.title} | C-Studio - Plateform de vente en ligne d'oeuvre d'art</title>
+	<title>
+		{product.type.name.charAt(0).toUpperCase() + product.type.name.slice(1)} - {product.title} | C-Studio - Plateform de vente en ligne d'oeuvre d'art
+	</title>
 </svelte:head>
 
 <div class="wrapper">
@@ -42,8 +45,8 @@
 					{product.description}
 				</summary>
 				<div class="product__caracteristics">
-				<p class="product__dimensions">Dimensions:{product.dimensions}</p>
-				<p class="product__date">Création:{product.releaseDate}<p>
+					<p class="product__dimensions">Dimensions:{product.dimensions}</p>
+					<p class="product__date">Création:{product.releaseDate}</p>
 				</div>
 
 				<div class="product__purchase">
@@ -82,7 +85,7 @@
 			gap: 0.75rem;
 		}
 		&__caracteristics {
-			display:flex;
+			display: flex;
 			justify-content: space-between;
 		}
 		&__img {

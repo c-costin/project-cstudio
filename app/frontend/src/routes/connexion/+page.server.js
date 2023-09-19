@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { setAuthToken, setUser } from '$lib/js/utils';
 import { fail, redirect } from '@sveltejs/kit';
 

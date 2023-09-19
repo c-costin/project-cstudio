@@ -12,8 +12,6 @@
 	import DropdownProfil from '$lib/components/DropdownProfil.svelte';
 	import DropdownCart from '$lib/components/DropdownCart/DropdownCart.svelte';
 
-	export let isColoredBackground = false;
-
 	// Declare variables
 	let screenSize = 0;
 	let isMenuOpen = false;
@@ -52,7 +50,7 @@
 
 {#if isSearchOpen} <Search /> {/if}
 
-<header class="header" style={isColoredBackground ? 'border-bottom: $color-yellow;' : ''}>
+<header class="header">
 	<div class="header__left-isDesktop">
 		{#if isMenuOpen || screenSize > 992}
 			<Menu on:closeMenu={toggleOpenMenu} />
