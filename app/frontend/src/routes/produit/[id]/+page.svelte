@@ -22,6 +22,11 @@
 		}
 		quantity--;
 	};
+	const addToCart = () => {
+		document.cookie = `Cart=${JSON.stringify({
+			products: [product, product]
+		})};`;
+	}
 </script>
 
 <svelte:head>
@@ -63,7 +68,7 @@
 						<p>{Calculatedprice}€</p>
 					</div>
 				</div>
-				<button class="product__addToCart">Ajouter au panier</button>
+				<button class="product__addToCart" on:click={addToCart}>Ajouter au panier</button>
 			</div>
 		</section>
 	</main>

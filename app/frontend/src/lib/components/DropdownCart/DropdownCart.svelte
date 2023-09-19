@@ -5,6 +5,7 @@
 
 	let totalCart = 0;
 	let quantityCart = 0;
+	let cart = [];
 </script>
 
 <aside class="cart">
