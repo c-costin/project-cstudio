@@ -2,6 +2,7 @@
 	import '$lib/styles/app.scss';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import { enhance } from '$app/forms';
 
 	/** @type {import('./$types').ActionData} */
 	export let form;
@@ -15,7 +16,7 @@
 	<Header />
 
 	<main class="main">
-		<form method="POST" action="?/login" class="login">
+		<form method="POST" action="?/login" class="login" use:enhance>
 			<h1 class="login__title">Connexion</h1>
 			<div class="login__row">
 				<input

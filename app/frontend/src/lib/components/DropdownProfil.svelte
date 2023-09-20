@@ -20,7 +20,9 @@
 			<a href="/admin" class="dropdown-profil__link">Tableau de bord</a>
 		{/if}
 		<div class="dropdown-profil__separator" />
-		<a href="/connexion?/logout" class="dropdown-profil__link">Déconnexion</a>
+		<form action="/deconnexion?/logout" method="post">
+			<button class="dropdown-profil__link">Déconnexion</button>
+		</form>
 	{:else}
 		<a href="/connexion" class="dropdown-profil__login">connexion</a>
 		<a href="/inscription" class="dropdown-profil__signup">pas encore de compte ?</a>
