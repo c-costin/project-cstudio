@@ -1,32 +1,32 @@
 <script>
+	// Inmport generals style
 	import '$lib/styles/app.scss';
 
+	// Import components
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 
+	// Import assets
 	import iconMinus from '$lib/icons/minus.svg';
 	import iconPlus from '$lib/icons/plus.svg';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
 
+	// Declare variables
 	const product = data.product;
 	let quantity = 1;
 	let price = product.price;
-	$: Calculatedprice = quantity * price;
 
+	// Declare functions
 	const increment = () => quantity++;
 	const decrement = () => {
-		if (quantity === 1) {
-			return;
-		}
+		if (quantity === 1) return;
 		quantity--;
 	};
-	const addToCart = () => {
-		document.cookie = `Cart=${JSON.stringify({
-			products: [product, product]
-		})};`;
-	}
+
+	// Handle statement
+	$: totalProductPrice = quantity * price;
 </script>
 
 <svelte:head>
@@ -40,8 +40,7 @@
 
 	<main class="main">
 		<section class="product">
-			<!-- svelte-ignore a11y-img-redundant-alt -->
-			<img class="product__img" src={product.picture} alt="Image du produit - " />
+			<img class="product__img" src={product.picture} alt="Image du produit {product.title}" />
 			<div class="product__info">
 				<h2 class="product__type">{product.type.name}</h2>
 				<h1 class="product__title">{product.title}</h1>
@@ -50,8 +49,8 @@
 					{product.description}
 				</summary>
 				<div class="product__caracteristics">
-					<p class="product__dimensions">Dimensions:{product.dimensions}</p>
-					<p class="product__date">Création:{product.releaseDate}</p>
+					<p class="product__dimensions">Dimensions: {product.dimensions}</p>
+					<p class="product__date">Création: {product.releaseDate}</p>
 				</div>
 
 				<div class="product__purchase">
@@ -65,10 +64,10 @@
 						</button>
 					</div>
 					<div class="product__price">
-						<p>{Calculatedprice}€</p>
+						<p>{totalProductPrice} €</p>
 					</div>
 				</div>
-				<button class="product__addToCart" on:click={addToCart}>Ajouter au panier</button>
+				<button class="product__addToCart">Ajouter au panier</button>
 			</div>
 		</section>
 	</main>

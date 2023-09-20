@@ -1,12 +1,17 @@
 <script>
+	// @ts-nocheck
+
+	// Import generals style
 	import '$lib/styles/app.scss';
 
+	// Import module
 	import { page } from '$app/stores';
 
-	const user = $page.data.user;
+	// Declare variables
+	const user = $page.data.session.user;
 </script>
 
-<aside class="dropdown-profil js-dropdown-profil hidden">
+<aside class="dropdown-profil">
 	{#if user !== undefined}
 		<h4 class="dropdown-profil__title">{user.firstName} {user.lastName}</h4>
 		<div class="dropdown-profil__separator" />
@@ -18,7 +23,7 @@
 		<a href="/connexion?/logout" class="dropdown-profil__link">Déconnexion</a>
 	{:else}
 		<a href="/connexion" class="dropdown-profil__login">connexion</a>
-		<a href="/inscription" class="dropdown-profil__signup"> pas encore inscrit ?</a>
+		<a href="/inscription" class="dropdown-profil__signup">pas encore de compte ?</a>
 	{/if}
 </aside>
 
@@ -30,7 +35,7 @@
 		top: 4rem;
 		right: 1rem;
 		padding: 0.75rem 1rem;
-		width: 156px;
+		width: fit-content;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;

@@ -1,30 +1,34 @@
 <script>
+	// @ts-nocheck
+
+	// Import generals style
 	import '$lib/styles/app.scss';
-	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import Card from '$lib/components/Card.svelte';
-	import Hero from '$lib/components/Hero.svelte';
+
+	// Import modules
+	import { page } from '$app/stores';
 	import { findProductsByCategory, findProductsByType } from '$lib/js/request.js';
 
-	/** @type {import('./$types').PageData} */
+	// Import components
+	import Header from '$lib/components/Header.svelte';
+	import Hero from '$lib/components/Hero.svelte';
+	import Card from '$lib/components/Card.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+
 	/** @type {import('./$types').LayoutServerData} */
+	/** @type {import('./$types').PageData} */
 	export let data;
 
+	$: console.log($page.data.session);
+
+	// Declare variables
 	let products = data.products.slice(0, 10);
 	let types = data.types;
 	let categories = data.categories;
 
-	const onFiltredByType = async (e) => {
-		products = await findProductsByType(e);
-	}
-
-	const onFiltredByCategory = async (e) => {
-		products = await findProductsByCategory(e);
-	}
-
-	const onResetListProducts = () => {
-		products = data.products.slice(0, 10);
-	}
+	// Declare functions
+	const onFiltredByType = async (e) => (products = await findProductsByType(e));
+	const onFiltredByCategory = async (e) => (products = await findProductsByCategory(e));
+	const onResetListProducts = () => (products = data.products.slice(0, 10));
 </script>
 
 <svelte:head>
@@ -54,7 +58,7 @@
 				</select>
 				<button on:click={onResetListProducts}>Tous</button>
 			</ul>
-	
+
 			<section class="list-products">
 				{#each products as product, i}
 					{#if i === 6 || i === 7}
@@ -89,23 +93,6 @@
 			width: 100%;
 			text-align: center;
 		}
-		&__item {
-			list-style-type: none;
-		}
-		&__btn {
-			border-radius: 1.5rem;
-			box-sizing: border-box;
-			display: inline-block;
-			font-size: 1rem;
-			font-weight: 600;
-			line-height: 1;
-			padding: 0.5rem 0.6rem;
-			text-align: center;
-			&:hover {
-				background-color: #1e293b;
-				color: #fff;
-			}
-		}
 	}
 	.list-products {
 		display: grid;
@@ -117,7 +104,6 @@
 			grid-template-columns: repeat(4, 1fr);
 		}
 	}
-
 	@media screen and (min-width: 900px) {
 		.list-products {
 			font-size: large;

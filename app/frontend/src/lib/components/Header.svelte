@@ -24,26 +24,9 @@
 		isMenuOpen = !isMenuOpen;
 		document.body.classList.toggle('scroll-lock');
 	};
-	const toggleOpenSearch = () => {
-		isSearchOpen = !isSearchOpen;
-	};
-	const toggleOpenProfil = () => {
-		isProfilOpen = !isProfilOpen;
-	};
-	const toggleOpenCart = () => {
-		isCartOpen = !isCartOpen;
-	};
-
-	// Hanlde statements
-	$: {
-		if (isSearchOpen || isMenuOpen) {
-			isProfilOpen = false;
-			isCartOpen = false;
-		}
-		if (isProfilOpen && !isCartOpen) {
-			isCartOpen = false;
-		}
-	}
+	const toggleOpenSearch = () => isSearchOpen = !isSearchOpen;
+	const toggleOpenProfil = () => isProfilOpen = !isProfilOpen;
+	const toggleOpenCart = () => isCartOpen = !isCartOpen;
 </script>
 
 <svelte:window bind:innerWidth={screenSize} />

@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
 	import '$lib/styles/app.scss';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
@@ -10,8 +12,6 @@
 	export let data;
 
 	const user = data.user;
-
-	console.log(user);
 
 	// Declare variables
 	let isProfilOpen = true;
