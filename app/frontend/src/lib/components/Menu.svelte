@@ -13,7 +13,7 @@
 	</button>
 	<div class="menu__links">
 		<a href="/" class="menu__link">Accueil</a>
-		<a href="/a-propos" class="menu__link">A Propos</a>
+		<a href="/a-propos" class="menu__link">À Propos</a>
 	</div>
 	<div class="menu__refs">
 		<a href="/cgv" class="menu__ref">CGV</a>
