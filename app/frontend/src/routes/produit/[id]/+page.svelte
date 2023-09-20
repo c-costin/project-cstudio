@@ -2,6 +2,9 @@
 	// Inmport generals style
 	import '$lib/styles/app.scss';
 
+	// Import module
+	import { enhance } from '$app/forms';
+
 	// Import components
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
@@ -67,7 +70,11 @@
 						<p>{totalProductPrice} €</p>
 					</div>
 				</div>
-				<button class="product__addToCart">Ajouter au panier</button>
+				<form action="/panier?/add" method="post" use:enhance>
+					<input type="hidden" name="id" value="{product.id}">
+					<input type="hidden" name="quantity" value="{quantity}">
+					<button class="product__addToCart">Ajouter au panier</button>
+				</form>
 			</div>
 		</section>
 	</main>

@@ -1,16 +1,22 @@
 <script>
+	export let id;
     export let title;
     export let price;
     export let picture;
+	export let description;
+	export let dimensions;
+	export let releaseDate;
+	export let artist;
+	export let type;
+	export let categories;
 </script>
 
 <li class="dropdown-cart__item">
-    <a href="dropdown-cart__link">
+    <a href="/produit/{id}" class="dropdown-cart__link">
         <article class="dropdown-cart-article">
             <div class="dropdown-cart-article__top">
-                <!-- svelte-ignore a11y-img-redundant-alt -->
-                <img class="dropdown-cart-article__img" src="" alt="Image" />
-                <h3 class="dropdown-cart-article__name">Nature</h3>
+                <img class="dropdown-cart-article__img" src="{picture}" alt="Image de l'oeuvre {title}" />
+                <h3 class="dropdown-cart-article__name">{title}</h3>
             </div>
             <div class="dropdown-cart-article__bottom">
                 <div class="dropdown-cart-article__quantity">
@@ -18,7 +24,7 @@
                     <p class="dropdown-cart-article___number">1</p>
                     <i class="iconoir-plus dropdown-cart-article__icon" />
                 </div>
-                <p class="dropdown-cart-article___price">2200€</p>
+                <p class="dropdown-cart-article___price">{price} €</p>
             </div>
         </article>
     </a>
@@ -39,6 +45,7 @@
 			aspect-ratio: 4/3;
 			border-radius: 0.25rem;
 			background: lightslategray;
+			object-fit: cover;
 		}
 		&__bottom {
 			display: flex;

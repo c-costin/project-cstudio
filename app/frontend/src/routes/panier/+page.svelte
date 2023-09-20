@@ -5,16 +5,17 @@
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import Product from '$lib/components/Cart/Product.svelte';
+	import { page } from '$app/stores';
+	import { findAllProductById } from '$lib/js/request.js';
 
 	// Declare variables
-	let products = [0, 1, 2, 3];
+	let products = $page.data.session.cart;
 	let total;
 	let productsTotal = [];
 	let totalCheckout = 0;
 
 	// Handle statements
 	$: totalCheckout = productsTotal.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
-
 </script>
 
 <svelte:head>
@@ -27,9 +28,11 @@
 		<section class="cart-container">
 			<h2>Panier</h2>
 			<div class="cart__separator" />
-			{#each products as product, i}
-				<Product dataId={i} bind:total={productsTotal[i]} />
-				<div class="cart__separator" />
+			{#each products as item, i (item.id)}
+				{#await findAllProductById(item.id) then product}
+					<Product {...product} index={i} bind:total={productsTotal[i]} />
+					<div class="cart__separator" />
+				{/await}
 			{/each}
 			<div class="cart-total">
 				<h3 class="cart-total__title">Total</h3>
@@ -43,6 +46,7 @@
 <Footer />
 
 <style lang="scss">
+	@use '../../lib/styles/variables' as *;
 	.cart-container {
 		margin-inline: auto;
 		width: 100%;
@@ -67,8 +71,15 @@
 	}
 
 	.cart__btn-checkout {
-		padding: 0.75rem 1rem;
+		padding: 0.5rem 1.5rem;
+		font-weight: 700;
+		font-size: 1.25rem;
 		border-radius: 0.5rem;
+		background: $color-green;
+		transition: 0.1s ease-in-out;
+		&:hover {
+			color: $color-white;
+		}
 	}
 
 	@media screen and (min-width: 768px) {

@@ -3,7 +3,7 @@ import type { Session } from 'svelte-kit-cookie-session';
 type SessionData = {
 	token: string,
 	user: object,
-	cart: object
+	cart: array
 };
 
 // See https://kit.svelte.dev/docs/types#app

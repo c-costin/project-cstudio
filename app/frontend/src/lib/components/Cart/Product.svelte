@@ -1,21 +1,37 @@
 <script>
+// @ts-nocheck
+
+	// Import generals style
 	import '$lib/styles/app.scss';
+
+	// Import module
+	import { page } from '$app/stores';
+
+	// Import icons
 	import iconMinus from '$lib/icons/minus.svg';
 	import iconPlus from '$lib/icons/plus.svg';
 
-	// Declare variables
-	let quantity = 1;
-	let price = 1200;
-
-	export let dataId = 0;
+	// Declare export variables
+	export let index;
+	export let id;
+	export let title;
+	export let price;
+	export let picture;
+	export let description;
+	export let dimensions;
+	export let releaseDate;
+	export let artist;
+	export let type;
+	export let categories;
 	export let total = price;
+
+	// Declare variables
+	let quantity = $page.data.session.cart[index].quantity;
 
 	// Declare functions
 	const increment = () => quantity++;
 	const decrement = () => {
-		if (quantity <= 1) {
-			return;
-		}
+		if (quantity <= 1) return;
 		quantity--;
 	};
 
@@ -23,10 +39,10 @@
 	$: total = quantity * price;
 </script>
 
-<article class="cart-product" data-id={dataId}>
-	<img class="cart-product__img" src="" alt="" />
+<article class="cart-product" data-id={index}>
+	<img class="cart-product__img" src="{picture}" alt="Image de l'oeuvre {title}" />
 	<div class="cart-product__container-center">
-		<h3 class="cart-product__name">Nature</h3>
+		<h3 class="cart-product__name">{title}</h3>
 		<div class="cart-product__quantity">
 			<button on:click={decrement}>
 				<img src={iconMinus} alt="Icon diminution da la quantité" class="product__icon" />
@@ -56,9 +72,10 @@
 		justify-content: space-between;
 		gap: 1rem;
 		&__img {
-			width: 6rem;
-			aspect-ratio: 4/3;
+			width: 8rem;
+			aspect-ratio: 5/5;
 			border-radius: 0.5rem;
+			object-fit: cover;
 			background: lightslategray;
 		}
 		&__container-center {

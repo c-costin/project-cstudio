@@ -4,7 +4,7 @@ import { redirect } from '@sveltejs/kit';
 /** @type {import('@sveltejs/kit').Handle} */
 export const handle = handleSession(
 	{
-		init: () => ({ token: undefined, user: undefined, cart: undefined }),
+		init: () => ({ token: undefined, user: undefined, cart: [] }),
 		saveUninitialized: true,
 		expires: 160, // 160 minutes
 		expires_in: 'minutes', // minutes | hours | days | seconds

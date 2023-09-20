@@ -1,23 +1,31 @@
 <script>
+	// Import generals style
 	import '$lib/styles/app.scss';
 
+	// Import module
+	import { page } from '$app/stores';
+
+	// Import component
 	import Product from '$lib/components/DropdownCart/Product.svelte';
+	import { findAllProductById } from '$lib/js/request.js';
 
 	let totalCart = 0;
 	let quantityCart = 0;
-	let cart = [];
+	const cart = $page.data.session.cart;
 </script>
 
 <aside class="cart">
 	<header class="cart__header">
 		<h4 class="cart__title">Panier</h4>
-		<p class="cart__numbers">{quantityCart}</p>
+		<p class="cart__numbers">{cart.length}</p>
 	</header>
 	<div class="cart__separator" />
 	<ul class="cart__lists">
 		{#if cart.length !== 0}
-			{#each cart  as item (item.id)}
-				<Product {...item}/>
+			{#each cart as item (item.id)}
+				{#await findAllProductById(item.id) then product}
+					<Product {...product} />
+				{/await}
 			{/each}
 		{:else}
 			<li class="cart__empty">le panier est vide</li>
@@ -28,7 +36,7 @@
 		<h4 class="cart__title">Total</h4>
 		<p class="cart__total">{totalCart} €</p>
 	</footer>
-	<button class="cart__submit">commmander</button>
+	<a href="/panier" class="cart__submit">commmander</a>
 </aside>
 
 <style lang="scss">
@@ -79,9 +87,10 @@
 		}
 		&__submit {
 			margin-top: 0.25rem;
-			padding-block: 0.25rem;
+			padding: 0.25rem;
 			font-weight: 700;
 			font-size: 1.1rem;
+			text-align: center;
 			border-radius: 0.5rem;
 			background: $color-green;
 			transition: 0.4s cubic-bezier(0.075, 0.82, 0.165, 1);

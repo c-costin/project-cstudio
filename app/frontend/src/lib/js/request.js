@@ -14,6 +14,19 @@ export const findAllProducts = async () => {
 	return data;
 };
 
+export const findAllProductById = async (id) => {
+	const response = await fetch(`${endpoint}/product/${id}`, {
+		method: 'GET',
+		headers: {
+			Accept: '*/*',
+			'Content-Type': 'application/json'
+		}
+	});
+	const data = await response.json();
+
+	return data;
+}
+
 export const findProductsByType = async (e) => {
 	const typeId = e.target.value;
 	const response = await fetch(`${endpoint}/product/?type=${typeId}`, {
