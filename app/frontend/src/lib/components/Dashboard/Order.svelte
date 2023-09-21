@@ -1,22 +1,21 @@
 <script>
+	// @ts-nocheck
+
+	// Import generals style
 	import '$lib/styles/app.scss';
+
+	// Declare export variable
+	export let orders;
 </script>
 
 <section class="order-content">
-	<div class="order-content__row">
-		<h3>Commande n°84212138</h3>
-		<p>du 08/12/2022</p>
-	</div>
-	<div class="order-content__separator" />
-	<div class="order-content__row">
-		<h3>Commande n°34248638</h3>
-		<p>du 24/06/2022</p>
-	</div>
-	<div class="order-content__separator" />
-	<div class="order-content__row">
-		<h3>Commande n°64685138</h3>
-		<p>du 01/04/2022</p>
-	</div>
+	{#each orders as order}
+		<div class="order-content__row">
+			<h3>Commande n°{order.number}</h3>
+			<p>du {order.deliveryDate}</p>
+		</div>
+		<div class="order-content__separator" />
+	{/each}
 </section>
 
 <style lang="scss">

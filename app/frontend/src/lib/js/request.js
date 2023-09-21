@@ -77,3 +77,18 @@ export const findAllCategories = async () => {
 
 	return data;
 };
+
+export const findAllOrders = async (token) => {
+	const response = await fetch(`${endpoint}/order/`, {
+		method: 'GET',
+		headers: {
+			Accept: '*/*',
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`,
+		}
+	});
+	const data = await response.json();
+
+	return data;
+};
+
