@@ -6,8 +6,10 @@
 
 	// Import module
 	import { page } from '$app/stores';
+	import { enhance } from '$app/forms';
 
 	// Import icons
+	import iconCancel from '$lib/icons/cancel.svg';
 	import iconMinus from '$lib/icons/minus.svg';
 	import iconPlus from '$lib/icons/plus.svg';
 
@@ -59,6 +61,12 @@
 			<i class="iconoir-delete-circle cart-product__icon" />
 		</button>
 	</div>
+	<form action="/panier?/remove" method="post" style="z-index: 10010;" use:enhance>
+		<input type="hidden" name="id" value="{id}">
+		<button >
+			<img src={iconCancel} alt="Icon diminution da la quantité" class="dropdownCartProduct__icon" />
+		</button>
+	</form>
 </article>
 
 <style lang="scss">

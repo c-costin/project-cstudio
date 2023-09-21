@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
 	// Import generals style
 	import '$lib/styles/app.scss';
 
@@ -9,45 +11,49 @@
 	import Product from '$lib/components/DropdownCart/Product.svelte';
 	import { findAllProductById } from '$lib/js/request.js';
 
-	let totalCart = 0;
-	let quantityCart = 0;
-	const cart = $page.data.session.cart;
+	// Declare variables
+	let productsTotal = [];
+	let totalCheckout = 0;
+
+	// Handle statements
+	$: cart = $page.data.session.cart;
+	$: totalCheckout = productsTotal.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
 </script>
 
-<aside class="cart">
-	<header class="cart__header">
-		<h4 class="cart__title">Panier</h4>
-		<p class="cart__numbers">{cart.length}</p>
+<aside class="dropdownCart">
+	<header class="dropdownCart__header">
+		<h4 class="dropdownCart__title">Panier</h4>
+		<p class="dropdownCart__numbers">{cart.length}</p>
 	</header>
-	<div class="cart__separator" />
-	<ul class="cart__lists">
+	<div class="dropdownCart__separator" />
+	<ul class="dropdownCart__lists">
 		{#if cart.length !== 0}
-			{#each cart as item (item.id)}
+			{#each cart as item, i (item.id)}
 				{#await findAllProductById(item.id) then product}
-					<Product {...product} />
+					<Product {...product} quantity={item.quantity} bind:total={productsTotal[i]} />
 				{/await}
 			{/each}
 		{:else}
-			<li class="cart__empty">le panier est vide</li>
+			<li class="dropdownCart__empty">le panier est vide</li>
 		{/if}
 	</ul>
-	<div class="cart__separator" />
-	<footer class="cart__footer">
-		<h4 class="cart__title">Total</h4>
-		<p class="cart__total">{totalCart} €</p>
+	<div class="dropdownCart__separator" />
+	<footer class="dropdownCart__footer">
+		<h4 class="dropdownCart__title">Total</h4>
+		<p class="dropdownCart__total">{totalCheckout} €</p>
 	</footer>
-	<a href="/panier" class="cart__submit">commmander</a>
+	<a href="/panier" class="dropdownCart__submit">commmander</a>
 </aside>
 
 <style lang="scss">
 	@use '../../styles/variables' as *;
-	.cart {
+	.dropdownCart {
 		z-index: 1000;
 		position: absolute;
 		top: 4rem;
 		right: 1rem;
 		padding: 0.75rem 1rem;
-		width: 196px;
+		width: fit-content;
 		display: flex;
 		flex-direction: column;
 		gap: 0.75rem;
@@ -64,6 +70,11 @@
 		}
 		&__numbers {
 			padding: 0.05rem 0.5rem;
+			width: 26px;
+			height: 26px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
 			border-radius: 100%;
 			font-weight: 700;
 			color: $color-black;
@@ -100,7 +111,7 @@
 		}
 		&__empty {
 			margin-block: 1rem;
-			width: 100%;
+			width: 156px;
 			text-align: center;
 		}
 	}

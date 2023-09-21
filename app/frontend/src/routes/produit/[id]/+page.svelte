@@ -9,7 +9,7 @@
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 
-	// Import assets
+	// Import icons
 	import iconMinus from '$lib/icons/minus.svg';
 	import iconPlus from '$lib/icons/plus.svg';
 
