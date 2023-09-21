@@ -40,9 +40,8 @@ export const findProductsByType = async (e) => {
 	return data.slice(0, 10);
 };
 
-export const findProductsByCategory = async (e) => {
-	const categoryId = e.target.value;
-	const response = await fetch(`${endpoint}/product/?category=${categoryId}`, {
+export const findProductsByCategoryId = async (id) => {
+	const response = await fetch(`${endpoint}/product/?category=${id}`, {
 		method: 'GET',
 		headers: {
 			Accept: '*/*',

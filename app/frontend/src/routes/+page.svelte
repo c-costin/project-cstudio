@@ -6,7 +6,7 @@
 
 	// Import modules
 	import { page } from '$app/stores';
-	import { findProductsByCategory, findProductsByType } from '$lib/js/request.js';
+	import { findProductsByCategoryId, findProductsByType } from '$lib/js/request.js';
 
 	// Import components
 	import Header from '$lib/components/Header.svelte';
@@ -18,6 +18,7 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 
+	// !!! REMOVE IN PROD !!!
 	$: console.log($page.data.session);
 
 	// Declare variables
@@ -27,8 +28,13 @@
 
 	// Declare functions
 	const onFiltredByType = async (e) => (products = await findProductsByType(e));
-	const onFiltredByCategory = async (e) => (products = await findProductsByCategory(e));
-	const onResetListProducts = () => (products = data.products.slice(0, 10));
+	const onFiltredByCategory = async (e) => {
+		const id = e.target.dataset.categoryId;
+		console.log(id);
+		products = await findProductsByCategoryId(id)
+	};
+	// const onFiltredByCategory = async (e) => (products = await findProductsByCategoryId());
+	const onResetProducts = () => (products = data.products.slice(0, 10));
 </script>
 
 <svelte:head>
@@ -42,22 +48,18 @@
 
 	<main class="main">
 		<div class="container">
-			<ul class="filter">
-				<h2 class="filter__title">C-Studio catégories</h2>
-				<select on:click={onFiltredByType}>
-					<option selected disabled>Type</option>
-					{#each types as type (type.id)}
-						<option value={type.id}>{type.name}</option>
+			<h1>Découvrez toutes les œuvres de C-Studio !</h1>
+			<div class="filter">
+				<h2 class="filter__title">Sélectionnez votre catégorie :</h2>
+				<nav class="filter__links">
+					<button class="filter__link" on:click={onResetProducts}>Tous,</button>
+					{#each categories as category, i (category.id)}
+						<button class="filter__link" data-category-id="{category.id}" on:click={onFiltredByCategory}>
+							{category.name.charAt(0).toUpperCase() + category.name.slice(1)}{(categories.length - 1) === i ? " " : "," }
+						</button>
 					{/each}
-				</select>
-				<select on:click={onFiltredByCategory}>
-					<option selected disabled>Catégorie</option>
-					{#each categories as category}
-						<option value={category.id}>{category.name}</option>
-					{/each}
-				</select>
-				<button on:click={onResetListProducts}>Tous</button>
-			</ul>
+				</nav>
+			</div>
 
 			<section class="list-products">
 				{#each products as product, i}
@@ -75,23 +77,31 @@
 <Footer />
 
 <style lang="scss">
+	@use '../lib/styles/variables' as *;
 	.main {
 		margin-top: 1rem;
 	}
 	.filter {
-		margin-inline: auto;
-		padding-top: 2rem;
-		padding-bottom: 2rem;
-		padding-inline: 2rem;
-		max-width: 150%;
-		height: fit-content;
+		margin-block: 2rem;
 		display: flex;
 		flex-wrap: wrap;
-		justify-content: center;
-		gap: 0.25rem;
+		gap: 1rem;
+		align-items: center;
 		&__title {
-			width: 100%;
-			text-align: center;
+			font-size: 1rem;
+		}
+		&__links {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.35rem;
+			font-style: italic;
+		}
+		&__link {
+			transition: 0.1s ease-in-out;
+			&:hover {
+				color: $color-green;
+				text-decoration: underline;
+			}
 		}
 	}
 	.list-products {
