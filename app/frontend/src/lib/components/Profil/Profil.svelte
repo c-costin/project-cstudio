@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
 	import '$lib/styles/app.scss';
 
 	export let id;
@@ -12,6 +14,7 @@
 
 <section class="profil-content">
 	<form class="profil-data">
+		<input type="hidden" name="id" value="{id}">
 		<div class="profil-data__container">
 			<div class="profil-data__row">
 				<label for="fristName" class="profil-data__label">Prénom</label>

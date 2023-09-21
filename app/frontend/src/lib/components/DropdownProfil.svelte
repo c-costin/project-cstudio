@@ -1,12 +1,17 @@
 <script>
+	// @ts-nocheck
+
+	// Import generals style
 	import '$lib/styles/app.scss';
 
+	// Import module
 	import { page } from '$app/stores';
 
-	const user = $page.data.user;
+	// Declare variables
+	const user = $page.data.session.user;
 </script>
 
-<aside class="dropdown-profil js-dropdown-profil hidden">
+<aside class="dropdown-profil">
 	{#if user !== undefined}
 		<h4 class="dropdown-profil__title">{user.firstName} {user.lastName}</h4>
 		<div class="dropdown-profil__separator" />
@@ -15,10 +20,12 @@
 			<a href="/admin" class="dropdown-profil__link">Tableau de bord</a>
 		{/if}
 		<div class="dropdown-profil__separator" />
-		<a href="/connexion?/logout" class="dropdown-profil__link">Déconnexion</a>
+		<form action="/deconnexion?/logout" method="post">
+			<button class="dropdown-profil__link">Déconnexion</button>
+		</form>
 	{:else}
-		<a href="/connexion" class="dropdown-profil__login">Connexion</a>
-		<a href="/inscription" class="dropdown-profil__signup"> pas encore inscrit ?</a>
+		<a href="/connexion" class="dropdown-profil__login">connexion</a>
+		<a href="/inscription" class="dropdown-profil__signup">pas encore de compte ?</a>
 	{/if}
 </aside>
 
@@ -30,11 +37,11 @@
 		top: 4rem;
 		right: 1rem;
 		padding: 0.75rem 1rem;
-		width: 156px;
+		width: fit-content;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
-		gap: 0.75rem;
+		gap: 0.5rem;
 		border-radius: 0.5rem;
 		border: 1px solid rgba(255, 255, 255, 0.15);
 		backdrop-filter: blur(3.1px);
@@ -59,7 +66,7 @@
 			justify-content: center;
 			align-items: center;
 			font-weight: 700;
-			font-size: 1.25rem;
+			font-size: 1.1rem;
 			border-radius: 0.5rem;
 			background: $color-green;
 			transition: 0.15s ease-in-out;

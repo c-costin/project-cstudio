@@ -12,8 +12,6 @@
 	import DropdownProfil from '$lib/components/DropdownProfil.svelte';
 	import DropdownCart from '$lib/components/DropdownCart/DropdownCart.svelte';
 
-	export let isColoredBackground = false;
-
 	// Declare variables
 	let screenSize = 0;
 	let isMenuOpen = false;
@@ -26,33 +24,16 @@
 		isMenuOpen = !isMenuOpen;
 		document.body.classList.toggle('scroll-lock');
 	};
-	const toggleOpenSearch = () => {
-		isSearchOpen = !isSearchOpen;
-	};
-	const toggleOpenProfil = () => {
-		isProfilOpen = !isProfilOpen;
-	};
-	const toggleOpenCart = () => {
-		isCartOpen = !isCartOpen;
-	};
-
-	// Hanlde statements
-	$: {
-		if (isSearchOpen || isMenuOpen) {
-			isProfilOpen = false;
-			isCartOpen = false;
-		}
-		if (isProfilOpen && !isCartOpen) {
-			isCartOpen = false;
-		}
-	}
+	const toggleOpenSearch = () => isSearchOpen = !isSearchOpen;
+	const toggleOpenProfil = () => isProfilOpen = !isProfilOpen;
+	const toggleOpenCart = () => isCartOpen = !isCartOpen;
 </script>
 
 <svelte:window bind:innerWidth={screenSize} />
 
 {#if isSearchOpen} <Search /> {/if}
 
-<header class="header" style={isColoredBackground ? 'border-bottom: $color-yellow;' : ''}>
+<header class="header">
 	<div class="header__left-isDesktop">
 		{#if isMenuOpen || screenSize > 992}
 			<Menu on:closeMenu={toggleOpenMenu} />

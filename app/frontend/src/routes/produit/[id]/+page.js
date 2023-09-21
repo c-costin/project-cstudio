@@ -1,13 +1,12 @@
+// @ts-nocheck
+import { endpoint } from '$lib/js/request.js';
+
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, params }) {
-    const Product = async () => {
-        const response = await fetch(`http://localhost:8000/api/product/${params.id}`)
+	const response = await fetch(`${endpoint}/product/${params.id}`);
+	const product = await response.json();
 
-        const data = await response.json();
-        return data;
-    }
-        
-    return {
-        product: Product()
-    };
+	return {
+		product: product
+	};
 }

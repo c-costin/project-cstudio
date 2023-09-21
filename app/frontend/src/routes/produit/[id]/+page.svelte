@@ -1,30 +1,41 @@
 <script>
+	// Inmport generals style
 	import '$lib/styles/app.scss';
+
+	// Import module
+	import { enhance } from '$app/forms';
+
+	// Import components
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 
+	// Import icons
 	import iconMinus from '$lib/icons/minus.svg';
 	import iconPlus from '$lib/icons/plus.svg';
 
 	/** @type {import('./$types').PageData} */
 	export let data;
 
+	// Declare variables
 	const product = data.product;
 	let quantity = 1;
 	let price = product.price;
-	$: Calculatedprice = quantity * price;
 
+	// Declare functions
 	const increment = () => quantity++;
 	const decrement = () => {
-		if (quantity === 1) {
-			return;
-		}
+		if (quantity === 1) return;
 		quantity--;
 	};
+
+	// Handle statement
+	$: totalProductPrice = quantity * price;
 </script>
 
 <svelte:head>
-	<title>{product.title} | C-Studio - Plateform de vente en ligne d'oeuvre d'art</title>
+	<title>
+		{product.type.name.charAt(0).toUpperCase() + product.type.name.slice(1)} - {product.title} | C-Studio - Plateform de vente en ligne d'oeuvre d'art
+	</title>
 </svelte:head>
 
 <div class="wrapper">
@@ -32,8 +43,7 @@
 
 	<main class="main">
 		<section class="product">
-			<!-- svelte-ignore a11y-img-redundant-alt -->
-			<img class="product__img" src={product.picture} alt="Image du produit - " />
+			<img class="product__img" src={product.picture} alt="Image du produit {product.title}" />
 			<div class="product__info">
 				<h2 class="product__type">{product.type.name}</h2>
 				<h1 class="product__title">{product.title}</h1>
@@ -42,8 +52,8 @@
 					{product.description}
 				</summary>
 				<div class="product__caracteristics">
-				<p class="product__dimensions">Dimensions:{product.dimensions}</p>
-				<p class="product__date">Création:{product.releaseDate}<p>
+					<p class="product__dimensions">Dimensions: {product.dimensions}</p>
+					<p class="product__date">Création: {product.releaseDate}</p>
 				</div>
 
 				<div class="product__purchase">
@@ -57,10 +67,14 @@
 						</button>
 					</div>
 					<div class="product__price">
-						<p>{Calculatedprice}€</p>
+						<p>{totalProductPrice} €</p>
 					</div>
 				</div>
-				<button class="product__addToCart">Ajouter au panier</button>
+				<form action="/panier?/add" method="post" use:enhance>
+					<input type="hidden" name="id" value="{product.id}">
+					<input type="hidden" name="quantity" value="{quantity}">
+					<button class="product__addToCart">Ajouter au panier</button>
+				</form>
 			</div>
 		</section>
 	</main>
@@ -82,7 +96,7 @@
 			gap: 0.75rem;
 		}
 		&__caracteristics {
-			display:flex;
+			display: flex;
 			justify-content: space-between;
 		}
 		&__img {

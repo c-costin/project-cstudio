@@ -1,13 +1,20 @@
 <script>
+	// @ts-nocheck
+
+	// Import components
 	import Header from '$lib/components/Header.svelte';
-	import Pagination from '$lib/components/Pagination.svelte';
-	import Footer from '$lib/components/Footer.svelte';
 	import Product from '$lib/components/Dashboard/Product.svelte';
 	import Order from '$lib/components/Dashboard/Order.svelte';
+	import Pagination from '$lib/components/Pagination.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+
+	/** @type {import('./$types').PageServerData} */
+	export let data;
 
 	// Declare variables
 	let screenSize = 0;
-	let data = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+	let products = data.products.slice(0, 10);
+	let orders = data.orders.slice(0, 30);
 	let isProductOpen = true;
 	let isOrderOpen = false;
 
@@ -32,40 +39,45 @@
 	<Header />
 
 	{#if screenSize > 1024}
-		<main class="main-dashboard">
-			<div class="dashboard-actions">
-				<nav class="dashboard-menu">
+		<main class="mainDashboard">
+			<div class="dashboardActions">
+				<nav class="dashboardMenu">
 					<button
 						on:click={openProduct}
-						class="dashboard-menu__btn {isProductOpen ? 'dashboard-menu__btn-active' : ''}"
-						>Produits</button
+						class="dashboardMenu__btn {isProductOpen ? 'dashboardMenu__btn-active' : ''}"
 					>
+						Produits
+					</button>
 					<button
 						on:click={openOrder}
-						class="dashboard-menu__btn {isOrderOpen ? 'dashboard-menu__btn-active' : ''}"
-						>Commandes</button
+						class="dashboardMenu__btn {isOrderOpen ? 'dashboardMenu__btn-active' : ''}"
 					>
+						Commandes
+					</button>
 				</nav>
 
-				<div class="dashboard-filters">
-					<p>Filtres :</p>
-					<select name="" id="">
-						<option selected disabled>Type</option>
-						<option value="photogaphie">Photogaphie</option>
-						<option value="peinture">Peinture</option>
-					</select>
-					<select name="" id="">
-						<option selected disabled>Catégorie</option>
-						<option value="nature">Nature</option>
-						<option value="sport">Sport</option>
-						<option value="musique">Musique</option>
-						<option value="abstrait">Abstrait</option>
-					</select>
+				<div class="dashboardActions__right">
+					<div class="dashboard-filters">
+						<p>Filtres :</p>
+						<select name="" id="">
+							<option selected disabled>Type</option>
+							<option value="photogaphie">Photogaphie</option>
+							<option value="peinture">Peinture</option>
+						</select>
+						<select name="" id="">
+							<option selected disabled>Catégorie</option>
+							<option value="nature">Nature</option>
+							<option value="sport">Sport</option>
+							<option value="musique">Musique</option>
+							<option value="abstrait">Abstrait</option>
+						</select>
+					</div>
+					<button class="dashboardActions__addProduct">Ajouter un produit</button>
 				</div>
 			</div>
 
-			{#if isProductOpen} <Product products={data} /> {/if}
-			{#if isOrderOpen} <Order orders={data} /> {/if}
+			{#if isProductOpen} <Product {products} /> {/if}
+			{#if isOrderOpen} <Order {orders} /> {/if}
 
 			<Pagination />
 		</main>
@@ -77,20 +89,36 @@
 <Footer />
 
 <style lang="scss">
+	@use '../../lib/styles/variables' as *;
 	.main-is-disable {
 		margin-block: 4rem;
 		text-align: center;
 	}
 	@media screen and (min-width: 1024px) {
-		.main-dashboard {
+		.mainDashboard {
 			padding: 1.5rem;
 			display: block;
 		}
-		.dashboard-actions {
+		.dashboardActions {
 			display: flex;
 			justify-content: space-between;
+			&__right {
+				display: flex;
+				gap: 2rem;
+			}
+			&__addProduct {
+				padding: 0.25rem 0.75rem;
+				font-weight: 700;
+				font-size: 1.1rem;
+				border-radius: 0.5rem;
+				background: $color-green;
+				transition: 0.15s ease-in-out;
+				&:hover {
+					color: $color-white;
+				}
+			}
 		}
-		.dashboard-menu {
+		.dashboardMenu {
 			display: flex;
 			row-gap: 0.5rem;
 			flex-wrap: wrap;
@@ -108,6 +136,7 @@
 		}
 
 		.dashboard-filters {
+			width: 296px;
 			display: flex;
 			gap: 0.5rem;
 			align-items: center;

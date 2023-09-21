@@ -1,9 +1,6 @@
 /** @type {import('./$types').PageServerLoad} */
-export async function load({ cookies }) {
-	const token = cookies.get('AuthorizationToken');
-	const connectedUser = cookies.get('ConnectedUser');
-
+export async function load({ locals }) {
 	return {
-		user: JSON.parse(connectedUser)
+		user: locals.session.data.user
 	};
 }
