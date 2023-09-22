@@ -7,25 +7,34 @@
 	import Order from '$lib/components/Dashboard/Order.svelte';
 	import Pagination from '$lib/components/Pagination.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import Form from '$lib/components/Dashboard/Form.svelte';
 
 	/** @type {import('./$types').PageServerData} */
 	export let data;
 
 	// Declare variables
 	let screenSize = 0;
-	let products = data.products.slice(0, 10);
+	let products = data.products.slice(0, 15);
 	let orders = data.orders.slice(0, 30);
 	let isProductOpen = true;
 	let isOrderOpen = false;
+	let isFormOpen = false;
 
 	// Declare Functions
 	const openProduct = () => {
 		isProductOpen = true;
 		isOrderOpen = false;
+		isFormOpen = false;
 	};
 	const openOrder = () => {
 		isProductOpen = false;
 		isOrderOpen = true;
+		isFormOpen = false;
+	};
+	const openForm = () => {
+		isProductOpen = false;
+		isOrderOpen = false;
+		isFormOpen = true;
 	};
 </script>
 
@@ -72,14 +81,21 @@
 							<option value="abstrait">Abstrait</option>
 						</select>
 					</div>
-					<button class="dashboardActions__addProduct">Ajouter un produit</button>
+					<button class="dashboardActions__addProduct" on:click={openForm}
+						>Ajouter un produit</button
+					>
 				</div>
 			</div>
 
-			{#if isProductOpen} <Product {products} /> {/if}
-			{#if isOrderOpen} <Order {orders} /> {/if}
-
-			<Pagination />
+			{#if isProductOpen}
+				<Product {products} />
+				<Pagination />
+			{/if}
+			{#if isOrderOpen}
+				<Order {orders} />
+				<Pagination />
+			{/if}
+			{#if isFormOpen} <Form /> {/if}
 		</main>
 	{:else}
 		<p class="main-is-disable">Veuillez utiliser un ordinateur pour cette page</p>

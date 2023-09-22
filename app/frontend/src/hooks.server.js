@@ -38,7 +38,6 @@ export const handle = handleSession(
 		}
 
 		if (event.url.pathname.startsWith('/admin')) {
-			// return console.log("ok");
 				if (!isConnected || isConnected.role[0] === "ROLE_USER") {
 					throw redirect(302, '/');
 				}

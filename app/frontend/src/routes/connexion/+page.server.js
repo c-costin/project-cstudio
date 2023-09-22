@@ -43,15 +43,5 @@ export const actions = {
 			// Redirection to home page
 			throw redirect(302, '/');
 		}
-	},
-	//TODO LOGOUT - Destroy session ? Expire session ? Reset data session ?
-	// logout: async ({ locals }) => {
-		// await locals.session.destroy();
-		// await locals.session.expires(new Date(0));
-
-		// const { token, user } = locals.session.data;
-		// await locals.session.set({ token: undefined, user: undefined });
-
-		// throw redirect(302, '/');
-	// }
+	}
 };
