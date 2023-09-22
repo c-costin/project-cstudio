@@ -1,21 +1,17 @@
 <script>
+// @ts-nocheck
+
 	import '$lib/styles/app.scss';
+
+	export let id;
+	export let number;
+	export let deliveryDate;
 </script>
 
 <section class="order-content">
 	<div class="order-content__row">
-		<h3>Commande n°84212138</h3>
-		<p>du 08/12/2022</p>
-	</div>
-	<div class="order-content__separator" />
-	<div class="order-content__row">
-		<h3>Commande n°34248638</h3>
-		<p>du 24/06/2022</p>
-	</div>
-	<div class="order-content__separator" />
-	<div class="order-content__row">
-		<h3>Commande n°64685138</h3>
-		<p>du 01/04/2022</p>
+		<h3>Commande n°{number}</h3>
+		<p>du {deliveryDate}</p>
 	</div>
 </section>
 

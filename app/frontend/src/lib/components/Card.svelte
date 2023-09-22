@@ -1,4 +1,6 @@
 <script>
+// @ts-nocheck
+
 	import '$lib/styles/app.scss';
 
 	export let isBig = false;

@@ -1,22 +1,29 @@
 <script>
+// @ts-nocheck
+
 	import '$lib/styles/app.scss';
+
+	// Declare export Product variables
+	export let index;
+	export let id;
+	export let title;
+	export let price;
+	export let picture;
+	export let description;
+	export let dimensions;
+	export let releaseDate;
+	export let artist;
+	export let type;
+	export let categories;
+
 </script>
 
 <section class="favorite-content">
 	<div class="favorite-content__row">
 		<div class="favorite-content__desc">
 			<!-- svelte-ignore a11y-img-redundant-alt -->
-			<img class="favorite-content__desc-img" src="" alt="image" />
-			<h3>Sublime</h3>
-		</div>
-		<i class="iconoir-heart favorite-content__icon" />
-	</div>
-	<div class="favorite-content__separator" />
-	<div class="favorite-content__row">
-		<div class="favorite-content__desc">
-			<!-- svelte-ignore a11y-img-redundant-alt -->
-			<img class="favorite-content__desc-img" src="" alt="image" />
-			<h3>Forêt</h3>
+			<img class="favorite-content__desc-img" src="{picture}" alt="image" />
+			<h3 class="favorite-content__desc-name">{title}</h3>
 		</div>
 		<i class="iconoir-heart favorite-content__icon" />
 	</div>
