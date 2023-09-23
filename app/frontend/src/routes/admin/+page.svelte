@@ -34,13 +34,13 @@
 	};
 	const openFormAdd = () => {
 		onEdit = false;
-		isFormOpen = !isFormOpen
-	}
+		isFormOpen = !isFormOpen;
+	};
 	const onEditProduct = async (e) => {
 		onEdit = true;
 		product = await findAllProductById(e.detail);
 		isFormOpen = true;
-	}
+	};
 </script>
 
 <svelte:head>
@@ -86,7 +86,9 @@
 							<option value="abstrait">Abstrait</option>
 						</select>
 					</div>
-					<button class="dashboardActions__addProduct" on:click={openFormAdd}>Ajouter un produit</button>
+					<button class="dashboardActions__addProduct" on:click={openFormAdd}
+						>Ajouter une œuvre</button
+					>
 				</div>
 			</div>
 
@@ -99,7 +101,7 @@
 				<Pagination />
 			{/if}
 			{#if isFormOpen}
-				<Form product={product} isEdit={onEdit} on:cancelForm={() => isFormOpen = !isFormOpen} />
+				<Form {product} isEdit={onEdit} on:cancelForm={() => (isFormOpen = !isFormOpen)} />
 			{/if}
 		</main>
 	{:else}

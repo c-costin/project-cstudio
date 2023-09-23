@@ -17,7 +17,7 @@
 </script>
 
 <form class="formProduct" action="/admin?/add-product" method="post" use:enhance>
-	<h2>Ajouter un produit</h2>
+	<h2>{isEdit ? 'Modifier' : 'Ajouter'} une œuvre</h2>
 	<div class="formProduct__field">
 		<label class="formProduct__label" for="title">Titre</label>
 		<input
