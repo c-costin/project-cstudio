@@ -1,7 +1,32 @@
 <script>
-// @ts-nocheck
+	// @ts-nocheck
 
 	import '$lib/styles/app.scss';
+
+	import LikeService from 'app/backend/src/Service/LikeService.php';
+
+	export async function load({ params }) {
+		try {
+			const productId = params.id;
+			const userId = params.userId;
+
+			// Init LikeService
+			const likeService = new LikeService();
+
+			// Call find method
+			const data = await likeService.find(productId, userId);
+
+			return {
+				props: {
+					data
+				}
+			};
+		} catch (error) {
+			console.error('Erreur lors du chargement des données :', error);
+			throw error;
+		}
+	}
+	export let data;
 
 	export let id;
 	export let number;
@@ -9,10 +34,15 @@
 </script>
 
 <section class="order-content">
+	{#if data}
 	<div class="order-content__row">
-		<h3>Commande n°{number}</h3>
-		<p>du {deliveryDate}</p>
+		<h3>Commande n°{data.number}</h3>
+		<p>du {data.deliveryDate}</p>
 	</div>
+	{:else}
+    <p>Pas encore de coups de cœur ? Devenez collectionneur en un clic !</p>
+	<a href="/" class="order-content__link">Visiter la galerie</a>
+{/if}
 </section>
 
 <style lang="scss">
