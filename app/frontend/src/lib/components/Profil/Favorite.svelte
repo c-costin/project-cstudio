@@ -1,9 +1,15 @@
 <script>
-// @ts-nocheck
+	// @ts-nocheck
 
+	// Import generals style
 	import '$lib/styles/app.scss';
 
-	// Declare export Product variables
+	// Import component
+	import { find } from '$app/backend/src/Service/LikeService.php';
+
+	export let data;
+
+	// Declare variables
 	export let index;
 	export let id;
 	export let title;
@@ -16,16 +22,47 @@
 	export let type;
 	export let categories;
 
+	// Handle statements
+	$: likedProduct = $data.product;
+
+	// Load method
+	export async function load({ params }) {
+		try {
+			const productId = params.id;
+			const userId = params.userId;
+
+			// Call find method in LikeService.php
+			const data = await find(productId, userId);
+
+			return {
+				props: {
+					data
+				}
+			};
+		} catch (error) {
+			console.error('Erreur lors du chargement des données :', error);
+			throw error;
+		}
+	}
 </script>
 
 <section class="favorite-content">
 	<div class="favorite-content__row">
-		<div class="favorite-content__desc">
-			<!-- svelte-ignore a11y-img-redundant-alt -->
-			<img class="favorite-content__desc-img" src="{picture}" alt="image" />
-			<h3 class="favorite-content__desc-name">{title}</h3>
-		</div>
-		<i class="iconoir-heart favorite-content__icon" />
+		{#if data}
+			{#each likedProduct as item, i (item.id)}
+				{#await find(item.id)}
+					<div class="favorite-content__desc">
+						<!-- svelte-ignore a11y-img-redundant-alt -->
+						<img class="favorite-content__desc-img" src={item.picture} alt="image" />
+						<h3 class="favorite-content__desc-name">{item.title}</h3>
+					</div>
+					<i class="iconoir-heart favorite-content__icon" />
+				{/await}
+			{/each}
+		{:else}
+			<p>Pas encore de coups de cœur ? Sélectionner vos prochaines œuvres d'art en un clic !</p>
+			<a href="/" class="order-content__link">Visiter notre galerie</a>
+		{/if}
 	</div>
 </section>
 

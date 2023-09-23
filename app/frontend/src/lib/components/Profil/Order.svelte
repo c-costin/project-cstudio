@@ -1,20 +1,27 @@
 <script>
 	// @ts-nocheck
 
+	// Import generals style
 	import '$lib/styles/app.scss';
 
-	import LikeService from 'app/backend/src/Service/LikeService.php';
+	// Import component
+	import { browse } from '../../../../backend/src/Controller/OrderController.php';
 
+	export let data;
+
+	// Declare variables
+	export let id;
+	export let number;
+	export let deliveryDate;
+
+	// Load method
 	export async function load({ params }) {
 		try {
-			const productId = params.id;
+			const orderId = params.id;
 			const userId = params.userId;
 
-			// Init LikeService
-			const likeService = new LikeService();
-
-			// Call find method
-			const data = await likeService.find(productId, userId);
+			// Call browse method in OrderController.php
+			const data = await browse(orderId, userId);
 
 			return {
 				props: {
@@ -26,23 +33,18 @@
 			throw error;
 		}
 	}
-	export let data;
-
-	export let id;
-	export let number;
-	export let deliveryDate;
 </script>
 
 <section class="order-content">
 	{#if data}
-	<div class="order-content__row">
-		<h3>Commande n°{data.number}</h3>
-		<p>du {data.deliveryDate}</p>
-	</div>
+		<div class="order-content__row">
+			<h3>Commande n°{number}</h3>
+			<p>du {deliveryDate}</p>
+		</div>
 	{:else}
-    <p>Pas encore de coups de cœur ? Devenez collectionneur en un clic !</p>
-	<a href="/" class="order-content__link">Visiter la galerie</a>
-{/if}
+		<p>Pas encore de coups de commande ? Devenez collectionneur d'art en un clic !</p>
+		<a href="/" class="order-content__link">Visiter notre galerie</a>
+	{/if}
 </section>
 
 <style lang="scss">
