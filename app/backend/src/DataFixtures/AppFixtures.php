@@ -2,7 +2,11 @@
 
 namespace App\DataFixtures;
 
+use App\DataFixtures\Provider\IllustrationProvider;
+use App\DataFixtures\Provider\PhotographyProvider;
 use App\DataFixtures\Provider\ProductProvider;
+use App\DataFixtures\Provider\SculptureProvider;
+use App\DataFixtures\Provider\TableauProvider;
 use App\Entity\Category;
 use App\Entity\Order;
 use App\Entity\Product;
@@ -15,8 +19,6 @@ use Faker\Factory;
 
 class AppFixtures extends Fixture
 {
-    private $connection;
-
     // Set providers
     private array $categoryProviders = ["portrait", "nature", "animaux", "culture", "cinéma", "musique", "paysage", "abstrait"];
     private array $typeProviders = ["tableau", "dessin", "sculpture", "photographie"];
@@ -26,10 +28,11 @@ class AppFixtures extends Fixture
     private array $types = [];
     private array $products = [];
     private array $users = [];
+    private array $productsRand = [];
 
-    public function __construct(Connection $connection)
-    {
-        $this->connection = $connection;
+    public function __construct(
+        private Connection $connection
+    ) {
     }
 
     private function truncate()
@@ -54,32 +57,46 @@ class AppFixtures extends Fixture
 
         // Instanciation FakerPHP
         $faker = Factory::create("fr_FR");
-        
+
         // Dataset seed
         $faker->seed(428);
 
-        // Adding dataset provider
-        $faker->addProvider(new ProductProvider($faker));
+        // Adding providers
+        $faker->addProvider(new IllustrationProvider($faker));
+        $faker->addProvider(new PhotographyProvider($faker));
+        $faker->addProvider(new SculptureProvider($faker));
+        $faker->addProvider(new TableauProvider($faker));
 
         // Create Admin user
         $adminUser = new User();
 
         // Set properties
-        $adminUser->setFirstName('John')
-            ->setLastName('Doe')
-            ->setEmail('admin@mail.com')
+        $adminUser->setFirstName('Admin')
+            ->setLastName('')
+            ->setEmail('admin@cstudio.fr')
             ->setRoles("ROLE_ADMIN")
             ->setPassword(password_hash('admin', PASSWORD_BCRYPT))
             ->setPhone('')
             ->setAddress('');
 
-        // Insert into array
-        $this->users[] = $adminUser;
-
         $manager->persist($adminUser);
 
+        // Create Manager user
+        $managerUser = new User();
+
+        // Set properties
+        $managerUser->setFirstName('Manager')
+            ->setLastName('')
+            ->setEmail('manager@cstudio.fr')
+            ->setRoles("ROLE_ADMIN")
+            ->setPassword(password_hash('manager', PASSWORD_BCRYPT))
+            ->setPhone('')
+            ->setAddress('');
+
+        $manager->persist($managerUser);
+
         // => Loop for generation Users
-        for ($i = 0; $i <= 100; $i++) {
+        for ($i = 0; $i <= 50; $i++) {
 
             // Create new User
             $user = new User();
@@ -87,7 +104,7 @@ class AppFixtures extends Fixture
             // Set properties
             $firstName = $faker->firstName();
             $lastName = $faker->lastName();
-            $email = mb_strtolower($firstName).".".mb_strtolower($lastName) . "@mail.com";
+            $email = mb_strtolower($firstName) . "." . mb_strtolower($lastName) . "@mail.com";
             $user->setFirstName($firstName)
                 ->setLastName($lastName)
                 ->setEmail($email)
@@ -102,7 +119,7 @@ class AppFixtures extends Fixture
         }
 
         // => Loop for generation Categories
-        for ($i = 0; $i < (count($this->categoryProviders) - 1); $i++) {
+        for ($i = 0; $i <= (count($this->categoryProviders) - 1); $i++) {
 
             // Create new Category
             $category = new Category();
@@ -131,39 +148,61 @@ class AppFixtures extends Fixture
             $manager->persist($type);
         }
 
-        // => Loop for generation products
-        for ($i = 0; $i < 50; $i++) {
+        $providersArtworks = [
+            $faker->getIllustrationAnimalsPicture(),
+            $faker->getIllustrationCulturePicture(),
+            $faker->getIllustrationPortraitPicture(),
+            $faker->getPhotographyAnimalsPicture(),
+            $faker->getPhotographyMusicPicture(),
+            $faker->getPhotographyLandscapePicture(),
+            $faker->getPhotographyPortraitPicture(),
+            $faker->getSculptureAnimalsPicture(),
+            $faker->getSculpturePortraitPicture(),
+            $faker->getTableauAbstractPicture(),
+            $faker->getTableauAnimalsPicture(),
+            $faker->getTableauCulturePicture(),
+            $faker->getTableauLandscapePicture(),
+            $faker->getTableauPortraitPicture()
+        ];
 
+        $artworksTypes = [];
+        foreach ($providersArtworks as $providersArtwork) {
+            foreach ($providersArtwork as $product) {
+                $artworksTypes[] = $product;
+            }
+        }
+
+        // Shuffle array
+        shuffle($artworksTypes);
+
+        // => Loop for generation Products
+        for ($i = 0; $i <= (count($artworksTypes) - 1); $i++) {
             // Create new Product
             $product = new Product();
 
-            // Declare variables
-            $type = $this->types[array_rand($this->types)];
-            $pictureType = $faker->getPictures($type->getName());
-            $pictureCategory = $pictureType[array_rand($pictureType)];
-            $picture = $pictureCategory[array_rand($pictureCategory)];
-            $releaseDate = $faker->dateTimeBetween('-2000 years', 'now');
-            $releaseDateToString = $releaseDate->format('Y');
-
+            $type = $artworksTypes[$i]['type'];
+            dd($this->types);
+            dd(array_search($type, array_column(json_decode(json_encode($this->types), true), 'name')));
             // Set properties
             $product->setTitle($faker->firstName())
                 ->setDescription($faker->sentence(9))
-                ->setDimensions($faker->numberBetween(10, 50) . 'cm' . 'x' . $faker->numberBetween(10, 50) . 'cm')
-                ->setPrice($faker->getPrice($type->getName()))
-                ->setPicture($picture)
-                ->setReleaseDate($releaseDateToString)
+                ->setDimensions($artworksTypes[$i]['dimensions'])
+                ->setPrice($artworksTypes[$i]['price'])
+                ->setPicture($artworksTypes[$i]['img'])
+                ->setReleaseDate($artworksTypes[$i]['date'])
                 ->setArtist($faker->name())
-                ->setStock(mt_rand(1, 100))
-                ->setType($type)
-                ->addCategory($this->categories[array_rand($this->categories)]);
+                ->setStock(mt_rand(1, 10))
+                ->setType($this->types[array_search($artworksTypes[$i]['type'], $this->types)])
+                ->addCategory($this->categories[array_search($artworksTypes[$i]['category'], $this->categories)]);
 
+            // Insert to array
             $this->products[] = $product;
 
             $manager->persist($product);
         }
 
         // => Loop for generation Orders
-        for ($i = 0; $i <= 600; $i++) {
+        for ($i = 0; $i <= 200; $i++) {
 
             // Create new Order
             $order = new Order();
@@ -182,7 +221,7 @@ class AppFixtures extends Fixture
         }
 
         // => Loop for generation Likes
-        for ($i=0; $i < 460; $i++) { 
+        for ($i = 0; $i < 460; $i++) {
             $product = $this->products[array_rand($this->products)];
             $product->addUser($this->users[array_rand($this->users)]);
         }
