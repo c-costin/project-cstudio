@@ -45,9 +45,12 @@
 		<section class="product">
 			<img class="product__img" src={product.picture} alt="Image du produit {product.title}" />
 			<div class="product__info">
-				<h2 class="product__type">{product.type.name}</h2>
 				<h1 class="product__title">{product.title}</h1>
-				<h3 class="product__category">{product.categories[0].name}</h3>
+				<h3 class="product__subtitle">
+					{product.type.name.charAt(0).toUpperCase() + product.type.name.slice(1)}
+					-
+					{product.categories[0].name.charAt(0).toUpperCase() + product.categories[0].name.slice(1)}
+				</h3>
 				<summary class="product__description">
 					{product.description}
 				</summary>
