@@ -4,16 +4,22 @@
 	// Import generals style
 	import '$lib/styles/app.scss';
 
-	// Import components
-	import Card from '../Card.svelte';
+	// Import component
+	import Card from './Card.svelte';
+
+	// Import module
+	import { createEventDispatcher } from 'svelte';
 
 	// Declare export variable
 	export let products;
+
+	// Declare variable
+	let dispatch = createEventDispatcher();
 </script>
 
 <scetion class="products">
-	{#each products as product}
-		<Card {...product} />
+	{#each products as product (product.id)}
+		<Card {...product} on:openProduct={() => dispatch('openProduct', product.id)} />
 	{/each}
 </scetion>
 
