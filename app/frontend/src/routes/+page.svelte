@@ -18,9 +18,6 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 
-	// !!! REMOVE IN PROD !!!
-	$: console.log($page.data.session);
-
 	// Declare variables
 	let products = data.products.slice(0, 10);
 	let types = data.types;

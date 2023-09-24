@@ -18,6 +18,8 @@
 	let products = data.products.slice(0, 15);
 	let orders = data.orders.slice(0, 30);
 	let isProductOpen = true;
+	let isTypeOpen = false;
+	let isCategoryOpen = false;
 	let isOrderOpen = false;
 	let isFormOpen = false;
 	let product = undefined;
@@ -25,6 +27,14 @@
 
 	// Declare Functions
 	const openProduct = () => {
+		isProductOpen = true;
+		isOrderOpen = false;
+	};
+	const openType = () => {
+		isProductOpen = true;
+		isOrderOpen = false;
+	};
+	const openCategory = () => {
 		isProductOpen = true;
 		isOrderOpen = false;
 	};
@@ -61,6 +71,18 @@
 						class="dashboardMenu__btn {isProductOpen ? 'dashboardMenu__btn-active' : ''}"
 					>
 						Produits
+					</button>
+					<button
+						on:click={openType}
+						class="dashboardMenu__btn {isTypeOpen ? 'dashboardMenu__btn-active' : ''}"
+					>
+						Types
+					</button>
+					<button
+						on:click={openCategory}
+						class="dashboardMenu__btn {isCategoryOpen ? 'dashboardMenu__btn-active' : ''}"
+					>
+						Catégories
 					</button>
 					<button
 						on:click={openOrder}

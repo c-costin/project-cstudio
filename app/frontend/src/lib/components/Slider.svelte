@@ -1,11 +1,6 @@
 <script>
 // @ts-nocheck
 
-	import sliderSculptureImage from '$lib/sliderpictures/sculpture.jpg';
-	import sliderDessinImage from '$lib/sliderpictures/dessin.webp';
-	import sliderPhotoImage from '$lib/sliderpictures/photo.jpg';
-	import sliderTableauImage from '$lib/sliderpictures/tableau.jpg';
-
 	let holding = false;
 	let firstClickX;
 	let alreadyLeftScrolled;
@@ -62,7 +57,7 @@
 >
 	<div class="slideshow">
 		<div class="slide">
-			<img class="slide__image" src={sliderSculptureImage} alt="sculpture" />
+			<img class="slide__image" src="/img/slider/sculpture.jpg" alt="sculpture" />
 			<div class="overlay">
 				<h1>Explorer</h1>
 			</div>
@@ -71,7 +66,7 @@
 		</div>
 
 		<div class="slide">
-			<img class="slide__image" src={sliderDessinImage} alt="dessin" />
+			<img class="slide__image" src="/img/slider/dessin.webp" alt="dessin" />
 			<div class="overlay">
 				<h1>Explorer</h1>
 			</div>
@@ -80,7 +75,7 @@
 		</div>
 
 		<div class="slide">
-			<img class="slide__image" src={sliderPhotoImage} alt="photographie" />
+			<img class="slide__image" src="/img/slider/photo.jpg" alt="photographie" />
 			<div class="overlay">
 				<h1>Explorer</h1>
 			</div>
@@ -89,7 +84,7 @@
 		</div>
 
 		<div class="slide">
-			<img class="slide__image" src={sliderTableauImage} alt="tableau" />
+			<img class="slide__image" src="/img/slider/tableau.jpg" alt="tableau" />
 			<div class="overlay">
 				<h1>Explorer</h1>
 			</div>
