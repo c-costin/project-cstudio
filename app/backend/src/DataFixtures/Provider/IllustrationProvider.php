@@ -15,12 +15,12 @@ class IllustrationProvider
     public function getIllustrationCulturePicture()
     {
         return [
-            ["type" => "dessin", "category" => "animaux", "date" => "1996-02-06", "dimensions" => "90x90", "img" => "http://localhost:8000/uploads/artwork/illustration/culture/british-library-goEMLZtN8i8-unsplash.jpg", "price" => 740],
-            ["type" => "dessin", "category" => "animaux", "date" => "1980-10-14", "dimensions" => "120x90", "img" => "http://localhost:8000/uploads/artwork/illustration/culture/joana-abreu-aFkzShngdaw-unsplash.jpg", "price" => 980],
-            ["type" => "dessin", "category" => "animaux", "date" => "2021-09-01", "dimensions" => "90x120", "img" => "http://localhost:8000/uploads/artwork/illustration/culture/nechama-lock-OpmBB7vlPJY-unsplash.jpg", "price" => 630],
-            ["type" => "dessin", "category" => "animaux", "date" => "2020-12-27", "dimensions" => "120x90", "img" => "http://localhost:8000/uploads/artwork/illustration/culture/shark-ovski-FioXQ1bU8Xg-unsplash.jpg", "price" => 1400],
-            ["type" => "dessin", "category" => "animaux", "date" => "2021-11-21", "dimensions" => "90x120", "img" => "http://localhost:8000/uploads/artwork/illustration/culture/tatiana-zhukova-nVVQlJAcEDc-unsplash.jpg", "price" => 15300],
-            ["type" => "dessin", "category" => "animaux", "date" => "1992-09-01", "dimensions" => "90x120", "img" => "http://localhost:8000/uploads/artwork/illustration/culture/thiebaud-faix-qURGLVHMcEs-unsplash.jpg", "price" => 2300]
+            ["type" => "dessin", "category" => "culture", "date" => "1996-02-06", "dimensions" => "90x90", "img" => "http://localhost:8000/uploads/artwork/illustration/culture/british-library-goEMLZtN8i8-unsplash.jpg", "price" => 740],
+            ["type" => "dessin", "category" => "culture", "date" => "1980-10-14", "dimensions" => "120x90", "img" => "http://localhost:8000/uploads/artwork/illustration/culture/joana-abreu-aFkzShngdaw-unsplash.jpg", "price" => 980],
+            ["type" => "dessin", "category" => "culture", "date" => "2021-09-01", "dimensions" => "90x120", "img" => "http://localhost:8000/uploads/artwork/illustration/culture/nechama-lock-OpmBB7vlPJY-unsplash.jpg", "price" => 630],
+            ["type" => "dessin", "category" => "culture", "date" => "2020-12-27", "dimensions" => "120x90", "img" => "http://localhost:8000/uploads/artwork/illustration/culture/shark-ovski-FioXQ1bU8Xg-unsplash.jpg", "price" => 1400],
+            ["type" => "dessin", "category" => "culture", "date" => "2021-11-21", "dimensions" => "90x120", "img" => "http://localhost:8000/uploads/artwork/illustration/culture/tatiana-zhukova-nVVQlJAcEDc-unsplash.jpg", "price" => 15300],
+            ["type" => "dessin", "category" => "culture", "date" => "1992-09-01", "dimensions" => "90x120", "img" => "http://localhost:8000/uploads/artwork/illustration/culture/thiebaud-faix-qURGLVHMcEs-unsplash.jpg", "price" => 2300]
         ];
     }
 

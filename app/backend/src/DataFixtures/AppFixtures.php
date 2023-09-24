@@ -20,7 +20,7 @@ use Faker\Factory;
 class AppFixtures extends Fixture
 {
     // Set providers
-    private array $categoryProviders = ["portrait", "nature", "animaux", "culture", "cinéma", "musique", "paysage", "abstrait"];
+    private array $categoryProviders = ["portrait", "animaux", "culture", "musique", "paysage", "abstrait"];
     private array $typeProviders = ["tableau", "dessin", "sculpture", "photographie"];
 
     // Set empty array
@@ -59,7 +59,7 @@ class AppFixtures extends Fixture
         $faker = Factory::create("fr_FR");
 
         // Dataset seed
-        $faker->seed(428);
+        $faker->seed(408);
 
         // Adding providers
         $faker->addProvider(new IllustrationProvider($faker));
@@ -179,10 +179,21 @@ class AppFixtures extends Fixture
         for ($i = 0; $i <= (count($artworksTypes) - 1); $i++) {
             // Create new Product
             $product = new Product();
+            $type;
+            $category;
 
-            $type = $artworksTypes[$i]['type'];
-            dd($this->types);
-            dd(array_search($type, array_column(json_decode(json_encode($this->types), true), 'name')));
+            foreach ($this->types as $typeEntity) {
+                if ($typeEntity->getName() === $artworksTypes[$i]['type']) {
+                    $type = $typeEntity;
+                }
+            }
+
+            foreach ($this->categories as $categoryEntity) {
+                if ($categoryEntity->getName() === $artworksTypes[$i]['category']) {
+                    $category = $categoryEntity;
+                }
+            }
+
             // Set properties
             $product->setTitle($faker->firstName())
                 ->setDescription($faker->sentence(9))
@@ -192,8 +203,8 @@ class AppFixtures extends Fixture
                 ->setReleaseDate($artworksTypes[$i]['date'])
                 ->setArtist($faker->name())
                 ->setStock(mt_rand(1, 10))
-                ->setType($this->types[array_search($artworksTypes[$i]['type'], $this->types)])
-                ->addCategory($this->categories[array_search($artworksTypes[$i]['category'], $this->categories)]);
+                ->setType($type)
+                ->addCategory($category);
 
             // Insert to array
             $this->products[] = $product;
