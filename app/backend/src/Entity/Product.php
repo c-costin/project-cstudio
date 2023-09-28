@@ -55,6 +55,7 @@ class Product
     private ?string $artist = null;
 
     #[ORM\Column]
+    #[Groups(['read:Product:collection'])]
     #[Assert\NotBlank]
     private ?int $stock = null;
 

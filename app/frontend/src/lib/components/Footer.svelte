@@ -11,7 +11,7 @@
 			<div class="footer__text">
 				<h2 class="footer__slogan">De l'art en boite !</h2>
 				<p class="footer__resume">
-					C-Studio, vente de l'art en ligne, offre une plateforme permettant aux artistes de vendre leurs créations et aux acheteurs de découvrir et d'acheter des œuvres d'art.
+					C-Studio, vend de l'art en ligne, offre une plateforme permettant aux artistes de vendre leurs créations et aux acheteurs de découvrir et d'acheter des œuvres d'art.
 				</p>
 			</div>
 		<a href="/" class="footer__up">
@@ -52,6 +52,7 @@
 			max-width: 50%;
 		}
 		&__slogan {
+			margin-block: 0.75rem;
 			font-size: 1rem;
 		}
 		&__up {

@@ -3,20 +3,25 @@
 
 	// Import components
 	import Header from '$lib/components/Header.svelte';
-	import Product from '$lib/components/Dashboard/Product.svelte';
-	import Order from '$lib/components/Dashboard/Order.svelte';
+	import Product from '$lib/components/Admin/Product.svelte';
+	import Order from '$lib/components/Admin/Order.svelte';
 	import Pagination from '$lib/components/Pagination.svelte';
+	import Form from '$lib/components/Admin/Form.svelte';
 	import Footer from '$lib/components/Footer.svelte';
+	import { findAllProductById } from '$lib/js/request.js';
 
 	/** @type {import('./$types').PageServerData} */
 	export let data;
 
 	// Declare variables
 	let screenSize = 0;
-	let products = data.products.slice(0, 10);
+	let products = data.products.slice(0, 15);
 	let orders = data.orders.slice(0, 30);
 	let isProductOpen = true;
 	let isOrderOpen = false;
+	let isFormOpen = false;
+	let product = undefined;
+	let onEdit = false;
 
 	// Declare Functions
 	const openProduct = () => {
@@ -26,6 +31,15 @@
 	const openOrder = () => {
 		isProductOpen = false;
 		isOrderOpen = true;
+	};
+	const openFormAdd = () => {
+		onEdit = false;
+		isFormOpen = !isFormOpen;
+	};
+	const onEditProduct = async (e) => {
+		onEdit = true;
+		product = await findAllProductById(e.detail);
+		isFormOpen = true;
 	};
 </script>
 
@@ -72,14 +86,23 @@
 							<option value="abstrait">Abstrait</option>
 						</select>
 					</div>
-					<button class="dashboardActions__addProduct">Ajouter un produit</button>
+					<button class="dashboardActions__addProduct" on:click={openFormAdd}
+						>Ajouter une œuvre</button
+					>
 				</div>
 			</div>
 
-			{#if isProductOpen} <Product {products} /> {/if}
-			{#if isOrderOpen} <Order {orders} /> {/if}
-
-			<Pagination />
+			{#if isProductOpen}
+				<Product {products} on:openProduct={onEditProduct} />
+				<Pagination />
+			{/if}
+			{#if isOrderOpen}
+				<Order {orders} />
+				<Pagination />
+			{/if}
+			{#if isFormOpen}
+				<Form {product} isEdit={onEdit} on:cancelForm={() => (isFormOpen = !isFormOpen)} />
+			{/if}
 		</main>
 	{:else}
 		<p class="main-is-disable">Veuillez utiliser un ordinateur pour cette page</p>

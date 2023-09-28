@@ -1,3 +1,4 @@
+// @ts-nocheck
 import { handleSession } from 'svelte-kit-cookie-session';
 import { redirect } from '@sveltejs/kit';
 
@@ -37,9 +38,9 @@ export const handle = handleSession(
 		}
 
 		if (event.url.pathname.startsWith('/admin')) {
-			if (!isConnected) {
-				throw redirect(302, '/connexion');
-			}
+				if (!isConnected || isConnected.role[0] === "ROLE_USER") {
+					throw redirect(302, '/');
+				}
 		}
 
 		return resolve(event);
