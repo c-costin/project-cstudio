@@ -4,35 +4,35 @@
 	// Import generals style
 	import '$lib/styles/app.scss';
 
-	// Import component
-	import { browse } from '../../../../backend/src/Controller/OrderController.php';
+	// // Import component
+	// import { browse } from '../../../../backend/src/Controller/OrderController.php';
 
-	export let data;
+	// export let data;
 
-	// Declare variables
-	export let id;
-	export let number;
-	export let deliveryDate;
+	// // Declare variables
+	// export let id;
+	// export let number;
+	// export let deliveryDate;
 
-	// Load method
-	export async function load({ params }) {
-		try {
-			const orderId = params.id;
-			const userId = params.userId;
+	// // Load method
+	// export async function load({ params }) {
+	// 	try {
+	// 		const orderId = params.id;
+	// 		const userId = params.userId;
 
-			// Call browse method in OrderController.php
-			const data = await browse(orderId, userId);
+	// 		// Call browse method in OrderController.php
+	// 		const data = await browse(orderId, userId);
 
-			return {
-				props: {
-					data
-				}
-			};
-		} catch (error) {
-			console.error('Erreur lors du chargement des données :', error);
-			throw error;
-		}
-	}
+	// 		return {
+	// 			props: {
+	// 				data
+	// 			}
+	// 		};
+	// 	} catch (error) {
+	// 		console.error('Erreur lors du chargement des données :', error);
+	// 		throw error;
+	// 	}
+	// }
 </script>
 
 <section class="order-content">

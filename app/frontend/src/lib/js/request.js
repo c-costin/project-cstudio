@@ -92,3 +92,26 @@ export const findAllOrders = async (token) => {
 	return data;
 };
 
+export const findOrdersByUserId = async (id) => {
+	const response = await fetch(`${endpoint}/order/?user=${id}`, {
+		method: 'GET',
+		headers: {
+			Accept: '*/*',
+			'Content-Type': 'application/json'
+		}
+	});
+	const data = await response.json();
+	return data.slice(0, 10);
+};
+
+export const findProductsByUserId = async (id) => {
+	const response = await fetch(`${endpoint}/product/?user=${id}`, {
+		method: 'GET',
+		headers: {
+			Accept: '*/*',
+			'Content-Type': 'application/json'
+		}
+	});
+	const data = await response.json();
+	return data.slice(0, 10);
+};

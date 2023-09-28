@@ -4,46 +4,46 @@
 	// Import generals style
 	import '$lib/styles/app.scss';
 
-	// Import component
-	import { find } from '$app/backend/src/Service/LikeService.php';
+	// // Import component
+	// import { find } from '$app/backend/src/Service/LikeService.php';
 
-	export let data;
+	// export let data;
 
-	// Declare variables
-	export let index;
-	export let id;
-	export let title;
-	export let price;
-	export let picture;
-	export let description;
-	export let dimensions;
-	export let releaseDate;
-	export let artist;
-	export let type;
-	export let categories;
+	// // Declare variables
+	// export let index;
+	// export let id;
+	// export let title;
+	// export let price;
+	// export let picture;
+	// export let description;
+	// export let dimensions;
+	// export let releaseDate;
+	// export let artist;
+	// export let type;
+	// export let categories;
 
-	// Handle statements
-	$: likedProduct = $data.product;
+	// // Handle statements
+	// $: likedProduct = $data.product;
 
-	// Load method
-	export async function load({ params }) {
-		try {
-			const productId = params.id;
-			const userId = params.userId;
+	// // Load method
+	// export async function load({ params }) {
+	// 	try {
+	// 		const productId = params.id;
+	// 		const userId = params.userId;
 
-			// Call find method in LikeService.php
-			const data = await find(productId, userId);
+	// 		// Call find method in LikeService.php
+	// 		const data = await find(productId, userId);
 
-			return {
-				props: {
-					data
-				}
-			};
-		} catch (error) {
-			console.error('Erreur lors du chargement des données :', error);
-			throw error;
-		}
-	}
+	// 		return {
+	// 			props: {
+	// 				data
+	// 			}
+	// 		};
+	// 	} catch (error) {
+	// 		console.error('Erreur lors du chargement des données :', error);
+	// 		throw error;
+	// 	}
+	// }
 </script>
 
 <section class="favorite-content">
