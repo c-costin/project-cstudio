@@ -1,48 +1,21 @@
 <script>
 	// @ts-nocheck
 
-	// Import generals style
 	import '$lib/styles/app.scss';
 
-	// // Import component
-	// import { browse } from '../../../../backend/src/Controller/OrderController.php';
-
-	// export let data;
-
-	// // Declare variables
-	// export let id;
-	// export let number;
-	// export let deliveryDate;
-
-	// // Load method
-	// export async function load({ params }) {
-	// 	try {
-	// 		const orderId = params.id;
-	// 		const userId = params.userId;
-
-	// 		// Call browse method in OrderController.php
-	// 		const data = await browse(orderId, userId);
-
-	// 		return {
-	// 			props: {
-	// 				data
-	// 			}
-	// 		};
-	// 	} catch (error) {
-	// 		console.error('Erreur lors du chargement des données :', error);
-	// 		throw error;
-	// 	}
-	// }
+	export let orders;
 </script>
 
 <section class="order-content">
-	{#if data}
-		<div class="order-content__row">
-			<h3>Commande n°{number}</h3>
-			<p>du {deliveryDate}</p>
-		</div>
+	{#if orders}
+		{#each orders as order}
+			<div class="order-content__row">
+				<h3>Commande n°{order.number}</h3>
+				<p>du {order.deliveryDate}</p>
+			</div>
+		{/each}
 	{:else}
-		<p>Pas encore de coups de commande ? Devenez collectionneur d'art en un clic !</p>
+		<p>Pas encore de commandes ? Devenez collectionneur d'art en un clic !</p>
 		<a href="/" class="order-content__link">Visiter notre galerie</a>
 	{/if}
 </section>

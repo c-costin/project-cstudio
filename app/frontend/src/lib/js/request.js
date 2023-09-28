@@ -92,26 +92,28 @@ export const findAllOrders = async (token) => {
 	return data;
 };
 
-export const findOrdersByUserId = async (id) => {
+export const findOrdersByUserId = async (id, token) => {
 	const response = await fetch(`${endpoint}/order/?user=${id}`, {
 		method: 'GET',
 		headers: {
 			Accept: '*/*',
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`,
 		}
 	});
 	const data = await response.json();
-	return data.slice(0, 10);
+	return data;
 };
 
-export const findProductsByUserId = async (id) => {
+export const findAllLikeByUserId = async (id, token) => {
 	const response = await fetch(`${endpoint}/product/?user=${id}`, {
 		method: 'GET',
 		headers: {
 			Accept: '*/*',
-			'Content-Type': 'application/json'
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`,
 		}
 	});
 	const data = await response.json();
-	return data.slice(0, 10);
+	return data;
 };

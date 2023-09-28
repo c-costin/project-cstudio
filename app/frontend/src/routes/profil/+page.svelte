@@ -12,6 +12,8 @@
 	export let data;
 
 	const user = data.user;
+	let orders = data.orders;
+	let likes = data.likes;
 
 	// Declare variables
 	let isProfilOpen = true;
@@ -37,7 +39,7 @@
 </script>
 
 <svelte:head>
-	<title>Profil | C-Studio - Plateform de vente en ligne d'oeuvre d'art</title>
+	<title>Profil | C-Studio - Plateforme de vente en ligne d'oeuvres d'art</title>
 </svelte:head>
 
 
@@ -65,9 +67,11 @@
 			</button>
 		</nav>
 
+		{#if !orders} <p>Non trouvé</p>{/if}
+		{#if !likes} <p>Non trouvé</p>{/if}
 		{#if isProfilOpen} <Profil {...user} /> {/if}
-		{#if isOrderOpen} <Order /> {/if}
-		{#if isFavoriteOpen} <Favorite /> {/if}
+		{#if isOrderOpen} <Order {orders}/> {/if}
+		{#if isFavoriteOpen} <Favorite {likes}/> {/if}
 	</main>
 </div>
 
