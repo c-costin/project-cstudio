@@ -1,5 +1,7 @@
 <script>
 // @ts-nocheck
+	// Import icons
+	import iconHeart from '$lib/icons/heart.svg';
 
 	import '$lib/styles/app.scss';
 
@@ -17,6 +19,7 @@
 		<div class="card__content">
 			<h3 class="card__title">{title}</h3>
 			<p class="card__price">{price} €</p>
+			<img src={iconHeart} alt="Icone de favoris" class="iconoir-heart favorite-content__icon" />
 		</div>
 	</article>
 </a>

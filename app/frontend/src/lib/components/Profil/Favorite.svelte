@@ -1,6 +1,9 @@
 <script>
 	// @ts-nocheck
 
+	// Import icons
+	import iconHeart from '$lib/icons/heart.svg';
+
 	// Import generals style
 	import '$lib/styles/app.scss';
 
@@ -14,10 +17,10 @@
 			<div class="favorite-content__row">
 				<div class="favorite-content__desc">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img class="favorite-content__desc-img" src={like.picture} alt="image" />
+					<img class="favorite-content__desc-img" src={like.picture} alt="nom de l'image : {like.title}" />
 					<h3 class="favorite-content__desc-name">{like.title}</h3>
 				</div>
-				<i class="iconoir-heart favorite-content__icon" />
+				<img src={iconHeart} alt="Icone de favoris" class="iconoir-heart favorite-content__icon" />
 			</div>
 			{/each}
 		{:else}
