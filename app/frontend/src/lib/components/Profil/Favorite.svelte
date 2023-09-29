@@ -8,21 +8,23 @@
 </script>
 
 <section class="favorite-content">
-	<div class="favorite-content__row">
+	
 		{#if likes}
 			{#each likes as like}
+			<div class="favorite-content__row">
 				<div class="favorite-content__desc">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
 					<img class="favorite-content__desc-img" src={like.picture} alt="image" />
 					<h3 class="favorite-content__desc-name">{like.title}</h3>
 				</div>
 				<i class="iconoir-heart favorite-content__icon" />
+			</div>
 			{/each}
 		{:else}
 			<p>Pas encore de coups de cœur ? Sélectionner vos prochaines œuvres d'art en un clic !</p>
 			<a href="/" class="order-content__link">Visiter notre galerie</a>
 		{/if}
-	</div>
+	
 </section>
 
 <style lang="scss">

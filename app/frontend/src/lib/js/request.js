@@ -106,7 +106,7 @@ export const findOrdersByUserId = async (id, token) => {
 };
 
 export const findAllLikeByUserId = async (id, token) => {
-	const response = await fetch(`${endpoint}/product/?user=${id}`, {
+	const response = await fetch(`${endpoint}/like/?user=${id}`, {
 		method: 'GET',
 		headers: {
 			Accept: '*/*',
