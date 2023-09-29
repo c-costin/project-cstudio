@@ -18,13 +18,11 @@
 	/** @type {import('./$types').PageData} */
 	export let data;
 
-	// !!! REMOVE IN PROD !!!
-	$: console.log($page.data.session);
-
 	// Declare variables
 	let products = data.products.slice(0, 10);
 	let types = data.types;
 	let categories = data.categories;
+	let likes = data.likes;
 
 	// Declare functions
 	const onFiltredByType = async (e) => (products = await findProductsByType(e));
@@ -64,9 +62,9 @@
 			<section class="list-products">
 				{#each products as product, i}
 					{#if i === 6 || i === 7}
-						<Card {...product} isBig={true} />
+						<Card {...product} {likes} isBig={true} />
 					{:else}
-						<Card {...product} />
+						<Card {...product} {likes} />
 					{/if}
 				{/each}
 			</section>
