@@ -1,10 +1,10 @@
 <script>
 	import '$lib/styles/app.scss';
-	import Slide from './Slide.svelte';
+	import Slider from './Slider.svelte';
 </script>
 
 <section class="hero">
-	<Slide />
+	<Slider />
 </section>
 
 <style lang="scss">
