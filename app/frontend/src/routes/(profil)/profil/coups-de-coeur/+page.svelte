@@ -10,7 +10,9 @@
 	// Import module
 	import { enhance } from '$app/forms';
 
-	export let likes;
+    /** @type {import('./$types').LayoutServerData} */
+    export let data;
+	let likes = data.likes
 </script>
 
 <section class="favorite-content">

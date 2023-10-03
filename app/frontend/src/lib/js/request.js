@@ -92,3 +92,55 @@ export const findAllOrders = async (token) => {
 	return data;
 };
 
+export const findOrdersByUserId = async (id, token) => {
+	const response = await fetch(`${endpoint}/order/?user=${id}`, {
+		method: 'GET',
+		headers: {
+			Accept: '*/*',
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`,
+		}
+	});
+	const data = await response.json();
+	return data;
+};
+
+export const findAllLikeByUserId = async (id, token) => {
+	const response = await fetch(`${endpoint}/like/?user=${id}`, {
+		method: 'GET',
+		headers: {
+			Accept: '*/*',
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`,
+		}
+	});
+	const data = await response.json();
+	return data;
+};
+
+
+export const addUserLike = async (productId, userId, token) => {
+	const response = await fetch(`${endpoint}/like/add?product=${productId}&user=${userId}`, {
+		method: 'POST',
+		headers: {
+			Accept: '*/*',
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`,
+		}
+	});
+	const data = await response.json();
+	return data;
+};
+
+export const removeUserLike = async (productId, userId, token) => {
+	const response = await fetch(`${endpoint}/like/delete?product=${productId}&user=${userId}`, {
+		method: 'DELETE',
+		headers: {
+			Accept: '*/*',
+			'Content-Type': 'application/json',
+			'Authorization': `Bearer ${token}`,
+		}
+	});
+	const data = await response.json();
+	return data;
+};

@@ -1,9 +1,10 @@
 <script>
 	// @ts-nocheck
-
 	import '$lib/styles/app.scss';
 
-	export let orders;
+    /** @type {import('./$types').LayoutServerData} */
+	export let data;
+	let orders = data.orders
 </script>
 
 <section class="order-content">
