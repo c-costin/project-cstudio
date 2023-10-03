@@ -3,45 +3,18 @@
 
 	// Import components
 	import Header from '$lib/components/Header.svelte';
-	import Product from '$lib/components/Admin/Product.svelte';
-	import Order from '$lib/components/Admin/Order.svelte';
-	import Pagination from '$lib/components/Pagination.svelte';
 	import Form from '$lib/components/Admin/Form.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 	import { findAllProductById } from '$lib/js/request.js';
-
-	/** @type {import('./$types').PageServerData} */
-	export let data;
+	import { fade } from 'svelte/transition';
 
 	// Declare variables
 	let screenSize = 0;
-	let products = data.products.slice(0, 15);
-	let orders = data.orders.slice(0, 30);
-	let isProductOpen = true;
-	let isTypeOpen = false;
-	let isCategoryOpen = false;
-	let isOrderOpen = false;
 	let isFormOpen = false;
 	let product = undefined;
 	let onEdit = false;
 
-	// Declare Functions
-	const openProduct = () => {
-		isProductOpen = true;
-		isOrderOpen = false;
-	};
-	const openType = () => {
-		isProductOpen = true;
-		isOrderOpen = false;
-	};
-	const openCategory = () => {
-		isProductOpen = true;
-		isOrderOpen = false;
-	};
-	const openOrder = () => {
-		isProductOpen = false;
-		isOrderOpen = true;
-	};
+	// Declare Functionss
 	const openFormAdd = () => {
 		onEdit = false;
 		isFormOpen = !isFormOpen;
@@ -66,30 +39,36 @@
 		<main class="mainDashboard">
 			<div class="dashboardActions">
 				<nav class="dashboardMenu">
-					<button
-						on:click={openProduct}
-						class="dashboardMenu__btn {isProductOpen ? 'dashboardMenu__btn-active' : ''}"
+					<a
+						href="/admin"
+						class="dashboardMenu__btn {data.pathname === '/admin' ? 'dashboardMenu__btn-active' : ''}"
+					>
+						Accueil
+					</a>
+					<a
+						href="/admin/produits"
+						class="dashboardMenu__btn {data.pathname === '/admin/produits' ? 'dashboardMenu__btn-active' : ''}"
 					>
 						Produits
-					</button>
-					<button
-						on:click={openType}
-						class="dashboardMenu__btn {isTypeOpen ? 'dashboardMenu__btn-active' : ''}"
+					</a>
+					<a
+						href="/admin/types"
+						class="dashboardMenu__btn {data.pathname === '/admin/types' ? 'dashboardMenu__btn-active' : ''}"
 					>
 						Types
-					</button>
-					<button
-						on:click={openCategory}
-						class="dashboardMenu__btn {isCategoryOpen ? 'dashboardMenu__btn-active' : ''}"
+					</a>
+					<a
+						href="/admin/categories"
+						class="dashboardMenu__btn {data.pathname === '/admin/categories' ? 'dashboardMenu__btn-active' : ''}"
 					>
 						Catégories
-					</button>
-					<button
-						on:click={openOrder}
-						class="dashboardMenu__btn {isOrderOpen ? 'dashboardMenu__btn-active' : ''}"
+					</a>
+					<a
+						href="/admin/commandes"
+						class="dashboardMenu__btn {data.pathname === '/admin/commandes' ? 'dashboardMenu__btn-active' : ''}"
 					>
 						Commandes
-					</button>
+					</a>
 				</nav>
 
 				<div class="dashboardActions__right">
@@ -108,20 +87,15 @@
 							<option value="abstrait">Abstrait</option>
 						</select>
 					</div>
-					<button class="dashboardActions__addProduct" on:click={openFormAdd}
-						>Ajouter une œuvre</button
-					>
+					<button class="dashboardActions__addProduct" on:click={openFormAdd}>
+						Ajouter une œuvre
+					</button>
 				</div>
 			</div>
 
-			{#if isProductOpen}
-				<Product {products} on:openProduct={onEditProduct} />
-				<Pagination />
-			{/if}
-			{#if isOrderOpen}
-				<Order {orders} />
-				<Pagination />
-			{/if}
+			<div class="" transition:fade>
+				<slot />
+			</div>
 			{#if isFormOpen}
 				<Form {product} isEdit={onEdit} on:cancelForm={() => (isFormOpen = !isFormOpen)} />
 			{/if}
@@ -185,16 +159,6 @@
 			display: flex;
 			gap: 0.5rem;
 			align-items: center;
-		}
-
-		.products {
-			margin-top: 1rem;
-			padding: 1.5rem 1.75rem;
-			display: grid;
-			grid-template-columns: repeat(5, 1fr);
-			gap: 0.75rem;
-			border-radius: 0.5rem;
-			background: gainsboro;
 		}
 	}
 </style>
