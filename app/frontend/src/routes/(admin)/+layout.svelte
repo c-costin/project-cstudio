@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	// @ts-nocheck
 
 	// Import components
@@ -7,6 +7,9 @@
 	import Footer from '$lib/components/Footer.svelte';
 	import { findAllProductById } from '$lib/js/request.js';
 	import { fade } from 'svelte/transition';
+	import type { LayoutServerData } from './$types.js';
+
+	export let data: LayoutServerData
 
 	// Declare variables
 	let screenSize = 0;
@@ -72,21 +75,6 @@
 				</nav>
 
 				<div class="dashboardActions__right">
-					<div class="dashboard-filters">
-						<p>Filtres :</p>
-						<select name="" id="">
-							<option selected disabled>Type</option>
-							<option value="photogaphie">Photogaphie</option>
-							<option value="peinture">Peinture</option>
-						</select>
-						<select name="" id="">
-							<option selected disabled>Catégorie</option>
-							<option value="nature">Nature</option>
-							<option value="sport">Sport</option>
-							<option value="musique">Musique</option>
-							<option value="abstrait">Abstrait</option>
-						</select>
-					</div>
 					<button class="dashboardActions__addProduct" on:click={openFormAdd}>
 						Ajouter une œuvre
 					</button>
@@ -152,13 +140,6 @@
 				border: 2px solid black;
 				background: #e2e2e240;
 			}
-		}
-
-		.dashboard-filters {
-			width: 296px;
-			display: flex;
-			gap: 0.5rem;
-			align-items: center;
 		}
 	}
 </style>

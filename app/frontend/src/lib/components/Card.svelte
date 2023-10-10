@@ -1,9 +1,9 @@
 <script>
 	// @ts-nocheck
-	
+
 	// Import generals style
 	import '$lib/styles/app.scss';
-	
+
 	// Import modules
 	import { enhance } from '$app/forms';
 	import { redirect } from '@sveltejs/kit';
@@ -21,9 +21,11 @@
 
 	// Handle statement
 	$: if (likes !== undefined) {
-		likes.forEach((like) => {
-			if (id === like.id) isLiked = true;
-		});
+		if (likes.code !== 404) {
+			likes.forEach((like) => {
+				if (id === like.id) isLiked = true;
+			});
+		}
 	}
 </script>
 
