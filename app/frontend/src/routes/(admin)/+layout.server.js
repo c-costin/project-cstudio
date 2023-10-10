@@ -7,6 +7,6 @@ export async function load({ locals, url }) {
 		products: await findAllProducts(),
 		types: await findAllTypes(),
 		categories: await findAllCategories(),
-        orders: await findAllOrders(locals.session.data.token)
+		orders: await findAllOrders(locals.session.data.token)
 	};
 }

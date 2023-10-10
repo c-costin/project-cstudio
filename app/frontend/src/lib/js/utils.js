@@ -19,3 +19,7 @@ export const setUser = ({cookies, user}) => {
         path: '/'
     });
 };
+
+export const UptoCaptilizer = (keyword) => {
+    return keyword.charAt(0).toUpperCase() + keyword.slice(1)
+}
