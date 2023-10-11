@@ -59,6 +59,7 @@
 <style lang="scss">
 	@use '../styles/variables' as *;
 	.hero {
+		z-index: -1;
 		padding-top: 6rem;
 		width: 100%;
 		background: $color-yellow;
@@ -68,6 +69,8 @@
 	}
 
 	.embla {
+		margin-inline: auto;
+		max-width: 1560px;
 		overflow: hidden;
 		&__container {
 			padding: 2rem 4rem;
