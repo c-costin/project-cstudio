@@ -21,6 +21,52 @@ class OrderRepository extends ServiceEntityRepository
         parent::__construct($registry, Order::class);
     }
 
+    public function add(Order $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Order $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    // Find Order by User ID
+
+    public function findOrdersByUserId(int $id): ?array
+    {
+        return $this->createQueryBuilder('o')
+            ->where("o.user = :id")
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult();
+    }
+
+    // public function findOrdersByUserId(int $id): ?array
+    // {
+    //     $sql = "
+    //         SELECT
+    //             order.id
+    //         FROM order
+    //         LEFT JOIN user ON order.user_id = user.id
+    //         WHERE order.id;
+    //     ";
+
+    //     $connexion = $this->getEntityManager()->getConnection();
+    //     $stmt = $connexion->prepare($sql);
+    //     $result = $stmt->executeQuery(["id" => $id]);
+
+    //     return $result->fetchAllAssociative();
+    // }
+
 //    /**
 //     * @return Order[] Returns an array of Order objects
 //     */

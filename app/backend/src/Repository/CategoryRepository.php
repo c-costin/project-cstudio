@@ -7,7 +7,7 @@ use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<Category>
+ * @extends ServiceEntityRepository<Category>œ
  *
  * @method Category|null find($id, $lockMode = null, $lockVersion = null)
  * @method Category|null findOneBy(array $criteria, array $orderBy = null)
@@ -39,11 +39,13 @@ class CategoryRepository extends ServiceEntityRepository
         }
     }
 
-    public function findCategoriesByProductId(int $id): ?array
+    // Find Category by name
+
+    public function findCategoryByName(string $keyword): ?array
     {
         return $this->createQueryBuilder('c')
-            ->where("c.product = :id")
-            ->setParameter('id', $id)
+            ->where("c.name LIKE :keyword")
+            ->setParameter('keyword', "%{$keyword}%")
             ->getQuery()
             ->getResult();
     } 

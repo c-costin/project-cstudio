@@ -1,9 +1,58 @@
 nelmio_api_doc:
     documentation:
+        servers:
+          - url: http://localhost:8000
+            description: DEV SERVER
         info:
-            title: My App
-            description: This is an awesome app!
-            version: 1.0.0
+            title: API C-Studio
+            description: Documentation for using and understanding the C-Studio API
+            version: 0.0.1
+        components:
+            securitySchemes:
+                Bearer:
+                    type: http
+                    scheme: bearer
+                    bearerFormat: JWT
+        security:
+            - Bearer: []
+        paths:
+            /api/login_check:
+                post:
+                    tags:
+                        - Authentification
+                    summary: Retrieve an Token JWT
+                    description: Retrieve an Token JWT with User credentials
+                    requestBody:
+                        content:
+                            application/json:
+                                schema:
+                                    properties:
+                                        email:
+                                            type: string
+                                            example: john.doe@mail.com
+                                        password:
+                                            type: string
+                                            example: password
+                                    type: object
+                    responses:
+                        '200':
+                            description: Success
+                            content:
+                                application/json:
+                                    schema:
+                                        type: object
+                                        properties:
+                                            token:
+                                                type: string
+                                                example: OjE2ODUwNTkyOTMsImV4cCI6MTY4NTA5NTI5Mywicm9sZXMiOlsiUk9MRV9BRE1JTiJdLCJ1c2VybmFtZSI6ImF
+                        '401':
+                            description: Invalid credentials
+                        '400':
+                            description: Invalid JSON
+                    security: []
+
+
+
     areas: # to filter documented areas
         path_patterns:
             - ^/api(?!/doc$) # Accepts routes under /api except /api/doc

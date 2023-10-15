@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230829120706 extends AbstractMigration
+final class Version20230830161408 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -23,9 +23,10 @@ final class Version20230829120706 extends AbstractMigration
         $this->addSql('CREATE TABLE category (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, name VARCHAR(64) NOT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         , updated_at DATETIME DEFAULT NULL --(DC2Type:datetime_immutable)
         )');
-        $this->addSql('CREATE TABLE "order" (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER DEFAULT NULL, number VARCHAR(64) NOT NULL, delivery_date VARCHAR(64) NOT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
+        $this->addSql('CREATE TABLE "order" (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, user_id INTEGER DEFAULT NULL, number VARCHAR(64) NOT NULL, delivery_date VARCHAR(64) DEFAULT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         , updated_at DATETIME DEFAULT NULL --(DC2Type:datetime_immutable)
         , CONSTRAINT FK_F5299398A76ED395 FOREIGN KEY (user_id) REFERENCES user (id) NOT DEFERRABLE INITIALLY IMMEDIATE)');
+        $this->addSql('CREATE UNIQUE INDEX UNIQ_F529939896901F54 ON "order" (number)');
         $this->addSql('CREATE INDEX IDX_F5299398A76ED395 ON "order" (user_id)');
         $this->addSql('CREATE TABLE product (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, type_id INTEGER NOT NULL, title VARCHAR(64) NOT NULL, description CLOB NOT NULL, dimensions VARCHAR(32) NOT NULL, price VARCHAR(32) NOT NULL, picture VARCHAR(128) NOT NULL, release_date VARCHAR(64) NOT NULL, artist VARCHAR(64) NOT NULL, stock INTEGER NOT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         , updated_at DATETIME DEFAULT NULL --(DC2Type:datetime_immutable)
@@ -44,7 +45,7 @@ final class Version20230829120706 extends AbstractMigration
         , updated_at DATETIME DEFAULT NULL --(DC2Type:datetime_immutable)
         )');
         $this->addSql('CREATE TABLE user (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, email VARCHAR(180) NOT NULL, roles CLOB NOT NULL --(DC2Type:json)
-        , password VARCHAR(255) NOT NULL, name VARCHAR(64) NOT NULL, firstname VARCHAR(64) NOT NULL, phone VARCHAR(64) DEFAULT NULL, address VARCHAR(128) DEFAULT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
+        , password VARCHAR(255) NOT NULL, phone VARCHAR(64) DEFAULT NULL, last_name VARCHAR(128) DEFAULT NULL, first_name VARCHAR(64) NOT NULL, address VARCHAR(128) DEFAULT NULL, created_at DATETIME NOT NULL --(DC2Type:datetime_immutable)
         , updated_at DATETIME DEFAULT NULL --(DC2Type:datetime_immutable)
         )');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_8D93D649E7927C74 ON user (email)');

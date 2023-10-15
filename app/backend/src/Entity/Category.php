@@ -3,10 +3,12 @@
 namespace App\Entity;
 
 use App\Repository\CategoryRepository;
+use DateTime;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -18,24 +20,23 @@ class Category
     private ?int $id = null;
 
     #[ORM\Column(length: 64)]
-    #[Groups('read:Category:item')]
+    #[Groups(['read:Category:item', 'read:Product:collection'])]
+    #[Assert\NotBlank]
     private ?string $name = null;
 
     #[ORM\Column]
-    #[Groups('read:Category:item')]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups('read:Category:item')]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToMany(targetEntity: Product::class, mappedBy: 'categories')]
-    #[Groups('read:Category:item')]
     private Collection $products;
 
     public function __construct()
     {
         $this->products = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

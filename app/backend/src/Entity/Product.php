@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
 class Product
@@ -15,38 +16,47 @@ class Product
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:item', 'read:Product:collection'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 64)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:item', 'read:Product:collection'])]
+    #[Assert\NotBlank]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:collection'])]
+    #[Assert\NotBlank]
     private ?string $description = null;
 
     #[ORM\Column(length: 32)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:collection'])]
+    #[Assert\NotBlank]
     private ?string $dimensions = null;
 
     #[ORM\Column(length: 32)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:item', 'read:Product:collection'])]
+    #[Assert\NotBlank]
     private ?string $price = null;
 
     #[ORM\Column(length: 128)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:item', 'read:Product:collection'])]
+    #[Assert\NotBlank]
     private ?string $picture = null;
 
     #[ORM\Column(length: 64)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:collection'])]
+    #[Assert\NotBlank]
     private ?string $releaseDate = null;
 
     #[ORM\Column(length: 64)]
-    #[Groups('read:Product:item')]
+    #[Groups(['read:Product:collection'])]
+    #[Assert\NotBlank]
     private ?string $artist = null;
 
     #[ORM\Column]
+    #[Groups(['read:Product:collection'])]
+    #[Assert\NotBlank]
     private ?int $stock = null;
 
     #[ORM\Column]
@@ -57,15 +67,18 @@ class Product
 
     #[ORM\ManyToOne(inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['read:Product:collection'])]
     private ?Type $type = null;
 
     #[ORM\ManyToMany(targetEntity: Category::class, inversedBy: 'products')]
+    #[Groups(['read:Product:collection'])]
     private Collection $categories;
 
     #[ORM\ManyToMany(targetEntity: Order::class, inversedBy: 'products')]
     private Collection $orders;
 
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'products')]
+    #[ORM\JoinColumn(onDelete: "CASCADE")]
     private Collection $users;
 
     public function __construct()
@@ -73,6 +86,7 @@ class Product
         $this->categories = new ArrayCollection();
         $this->orders = new ArrayCollection();
         $this->users = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int

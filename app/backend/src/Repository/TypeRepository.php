@@ -21,6 +21,35 @@ class TypeRepository extends ServiceEntityRepository
         parent::__construct($registry, Type::class);
     }
 
+    public function add(Type $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->persist($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    public function remove(Type $entity, bool $flush = false): void
+    {
+        $this->getEntityManager()->remove($entity);
+
+        if ($flush) {
+            $this->getEntityManager()->flush();
+        }
+    }
+
+    // Find Type by name
+
+    public function findTypeByName(string $keyword): ?array
+    {
+        return $this->createQueryBuilder('t')
+            ->where("t.name LIKE :keyword")
+            ->setParameter('keyword', "%{$keyword}%")
+            ->getQuery()
+            ->getResult();
+    }
+
 //    /**
 //     * @return Type[] Returns an array of Type objects
 //     */

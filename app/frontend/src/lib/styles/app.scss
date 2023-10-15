@@ -1,0 +1,38 @@
+@use 'variables' as *;
+@import 'reset.css';
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  background: none;
+}
+
+body {
+  font-family: $font-primary;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: $color-text;
+  background: $color-background;
+}
+
+.main {
+  padding: 1.5rem;
+}
+
+.container {
+  max-width: 1280px;
+  margin-inline: auto;
+}
+
+.hidden {
+  display: none;
+}
+
+.scroll-lock {
+  overflow-y: hidden;
+}
