@@ -27,6 +27,8 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"embla-carousel-autoplay": "8.0.0-rc14",
+		"embla-carousel-svelte": "8.0.0-rc14",
 		"svelte-kit-cookie-session": "^4.0.0"
 	}
 }
