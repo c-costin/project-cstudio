@@ -9,7 +9,7 @@
 	import Autoplay from 'embla-carousel-autoplay';
 
 	const autoplayOptions = {
-		delay: 3000,
+		delay: 5000,
 		stopOnInteraction: false,
 		stopOnMouseEnter: true,
 		rootNode: (emblaRoot) => emblaRoot.parentElement
@@ -23,31 +23,27 @@
 	<div class="embla" use:emblaCarouselSvelte={{ options, plugins }}>
 		<div class="embla__container">
 			<div class="embla__slide">
-				<img class="embla__img" src="/img/slider/sculpture.jpg" alt="sculpture" />
+				<img style="clip-path: polygon(0 0, 100% 0, 76% 49%, 100% 100%, 100% 100%, 0 100%, 24% 49%, 0 0);" class="embla__img" src="/img/slider/sculpture.jpg" alt="sculpture" />
 				<div class="embla__content">
-					<h3 class="embla__title">Sculptures</h3>
-					<button class=embla__btn> Explorer</button>
+					<button class=embla__btn>Sculptures</button>
 				</div>
 			</div>
 			<div class="embla__slide">
-				<img class="embla__img" src="/img/slider/dessin.webp" alt="dessin" />
+				<img style="clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);" class="embla__img" src="/img/slider/dessin.webp" alt="dessin" />
 				<div class="embla__content">
-					<h3 class="embla__title">Dessins</h3>
-					<button class=embla__btn> Explorer</button>
-				</div>
-			</div>
-			<div class="embla__slide">
-				<img class="embla__img" src="/img/slider/photo.jpg" alt="photographie" />
-				<div class="embla__content">
-					<h3 class="embla__title">Photographies</h3>
-					<button class=embla__btn> Explorer</button>
+					<button class=embla__btn>Dessins</button>
 				</div>
 			</div>
 			<div class="embla__slide">
 				<img class="embla__img" src="/img/slider/tableau.jpg" alt="tableau" />
 				<div class="embla__content">
-					<h3 class="embla__title">Tableaux</h3>
-					<button class=embla__btn> Explorer</button>
+					<button class=embla__btn> Tableaux</button>
+				</div>
+			</div>
+			<div class="embla__slide">
+				<img  style="clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);" class="embla__img" src="/img/slider/photo.jpg" alt="photographie" />
+				<div class="embla__content">
+					<button class=embla__btn> Photographies</button>
 				</div>
 			</div>
 		</div>
@@ -70,7 +66,7 @@
 
 	.embla {
 		margin-inline: auto;
-		max-width: 90%;
+		max-width: 100%;
 		overflow: hidden;
 		&__container {
 			padding: 1rem 1rem;
@@ -78,9 +74,8 @@
 		}
 		&__slide {
 			margin-inline: 3rem;
-			flex: 0 0 100%;
+			flex: 0 0 50%;
 			display: flex;
-			justify-content: flex-start;
 			flex-direction: column;
 			align-items: center;
 			min-width: 0;
@@ -90,10 +85,10 @@
 			}
 		}
 		&__img {
+			position: relative;
 			width: 100vmin;
-			height: 30vmin;
+			height: 50vmin;
 			border: 1px black solid;
-			object-fit: cover;
 			box-shadow: 8px 8px 10px 0 rgba(0,0,0,0.5);
 			filter:grayscale(100%);
 			-webkit-transition: all 2s;
@@ -102,35 +97,36 @@
 				transform:scale(1.1);
 			}
 		}
-		&__content {
-			display: flex;
-			flex-direction: row;
-			gap: 1rem;
-			align-items: end;
-		}
-		&__title {
-			margin-top: 1rem;
-			font-size: 2rem;
-		}
+
 		&__btn {
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			margin: auto;
+			width: fit-content;
+			height: fit-content;
+			transform: scale(0);
 			padding: 0.25rem 1.75rem;
 			font-weight: 700;
 			font-size: 1.25rem;
 			border-radius: 0.5rem;
-			background: $color-green;
+			background: $color-white;
 			transition: 0.15s ease-in-out;
 			&:hover {
-				color: $color-white;
+				color: gray;
 			}
 		}
+		.embla__slide:hover .embla__btn {
+		transform: scale(1);
+}
 	}
 
 	@media screen and (max-width: 420px) {
-		.embla {
-			&__title {
-			margin-top: 1rem;
-			font-size: 1.4rem;
-		}
-		}
 	}
 </style>
+
+
+
+
