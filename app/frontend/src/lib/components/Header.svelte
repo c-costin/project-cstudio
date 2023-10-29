@@ -71,6 +71,7 @@
 	@use '../styles/variables' as *;
 
 	.header {
+		z-index: 10;
 		padding: 1.5rem;
 		display: flex;
 		justify-content: space-between;
@@ -82,6 +83,9 @@
 			display: flex;
 			align-items: center;
 			gap: 1rem;
+		}
+		&__left-isDesktop {
+			z-index: 1;
 		}
 		&__logo {
 			z-index: 10;

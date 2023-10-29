@@ -13,7 +13,6 @@
 	@use '../styles/variables' as *;
 
 	.aside-search {
-        // margin-bottom: 1.5rem;
 		width: 100vw;
 		height: 4rem;
 		background: $color-background;

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	// @ts-nocheck
 
 	// Import generals style
@@ -15,83 +15,84 @@
 		rootNode: (emblaRoot) => emblaRoot.parentElement
 	};
 
-	let options = { loop: true };
+	let options = { dragFree: true, containScroll: 'trimSnaps', loop: true };
 	let plugins = [Autoplay(autoplayOptions)];
 </script>
 
 <section class="hero">
-	<div class="embla" use:emblaCarouselSvelte={{ options, plugins }}>
-		<div class="embla__container">
-			<div class="embla__slide">
-				<img style="clip-path: polygon(0 0, 100% 0, 76% 49%, 100% 100%, 100% 100%, 0 100%, 24% 49%, 0 0);" class="embla__img" src="/img/slider/sculpture.webp" alt="sculpture" />
-				<div class="embla__content">
-					<button class=embla__btn>Sculptures</button>
+	<div class="embla">
+		<div class="embla__viewport" use:emblaCarouselSvelte={{ options, plugins }}>
+			<div class="embla__container">
+				<div class="embla__slide">
+					<img class="embla__img img__is-sculpture" src="/img/slider/sculpture.webp" alt="sculpture" />
+					<div class="embla__content">
+						<button class=embla__btn>Sculptures</button>
+					</div>
 				</div>
-			</div>
-			<div class="embla__slide">
-				<img  style="clip-path: circle(50% at 50% 50%);" class="embla__img" src="/img/slider/photo.webp" alt="photographie" />
-				<div class="embla__content">
-					<button class=embla__btn> Photographies</button>
+				<div class="embla__slide">
+					<img class="embla__img img__is-picture" src="/img/slider/photo.webp" alt="photographie" />
+					<div class="embla__content">
+						<button class=embla__btn>Photographies</button>
+					</div>
 				</div>
-			</div>
-			<div class="embla__slide">
-				<img style="clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);" class="embla__img" src="/img/slider/dessin.webp" alt="dessin" />
-				<div class="embla__content">
-					<button class=embla__btn>Dessins</button>
+				<div class="embla__slide">
+					<img class="embla__img img__is-dessin" src="/img/slider/dessin.webp" alt="dessin" />
+					<div class="embla__content">
+						<button class=embla__btn>Dessins</button>
+					</div>
 				</div>
-			</div>
-			<div class="embla__slide">
-				<img class="embla__img" src="/img/slider/tableau.webp" alt="tableau" />
-				<div class="embla__content">
-					<button class=embla__btn> Tableaux</button>
+				<div class="embla__slide">
+					<img class="embla__img img__is-tableau" src="/img/slider/tableau.webp" alt="tableau" />
+					<div class="embla__content">
+						<button class=embla__btn>Tableaux</button>
+					</div>
 				</div>
 			</div>
 		</div>
-		<div class="embla__dots" />
 	</div>
-	<!-- <Slider /> -->
 </section>
 
 <style lang="scss">
 	@use '../styles/variables' as *;
 	.hero {
-		z-index: -1;
+		position: relative;
 		padding-top: 6rem;
 		width: 100%;
 		background: $color-yellow;
-		min-height: 28vmin;
-		transform: translateY(-6rem);
+		transform: translateY(-5.2rem);
 		border-bottom: 3px solid black;
 	}
 
 	.embla {
-		margin-inline: auto;
-		max-width: 100%;
-		overflow: hidden;
+		--slide-spacing: 4rem;
+		--slide-size: 90%;
+		--slide-height: 17rem;
+		padding: 1.6rem;
+		&__viewport {
+			z-index: 10;
+			overflow: hidden;
+		}
 		&__container {
-			padding: 1rem 1rem;
+			backface-visibility: hidden;
 			display: flex;
+			touch-action: pan-y;
+			margin-left: calc(var(--slide-spacing) * -1);
 		}
 		&__slide {
-			margin-inline: 3rem;
-			flex: 0 0 50%;
-			display: flex;
-			flex-direction: column;
-			align-items: center;
+			flex: 0 0 var(--slide-size);
 			min-width: 0;
+			padding-left: var(--slide-spacing);
+			position: relative;
 			cursor: grab;
 			&:active {
 				cursor: grabbing;
 			}
 		}
 		&__img {
-			position: relative;
-			width: 80vmin;
-			height: 40vmin;
-			border: 1px black solid;
-			box-shadow: 8px 8px 10px 0 rgba(0,0,0,0.5);
-			filter:grayscale(100%);
-			-webkit-transition: all 2s;
+			display: block;
+			height: var(--slide-height);
+			width: 100%;
+			object-fit: cover;
 			&:hover {
 				filter:grayscale(0);
 			}
@@ -106,23 +107,41 @@
 			margin: auto;
 			width: fit-content;
 			height: fit-content;
-			transform: scale(0);
+			opacity: 0;
 			padding: 0.25rem 1.75rem;
 			font-weight: 700;
 			font-size: 1.25rem;
 			border-radius: 0.5rem;
 			background: $color-white;
-			transition: 0.15s ease-in-out;
+			transition: 0.3s ease-in-out;
 			&:hover {
 				color: gray;
 			}
 		}
 		.embla__slide:hover .embla__btn {
-		transform: scale(1);
-}
+			opacity: 1;
+		}
 	}
 
-	@media screen and (max-width: 420px) {
+	.img__is-sculpture {
+		clip-path: polygon(0 0, 100% 0, 76% 49%, 100% 100%, 100% 100%, 0 100%, 24% 49%, 0 0);
+	}
+	.img__is-picture {
+		clip-path: circle(50% at 50% 50%);
+	}
+	.img__is-dessin {
+		clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
+	}
+	.img__is-tableau {
+		border-radius: 4rem;
+	}
+
+	@media screen and (min-width: 994px) {
+		.embla {
+			--slide-spacing: 6rem;
+			--slide-size: 60%;
+			--slide-height: 28rem;
+		}
 	}
 </style>
 
