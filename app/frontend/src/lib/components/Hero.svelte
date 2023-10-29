@@ -23,9 +23,15 @@
 	<div class="embla" use:emblaCarouselSvelte={{ options, plugins }}>
 		<div class="embla__container">
 			<div class="embla__slide">
-				<img style="clip-path: polygon(0 0, 100% 0, 76% 49%, 100% 100%, 100% 100%, 0 100%, 24% 49%, 0 0);" class="embla__img" src="/img/slider/sculpture.jpg" alt="sculpture" />
+				<img style="clip-path: polygon(0 0, 100% 0, 76% 49%, 100% 100%, 100% 100%, 0 100%, 24% 49%, 0 0);" class="embla__img" src="/img/slider/sculpture.webp" alt="sculpture" />
 				<div class="embla__content">
 					<button class=embla__btn>Sculptures</button>
+				</div>
+			</div>
+			<div class="embla__slide">
+				<img  style="clip-path: circle(50% at 50% 50%);" class="embla__img" src="/img/slider/photo.webp" alt="photographie" />
+				<div class="embla__content">
+					<button class=embla__btn> Photographies</button>
 				</div>
 			</div>
 			<div class="embla__slide">
@@ -35,15 +41,9 @@
 				</div>
 			</div>
 			<div class="embla__slide">
-				<img class="embla__img" src="/img/slider/tableau.jpg" alt="tableau" />
+				<img class="embla__img" src="/img/slider/tableau.webp" alt="tableau" />
 				<div class="embla__content">
 					<button class=embla__btn> Tableaux</button>
-				</div>
-			</div>
-			<div class="embla__slide">
-				<img  style="clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);" class="embla__img" src="/img/slider/photo.jpg" alt="photographie" />
-				<div class="embla__content">
-					<button class=embla__btn> Photographies</button>
 				</div>
 			</div>
 		</div>
@@ -86,15 +86,14 @@
 		}
 		&__img {
 			position: relative;
-			width: 100vmin;
-			height: 50vmin;
+			width: 80vmin;
+			height: 40vmin;
 			border: 1px black solid;
 			box-shadow: 8px 8px 10px 0 rgba(0,0,0,0.5);
 			filter:grayscale(100%);
 			-webkit-transition: all 2s;
 			&:hover {
 				filter:grayscale(0);
-				transform:scale(1.1);
 			}
 		}
 
