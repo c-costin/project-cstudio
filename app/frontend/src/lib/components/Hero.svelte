@@ -24,27 +24,35 @@
 		<div class="embla__viewport" use:emblaCarouselSvelte={{ options, plugins }}>
 			<div class="embla__container">
 				<div class="embla__slide">
-					<img class="embla__img img__is-sculpture" src="/img/slider/sculpture.webp" alt="sculpture" />
+					<div class="embla__img-container">
+					<img class="embla__img" src="/img/slider/sculpture.webp" alt="sculpture" />
 					<div class="embla__content">
 						<button class=embla__btn>Sculptures</button>
 					</div>
+					</div>
 				</div>
 				<div class="embla__slide">
-					<img class="embla__img img__is-picture" src="/img/slider/photo.webp" alt="photographie" />
+					<div class="embla__img-container">
+					<img class="embla__img" src="/img/slider/photo.webp" alt="photographie" />
 					<div class="embla__content">
 						<button class=embla__btn>Photographies</button>
 					</div>
-				</div>
-				<div class="embla__slide">
-					<img class="embla__img img__is-dessin" src="/img/slider/dessin.webp" alt="dessin" />
-					<div class="embla__content">
-						<button class=embla__btn>Dessins</button>
 					</div>
 				</div>
 				<div class="embla__slide">
-					<img class="embla__img img__is-tableau" src="/img/slider/tableau.webp" alt="tableau" />
+					<div class="embla__img-container">
+					<img class="embla__img" src="/img/slider/dessin.webp" alt="dessin" />
+					<div class="embla__content">
+						<button class=embla__btn>Dessins</button>
+					</div>
+					</div>
+				</div>
+				<div class="embla__slide">
+					<div class="embla__img-container">
+					<img class="embla__img" src="/img/slider/tableau.webp" alt="tableau" />
 					<div class="embla__content">
 						<button class=embla__btn>Tableaux</button>
+					</div>
 					</div>
 				</div>
 			</div>
@@ -55,7 +63,6 @@
 <style lang="scss">
 	@use '../styles/variables' as *;
 	.hero {
-		position: relative;
 		padding-top: 6rem;
 		width: 100%;
 		background: $color-yellow;
@@ -93,24 +100,29 @@
 			height: var(--slide-height);
 			width: 100%;
 			object-fit: cover;
+			filter:grayscale(100%);
+			border-radius: 4rem;
 			&:hover {
 				filter:grayscale(0);
 			}
+		}
+		&__img-container {
+			position: relative;
 		}
 
 		&__btn {
 			position: absolute;
 			top: 0;
-			bottom: 0;
+			bottom:0;
 			left: 0;
 			right: 0;
-			margin: auto;
+			margin:auto;
 			width: fit-content;
 			height: fit-content;
 			opacity: 0;
 			padding: 0.25rem 1.75rem;
 			font-weight: 700;
-			font-size: 1.25rem;
+			font-size: 1rem;
 			border-radius: 0.5rem;
 			background: $color-white;
 			transition: 0.3s ease-in-out;
@@ -121,19 +133,6 @@
 		.embla__slide:hover .embla__btn {
 			opacity: 1;
 		}
-	}
-
-	.img__is-sculpture {
-		clip-path: polygon(0 0, 100% 0, 76% 49%, 100% 100%, 100% 100%, 0 100%, 24% 49%, 0 0);
-	}
-	.img__is-picture {
-		clip-path: circle(50% at 50% 50%);
-	}
-	.img__is-dessin {
-		clip-path: polygon(50% 0%, 80% 10%, 100% 35%, 100% 70%, 80% 90%, 50% 100%, 20% 90%, 0% 70%, 0% 35%, 20% 10%);
-	}
-	.img__is-tableau {
-		border-radius: 4rem;
 	}
 
 	@media screen and (min-width: 994px) {

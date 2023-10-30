@@ -12,6 +12,7 @@
 	// Import icons
 	import iconMinus from '$lib/icons/minus.svg';
 	import iconPlus from '$lib/icons/plus.svg';
+	import {UptoCapitalizer} from '$lib/js/utils'
 
 	/** @type {import('./$types').PageData} */
 	export let data;
@@ -34,7 +35,7 @@
 
 <svelte:head>
 	<title>
-		{product.type.name.charAt(0).toUpperCase() + product.type.name.slice(1)} - {product.title} | C-Studio - Plateform de vente en ligne d'oeuvre d'art
+		{UptoCapitalizer(product.type.name)} - {product.title} | C-Studio - Plateform de vente en ligne d'oeuvre d'art
 	</title>
 </svelte:head>
 
@@ -47,9 +48,10 @@
 			<div class="product__info">
 				<h1 class="product__title">{product.title}</h1>
 				<h3 class="product__subtitle">
-					{product.type.name.charAt(0).toUpperCase() + product.type.name.slice(1)}
+					{UptoCapitalizer(product.type.name)}
 					-
-					{product.categories[0].name.charAt(0).toUpperCase() + product.categories[0].name.slice(1)}
+					{UptoCapitalizer(product.categories[0].name)}
+					
 				</h3>
 				<summary class="product__description">
 					{product.description}

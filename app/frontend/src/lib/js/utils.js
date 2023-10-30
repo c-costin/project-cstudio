@@ -20,6 +20,6 @@ export const setUser = ({cookies, user}) => {
     });
 };
 
-export const UptoCaptilizer = (keyword) => {
+export const UptoCapitalizer = (keyword) => {
     return keyword.charAt(0).toUpperCase() + keyword.slice(1)
 }
