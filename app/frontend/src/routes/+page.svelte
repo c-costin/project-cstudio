@@ -73,6 +73,7 @@
 <style lang="scss">
 	@use '../lib/styles/variables' as *;
 	.main {
+		transform: translateY(-3rem);
 		margin-top: 1rem;
 	}
 	.filter {
@@ -98,6 +99,7 @@
 			}
 		}
 	}
+
 	.list-products {
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);

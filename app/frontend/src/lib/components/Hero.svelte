@@ -63,18 +63,18 @@
 <style lang="scss">
 	@use '../styles/variables' as *;
 	.hero {
-		padding-top: 6rem;
+		padding-top: 4rem;
 		width: 100%;
 		background: $color-yellow;
-		transform: translateY(-5.2rem);
+		transform: translateY(-5.25rem);
 		border-bottom: 3px solid black;
 	}
 
 	.embla {
-		--slide-spacing: 4rem;
-		--slide-size: 90%;
-		--slide-height: 17rem;
-		padding: 1.6rem;
+		--slide-spacing: 3rem;
+		--slide-size: 70%;
+		--slide-height: 12rem;
+		padding-block: 1.6rem;
 		&__viewport {
 			z-index: 10;
 			overflow: hidden;
@@ -101,7 +101,7 @@
 			width: 100%;
 			object-fit: cover;
 			filter:grayscale(100%);
-			border-radius: 4rem;
+			border-radius: 1rem;
 			&:hover {
 				filter:grayscale(0);
 			}
@@ -136,6 +136,10 @@
 	}
 
 	@media screen and (min-width: 994px) {
+		.hero {
+			padding-top: 5rem;
+			transform: translateY(-5.2rem);
+		}
 		.embla {
 			--slide-spacing: 6rem;
 			--slide-size: 60%;
