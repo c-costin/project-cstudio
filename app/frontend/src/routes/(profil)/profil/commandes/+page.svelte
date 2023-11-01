@@ -4,7 +4,7 @@
 
     /** @type {import('./$types').LayoutServerData} */
 	export let data;
-	let orders = data.order
+	let orders = data.orders
 </script>
 
 <section class="order-content">
