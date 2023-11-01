@@ -5,7 +5,7 @@
 	import '$lib/styles/app.scss';
 
 	// Import utils
-	import { UptoCaptilizer } from '$lib/js/utils.js';
+	import { UptoCapitalizer } from '$lib/js/utils.js';
 
 	// Declare export variable
 	export let data: LayoutServerData;
@@ -16,7 +16,7 @@
 <section class="categories">
 	{#each categories as category, i (category.id)}
 		<div class="categories__row">
-			<h3>{UptoCaptilizer(category.name)}</h3>
+			<h3>{UptoCapitalizer(category.name)}</h3>
 			<div class="categories__actions">
 				<button class="categories__btn">supprimer</button>
 				<button class="categories__btn">editer</button>
