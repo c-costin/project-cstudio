@@ -15,7 +15,7 @@ export const actions = {
 			address = '',
 			roles = 'ROLE_USER'
 		) => {
-			const response = await fetch('http://localhost:8000/api/user/add', {
+			const response = await fetch('https://api.cstudio.costincadeau.fr/api/user/add', {
 				method: 'POST',
 				headers: {
 					Accepte: '*/*',
