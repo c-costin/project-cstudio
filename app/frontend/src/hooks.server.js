@@ -29,6 +29,7 @@ export const handle = handleSession(
 		]
 	},
 	({ event, resolve }) => {
+
 		const isConnected = event.locals.session.data.user;
 
 		if (event.url.pathname.startsWith('/profil')) {
@@ -38,9 +39,9 @@ export const handle = handleSession(
 		}
 
 		if (event.url.pathname.startsWith('/admin')) {
-				if (!isConnected || isConnected.role[0] === "ROLE_USER") {
-					throw redirect(302, '/');
-				}
+			if (!isConnected || isConnected.role[0] === "ROLE_USER") {
+				throw redirect(302, '/');
+			}
 		}
 
 		return resolve(event);
