@@ -28,7 +28,7 @@ export const handle = handleSession(
 			}
 		]
 	},
-	({ event, resolve }) => {
+	async ({ event, resolve }) => {
 
 		// Apply CORS header for API routes
 		if (event.url.pathname.startsWith('/api')) {
@@ -43,7 +43,7 @@ export const handle = handleSession(
 				});
 			}
 		}
-		
+
 		const response = await resolve(event);
 
 		if (event.url.pathname.startsWith('/api')) {
