@@ -2,7 +2,7 @@ nelmio_api_doc:
     documentation:
         servers:
           - url: https://api.cstudio.costincadeau.fr
-            description: DEV SERVER
+            description: MAIN SERVER
         info:
             title: API C-Studio
             description: Documentation for using and understanding the C-Studio API

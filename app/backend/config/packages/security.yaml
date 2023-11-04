@@ -36,7 +36,7 @@ security:
             provider: app_user_provider
 
     access_control:
-        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api/login_check, roles: PUBLIC_ACCESS }
         - { path: ^/api/product, roles: PUBLIC_ACCESS, method: ["GET"]}
         - { path: ^/api/category, roles: PUBLIC_ACCESS, method: ["GET"]}
         - { path: ^/api/type, roles: PUBLIC_ACCESS, method: ["GET"]}
