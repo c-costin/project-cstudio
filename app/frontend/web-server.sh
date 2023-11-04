@@ -1,1 +1,1 @@
-PROTOCOL_HEADER=x-forwarded-proto HOST_HEADER=x-forwarded-host PORT=61201  ORIGIN=https://cstudio.costincadeau.fr node build
+PROTOCOL_HEADER=x-forwarded-proto HOST_HEADER=x-forwarded-host PORT=61201  ORIGIN=http://cstudio.costincadeau.fr node build
