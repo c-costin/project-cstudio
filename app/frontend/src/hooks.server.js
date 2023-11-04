@@ -28,7 +28,7 @@ export const handle = handleSession(
 			}
 		]
 	},
-	async ({ event, resolve }) => {
+	({ event, resolve }) => {
 
 		// Apply CORS header for API routes
 		if (event.url.pathname.startsWith('/api')) {
@@ -44,7 +44,7 @@ export const handle = handleSession(
 			}
 		}
 
-		const response = await resolve(event);
+		const response = resolve(event);
 
 		if (event.url.pathname.startsWith('/api')) {
 			response.headers.append('Access-Control-Allow-Origin', `*`);
