@@ -1,7 +1,7 @@
 nelmio_api_doc:
     documentation:
         servers:
-          - url: http://localhost:8000
+          - url: https://api.cstudio.costincadeau.fr
             description: DEV SERVER
         info:
             title: API C-Studio
