@@ -15,7 +15,7 @@ export const actions = {
 		}
 
 		// Request API for login check
-		const req = await fetch('https://api.cstudio.costincadeau.fr/api/login_check', {
+		const req = await fetch('http://localhost:58100/api/login_check', {
 			method: 'POST',
 			headers: {
 				Accept: '*/*',

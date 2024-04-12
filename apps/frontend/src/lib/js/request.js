@@ -1,5 +1,5 @@
 // @ts-nocheck
-export const endpoint = 'https://api.cstudio.costincadeau.fr/api';
+export const endpoint = 'http://localhost:58100/api';
 
 export const findAllProducts = async () => {
 	const response = await fetch(`${endpoint}/product/`, {

@@ -1,0 +1,28 @@
+name: cstudio
+
+services:
+  # Container => application backend
+  backend:
+    container_name: backend-cstudio
+    build: ./backend/
+    networks:
+      - public
+    ports:
+      - "58100:8000"
+    volumes:
+      - ./:/var/www/
+    command: "symfony server:start"
+    restart: on-failure
+
+  # Container => application frontend
+  frontend:
+    container_name: frontend-cstudio
+    build: ./frontend/
+    networks:
+      - public
+    ports:
+      - "58101:3000"
+
+networks:
+  public:
+    name: cstudio-public
